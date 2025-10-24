@@ -58,6 +58,15 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::post('/logout', function () {
+        // Registrar logout en audit log antes de cerrar sesión
+        if (auth()->check()) {
+            \App\Models\AuditLog::log('logout', 'Usuario cerró sesión', [
+                'user_email' => auth()->user()->email,
+                'model_type' => 'User',
+                'model_id' => auth()->id(),
+            ]);
+        }
+
         auth()->logout();
         return redirect('/');
     })->name('logout');

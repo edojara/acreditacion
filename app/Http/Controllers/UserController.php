@@ -16,6 +16,9 @@ class UserController extends Controller
     public function index()
     {
         $users = User::with('role')->paginate(15);
+        \Log::info('Loading users index, count: ' . $users->count());
+        return view('users.index', compact('users'));
+        $users = User::with('role')->paginate(15);
         return view('users.index', compact('users'));
     }
 
@@ -70,6 +73,13 @@ class UserController extends Controller
 
         $user = User::create($userData);
 
+        // Registrar creación de usuario en audit log
+        \App\Models\AuditLog::log('create', 'Usuario creado: ' . $user->name . ' (' . $user->email . ')', [
+            'model_type' => 'User',
+            'model_id' => $user->id,
+            'new_values' => $userData,
+        ]);
+
         $message = $request->account_type === 'local'
             ? 'Usuario local creado exitosamente.'
             : 'Usuario Google creado exitosamente. El usuario podrá acceder con su cuenta Google.';
@@ -106,6 +116,8 @@ class UserController extends Controller
             'must_change_password' => 'boolean'
         ]);
 
+        $oldValues = $user->only(['name', 'email', 'role_id', 'must_change_password']);
+
         $user->update([
             'name' => $request->name,
             'email' => $request->email,
@@ -117,6 +129,16 @@ class UserController extends Controller
         if ($request->has('must_change_password')) {
             $user->update(['must_change_password' => true]);
         }
+
+        $newValues = $user->only(['name', 'email', 'role_id', 'must_change_password']);
+
+        // Registrar actualización en audit log
+        \App\Models\AuditLog::log('update', 'Usuario actualizado: ' . $user->name . ' (' . $user->email . ')', [
+            'model_type' => 'User',
+            'model_id' => $user->id,
+            'old_values' => $oldValues,
+            'new_values' => $newValues,
+        ]);
 
         return redirect()->route('users.index')->with('success', 'Usuario actualizado exitosamente.');
     }
@@ -130,6 +152,13 @@ class UserController extends Controller
         if ($user->id === auth()->id()) {
             return redirect()->route('users.index')->with('error', 'No puedes eliminar tu propia cuenta.');
         }
+
+        // Registrar eliminación en audit log antes de eliminar
+        \App\Models\AuditLog::log('delete', 'Usuario eliminado: ' . $user->name . ' (' . $user->email . ')', [
+            'model_type' => 'User',
+            'model_id' => $user->id,
+            'old_values' => $user->toArray(),
+        ]);
 
         $user->delete();
         return redirect()->route('users.index')->with('success', 'Usuario eliminado exitosamente.');

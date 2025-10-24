@@ -21,6 +21,14 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
+            \Log::info('User logged in: ' . $user->email);
+
+            // Registrar login en audit log
+            \App\Models\AuditLog::log('login', 'Usuario inició sesión con credenciales', [
+                'user_email' => $user->email,
+                'model_type' => 'User',
+                'model_id' => $user->id,
+            ]);
 
             // Si el usuario debe cambiar contraseña, redirigir
             if ($user->must_change_password) {

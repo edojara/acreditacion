@@ -21,33 +21,55 @@ class GoogleController extends Controller
         try {
             $googleUser = Socialite::driver('google')->user();
 
-            $user = User::where('google_id', $googleUser->getId())
-                       ->orWhere('email', $googleUser->getEmail())
-                       ->first();
+            // PRIMERO: Verificar si existe usuario con google_id
+            $user = User::where('google_id', $googleUser->getId())->first();
 
             if ($user) {
-                // Usuario existente, actualizar datos de Google si no los tiene
-                if (!$user->google_id) {
-                    $user->update([
-                        'google_id' => $googleUser->getId(),
-                        'avatar' => $googleUser->getAvatar(),
-                    ]);
+                // Usuario ya vinculado con Google, permitir acceso
+                // Actualizar avatar si cambió
+                if ($user->avatar !== $googleUser->getAvatar()) {
+                    $user->update(['avatar' => $googleUser->getAvatar()]);
                 }
             } else {
-                // Nuevo usuario, asignar rol por defecto (enrolador)
-                $defaultRole = Role::where('slug', 'enrolador')->first();
+                // SEGUNDO: Verificar si el email está pre-registrado (sin google_id)
+                $preRegisteredUser = User::where('email', $googleUser->getEmail())
+                                        ->whereNull('google_id')
+                                        ->first();
 
-                $user = User::create([
-                    'name' => $googleUser->getName(),
-                    'email' => $googleUser->getEmail(),
+                if (!$preRegisteredUser) {
+                    // Usuario NO pre-registrado, DENEGAR ACCESO COMPLETAMENTE
+                    \App\Models\AuditLog::log('login_google_denied', 'Intento de login con Google DENEGADO - usuario no pre-registrado: ' . $googleUser->getEmail(), [
+                        'user_email' => $googleUser->getEmail(),
+                        'ip_address' => request()->ip(),
+                    ]);
+
+                    return redirect('/login')->with('error', 'Acceso denegado. Solo usuarios pre-registrados por administradores pueden acceder con Google.');
+                }
+
+                // Usuario pre-registrado encontrado, vincular cuenta Google
+                $preRegisteredUser->update([
                     'google_id' => $googleUser->getId(),
                     'avatar' => $googleUser->getAvatar(),
-                    'role_id' => $defaultRole->id ?? 1,
-                    'password' => bcrypt(uniqid()), // Contraseña aleatoria ya que usa Google
+                    'name' => $googleUser->getName(), // Actualizar nombre si cambió
+                ]);
+
+                $user = $preRegisteredUser;
+
+                \App\Models\AuditLog::log('google_account_linked', 'Cuenta Google vinculada exitosamente a usuario pre-registrado: ' . $user->email, [
+                    'model_type' => 'User',
+                    'model_id' => $user->id,
+                    'user_email' => $user->email,
                 ]);
             }
 
             Auth::login($user);
+
+            // Registrar login con Google en audit log
+            \App\Models\AuditLog::log('login_google', 'Usuario inició sesión con Google OAuth', [
+                'user_email' => $user->email,
+                'model_type' => 'User',
+                'model_id' => $user->id,
+            ]);
 
             // Si el usuario debe cambiar contraseña, redirigir a cambio de contraseña
             if ($user->must_change_password) {
@@ -57,6 +79,7 @@ class GoogleController extends Controller
             return $this->redirectBasedOnRole($user);
 
         } catch (\Exception $e) {
+            \Log::error('Google login error: ' . $e->getMessage());
             return redirect('/login')->with('error', 'Error al iniciar sesión con Google');
         }
     }

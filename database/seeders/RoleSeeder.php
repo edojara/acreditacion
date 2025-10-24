@@ -60,5 +60,18 @@ class RoleSeeder extends Seeder
         foreach ($roles as $roleData) {
             Role::create($roleData);
         }
+
+        // Crear usuario administrador por defecto
+        $adminRole = Role::where('slug', 'admin')->first();
+        if ($adminRole) {
+            User::create([
+                'name' => 'Administrador',
+                'email' => 'admin@acreditacion.com',
+                'password' => bcrypt('Abcd.1234'),
+                'role_id' => $adminRole->id,
+                'must_change_password' => true,
+                'email_verified_at' => now(),
+            ]);
+        }
     }
 }

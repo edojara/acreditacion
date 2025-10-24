@@ -43,7 +43,7 @@
             <span>o</span>
         </div>
 
-        <form method="POST" action="{{ route('login') }}">
+        <form method="POST" action="{{ route('login.post') }}">
             @csrf
             <div style="margin-bottom: 1rem;">
                 <label for="email" style="display: block; margin-bottom: 0.5rem; color: #374151;">Correo electrónico</label>

@@ -49,6 +49,11 @@ class GoogleController extends Controller
 
             Auth::login($user);
 
+            // Si el usuario debe cambiar contraseña, redirigir a cambio de contraseña
+            if ($user->must_change_password) {
+                return redirect()->route('password.change');
+            }
+
             return $this->redirectBasedOnRole($user);
 
         } catch (\Exception $e) {

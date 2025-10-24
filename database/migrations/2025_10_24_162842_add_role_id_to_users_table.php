@@ -15,6 +15,7 @@ return new class extends Migration
             $table->foreignId('role_id')->constrained()->onDelete('cascade');
             $table->string('google_id')->nullable()->unique();
             $table->string('avatar')->nullable();
+            $table->boolean('must_change_password')->default(false);
         });
     }
 
@@ -25,7 +26,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropForeign(['role_id']);
-            $table->dropColumn(['role_id', 'google_id', 'avatar']);
+            $table->dropColumn(['role_id', 'google_id', 'avatar', 'must_change_password']);
         });
     }
 };

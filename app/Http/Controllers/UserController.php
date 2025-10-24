@@ -54,18 +54,17 @@ class UserController extends Controller
 
         $userData = [
             'name' => $request->name,
+            'email' => $request->email,
             'role_id' => $request->role_id,
-            'must_change_password' => $request->has('must_change_password'),
         ];
 
         if ($request->account_type === 'local') {
             // Cuenta local
-            $userData['email'] = $request->email;
             $userData['password'] = Hash::make($request->password);
             $userData['google_id'] = null; // Asegurar que no tenga google_id
+            $userData['must_change_password'] = $request->has('must_change_password');
         } else {
             // Cuenta Google - el usuario podrá acceder con Google OAuth
-            $userData['email'] = $request->email; // Usar el email común
             $userData['password'] = Hash::make('temp_password_' . time()); // Contraseña temporal
             $userData['google_id'] = null; // Google ID se completará en el primer login
             $userData['must_change_password'] = false; // No necesita cambiar contraseña ya que usará Google

@@ -93,22 +93,6 @@
                             </div>
                         </div>
 
-                        <!-- Email (común para ambos tipos) -->
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label for="email">Correo Electrónico <span class="text-danger">*</span></label>
-                                    <input type="email" class="form-control @error('email') is-invalid @enderror"
-                                           id="email" name="email" value="{{ old('email') }}" required>
-                                    @error('email')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                    <small class="form-text text-muted" id="email_help">
-                                        Para cuentas locales: email para login. Para cuentas Google: debe coincidir con la cuenta Google del usuario.
-                                    </small>
-                                </div>
-                            </div>
-                        </div>
 
                         <!-- Campos de contraseña (solo para cuentas locales) -->
                         <div class="row" id="password_fields">
@@ -193,7 +177,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const accountTypeGoogle = document.getElementById('account_type_google');
     const passwordFields = document.getElementById('password_fields');
     const forcePasswordChangeField = document.getElementById('force_password_change_field');
-    const emailHelp = document.getElementById('email_help');
     const passwordInput = document.getElementById('password');
     const confirmPasswordInput = document.getElementById('password_confirmation');
     const mustChangePasswordInput = document.getElementById('must_change_password');
@@ -205,7 +188,6 @@ document.addEventListener('DOMContentLoaded', function() {
             forcePasswordChangeField.style.display = 'block';
             passwordInput.required = true;
             confirmPasswordInput.required = true;
-            emailHelp.textContent = 'Para cuentas locales: email para login.';
         } else {
             // Cuenta Google
             passwordFields.style.display = 'none';
@@ -215,7 +197,6 @@ document.addEventListener('DOMContentLoaded', function() {
             passwordInput.value = '';
             confirmPasswordInput.value = '';
             mustChangePasswordInput.checked = false;
-            emailHelp.textContent = 'Para cuentas Google: debe coincidir con la cuenta Google del usuario.';
         }
     }
 

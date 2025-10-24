@@ -1,98 +1,150 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Panel de Administración - {{ config('app.name', 'Laravel') }}</title>
-    <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
-    <style>
-        body { font-family: 'Instrument Sans', sans-serif; background: #f8fafc; margin: 0; padding: 0; }
-        .navbar { background: #1f2937; color: white; padding: 1rem; display: flex; justify-content: space-between; align-items: center; }
-        .navbar a { color: white; text-decoration: none; margin-left: 1rem; }
-        .container { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
-        .card { background: white; border-radius: 8px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
-        .stat-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.5rem; text-align: center; }
-        .stat-number { font-size: 2rem; font-weight: bold; color: #3b82f6; }
-        .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; }
-        .menu-item { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.5rem; text-decoration: none; color: #374151; transition: all 0.2s; }
-        .menu-item:hover { background: #e2e8f0; transform: translateY(-2px); }
-        .menu-item h3 { margin: 0 0 0.5rem 0; color: #1f2937; }
-        .menu-item p { margin: 0; color: #6b7280; }
-    </style>
-</head>
-<body>
-    <nav class="navbar">
-        <div>
-            <strong>{{ config('app.name', 'Laravel') }} - Panel de Administración</strong>
-        </div>
-        <div>
-            @if(auth()->user()->avatar)
-                <img src="{{ auth()->user()->avatar }}" alt="Avatar" style="width: 32px; height: 32px; border-radius: 50%; margin-right: 0.5rem;">
-            @endif
-            <span>{{ auth()->user()->name }}</span>
-            <a href="{{ route('dashboard') }}">← Volver al Dashboard</a>
-            <form method="POST" action="{{ route('logout') }}" style="display: inline;">
-                @csrf
-                <button type="submit" style="background: none; border: none; color: white; text-decoration: underline; cursor: pointer; padding: 0;">Cerrar Sesión</button>
-            </form>
-        </div>
-    </nav>
+@extends('layouts.app')
 
-    <div class="container">
-        <div class="card">
-            <h1>Panel de Administración de Usuarios</h1>
-            <p>Gestión completa de usuarios y permisos de acceso al sistema de acreditaciones.</p>
-        </div>
+@section('title', 'Panel de Administración')
 
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-number">{{ \App\Models\User::count() }}</div>
-                <div>Usuarios Registrados</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">{{ \App\Models\Role::count() }}</div>
-                <div>Roles Configurados</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">{{ \App\Models\User::where('must_change_password', true)->count() }}</div>
-                <div>Usuarios Pendientes</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">{{ \App\Models\User::whereNotNull('google_id')->count() }}</div>
-                <div>Usuarios Google</div>
-            </div>
-        </div>
+@section('breadcrumb')
+<li class="breadcrumb-item active">Panel Admin</li>
+@endsection
 
-        <div class="card">
-            <h2>Gestión de Usuarios y Accesos</h2>
-            <div class="menu-grid">
-                <a href="#" class="menu-item">
-                    <h3>👥 Gestionar Usuarios</h3>
-                    <p>Crear, editar y eliminar usuarios del sistema</p>
-                </a>
-                <a href="#" class="menu-item">
-                    <h3>🔐 Gestionar Roles</h3>
-                    <p>Configurar permisos y roles de usuario</p>
-                </a>
-                <a href="#" class="menu-item">
-                    <h3>📧 Invitaciones</h3>
-                    <p>Enviar invitaciones a nuevos usuarios</p>
-                </a>
-                <a href="#" class="menu-item">
-                    <h3>🔑 Restablecer Contraseñas</h3>
-                    <p>Forzar cambio de contraseña a usuarios</p>
-                </a>
-                <a href="#" class="menu-item">
-                    <h3>📊 Actividad de Usuarios</h3>
-                    <p>Ver logs de acceso y actividad</p>
-                </a>
-                <a href="#" class="menu-item">
-                    <h3>⚙️ Configuración de Acceso</h3>
-                    <p>Configurar políticas de seguridad</p>
-                </a>
+@section('content')
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <i class="fas fa-cog mr-2"></i>
+                        Panel de Administración de Usuarios
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <p class="mb-4">Gestión completa de usuarios y permisos de acceso al sistema de acreditaciones.</p>
+                </div>
             </div>
         </div>
     </div>
-</body>
-</html>
+
+    <!-- Estadísticas -->
+    <div class="row">
+        <div class="col-lg-3 col-6">
+            <div class="small-box bg-info">
+                <div class="inner">
+                    <h3>{{ \App\Models\User::count() }}</h3>
+                    <p>Usuarios Registrados</p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <a href="{{ route('users.index') }}" class="small-box-footer">
+                    Ver Usuarios <i class="fas fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-6">
+            <div class="small-box bg-success">
+                <div class="inner">
+                    <h3>{{ \App\Models\Role::count() }}</h3>
+                    <p>Roles Configurados</p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="small-box-footer">&nbsp;</div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-6">
+            <div class="small-box bg-warning">
+                <div class="inner">
+                    <h3>{{ \App\Models\User::where('must_change_password', true)->count() }}</h3>
+                    <p>Usuarios Pendientes</p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="small-box-footer">&nbsp;</div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-6">
+            <div class="small-box bg-danger">
+                <div class="inner">
+                    <h3>{{ \App\Models\User::whereNotNull('google_id')->count() }}</h3>
+                    <p>Usuarios Google</p>
+                </div>
+                <div class="icon">
+                    <i class="fab fa-google"></i>
+                </div>
+                <div class="small-box-footer">&nbsp;</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gestión de Usuarios -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <i class="fas fa-tools mr-2"></i>
+                        Gestión de Usuarios y Accesos
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+                            <a href="{{ route('users.index') }}" class="btn btn-primary btn-block btn-lg">
+                                <i class="fas fa-users fa-2x d-block mb-2"></i>
+                                <strong>Gestionar Usuarios</strong><br>
+                                <small>Crear, editar y eliminar usuarios del sistema</small>
+                            </a>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+                            <button class="btn btn-secondary btn-block btn-lg" disabled>
+                                <i class="fas fa-shield-alt fa-2x d-block mb-2"></i>
+                                <strong>Gestionar Roles</strong><br>
+                                <small>Configurar permisos y roles de usuario</small>
+                            </button>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+                            <button class="btn btn-info btn-block btn-lg" disabled>
+                                <i class="fas fa-envelope fa-2x d-block mb-2"></i>
+                                <strong>Invitaciones</strong><br>
+                                <small>Enviar invitaciones a nuevos usuarios</small>
+                            </button>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+                            <button class="btn btn-warning btn-block btn-lg" disabled>
+                                <i class="fas fa-key fa-2x d-block mb-2"></i>
+                                <strong>Restablecer Contraseñas</strong><br>
+                                <small>Forzar cambio de contraseña a usuarios</small>
+                            </button>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+                            <button class="btn btn-success btn-block btn-lg" disabled>
+                                <i class="fas fa-chart-line fa-2x d-block mb-2"></i>
+                                <strong>Actividad de Usuarios</strong><br>
+                                <small>Ver logs de acceso y actividad</small>
+                            </button>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+                            <button class="btn btn-dark btn-block btn-lg" disabled>
+                                <i class="fas fa-cogs fa-2x d-block mb-2"></i>
+                                <strong>Configuración de Acceso</strong><br>
+                                <small>Configurar políticas de seguridad</small>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection

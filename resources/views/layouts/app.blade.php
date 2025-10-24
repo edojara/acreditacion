@@ -46,7 +46,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                         <div class="dropdown-divider"></div>
-                        <a href="{{ route('profile.edit') }}" class="dropdown-item">
+                        <a href="{{ route('dashboard') }}" class="dropdown-item">
                             <i class="fas fa-user-edit mr-2"></i> Mi Perfil
                         </a>
                         <div class="dropdown-divider"></div>
@@ -138,7 +138,7 @@
 
                         <!-- Profile -->
                         <li class="nav-item">
-                            <a href="{{ route('profile.edit') }}" class="nav-link {{ request()->routeIs('profile.*') ? 'active' : '' }}">
+                            <a href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-user"></i>
                                 <p>Mi Perfil</p>
                             </a>

@@ -38,15 +38,20 @@ Route::middleware('auth')->group(function () {
         Route::get('/admin/dashboard', function () {
             return view('admin.dashboard');
         })->name('admin.dashboard');
+
+        // User Management Routes
+        Route::resource('users', App\Http\Controllers\UserController::class);
+        Route::patch('users/{user}/force-password-change', [App\Http\Controllers\UserController::class, 'forcePasswordChange'])->name('users.force-password-change');
+        Route::patch('users/{user}/reset-password', [App\Http\Controllers\UserController::class, 'resetPassword'])->name('users.reset-password');
     });
 
-    Route::middleware('role:informe')->group(function () {
+    Route::middleware('role:report')->group(function () {
         Route::get('/reports', function () {
             return view('reports.index');
         })->name('reports.index');
     });
 
-    Route::middleware('role:enrolador')->group(function () {
+    Route::middleware('role:enroller')->group(function () {
         Route::get('/enrollments', function () {
             return view('enrollments.index');
         })->name('enrollments.index');

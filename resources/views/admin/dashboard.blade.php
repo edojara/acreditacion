@@ -41,31 +41,31 @@
 
     <div class="container">
         <div class="card">
-            <h1>Panel de Administración</h1>
-            <p>Bienvenido al panel de control completo del sistema de acreditaciones.</p>
+            <h1>Panel de Administración de Usuarios</h1>
+            <p>Gestión completa de usuarios y permisos de acceso al sistema de acreditaciones.</p>
         </div>
 
         <div class="stats-grid">
             <div class="stat-card">
                 <div class="stat-number">{{ \App\Models\User::count() }}</div>
-                <div>Usuarios Totales</div>
+                <div>Usuarios Registrados</div>
             </div>
             <div class="stat-card">
                 <div class="stat-number">{{ \App\Models\Role::count() }}</div>
                 <div>Roles Configurados</div>
             </div>
             <div class="stat-card">
-                <div class="stat-number">0</div>
-                <div>Acreditaciones Activas</div>
+                <div class="stat-number">{{ \App\Models\User::where('must_change_password', true)->count() }}</div>
+                <div>Usuarios Pendientes</div>
             </div>
             <div class="stat-card">
-                <div class="stat-number">0</div>
-                <div>Reportes Generados</div>
+                <div class="stat-number">{{ \App\Models\User::whereNotNull('google_id')->count() }}</div>
+                <div>Usuarios Google</div>
             </div>
         </div>
 
         <div class="card">
-            <h2>Herramientas de Administración</h2>
+            <h2>Gestión de Usuarios y Accesos</h2>
             <div class="menu-grid">
                 <a href="#" class="menu-item">
                     <h3>👥 Gestionar Usuarios</h3>
@@ -76,20 +76,20 @@
                     <p>Configurar permisos y roles de usuario</p>
                 </a>
                 <a href="#" class="menu-item">
-                    <h3>📊 Reportes Avanzados</h3>
-                    <p>Generar reportes detallados del sistema</p>
+                    <h3>📧 Invitaciones</h3>
+                    <p>Enviar invitaciones a nuevos usuarios</p>
                 </a>
                 <a href="#" class="menu-item">
-                    <h3>⚙️ Configuración del Sistema</h3>
-                    <p>Ajustes generales de la aplicación</p>
+                    <h3>🔑 Restablecer Contraseñas</h3>
+                    <p>Forzar cambio de contraseña a usuarios</p>
                 </a>
                 <a href="#" class="menu-item">
-                    <h3>📋 Acreditaciones</h3>
-                    <p>Gestionar procesos de acreditación</p>
+                    <h3>📊 Actividad de Usuarios</h3>
+                    <p>Ver logs de acceso y actividad</p>
                 </a>
                 <a href="#" class="menu-item">
-                    <h3>📈 Estadísticas</h3>
-                    <p>Ver métricas y análisis del sistema</p>
+                    <h3>⚙️ Configuración de Acceso</h3>
+                    <p>Configurar políticas de seguridad</p>
                 </a>
             </div>
         </div>

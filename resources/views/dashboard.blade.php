@@ -48,44 +48,44 @@
             <div class="menu-grid">
                 @if(auth()->user()->isAdmin())
                     <a href="{{ route('admin.dashboard') }}" class="menu-item">
-                        <h3>Panel de Administración</h3>
-                        <p>Gestión completa del sistema</p>
+                        <h3>👥 Administración de Usuarios</h3>
+                        <p>Gestionar usuarios y permisos de acceso</p>
                     </a>
                 @else
                     <div class="menu-item locked">
-                        <h3>Panel de Administración</h3>
+                        <h3>👥 Administración de Usuarios</h3>
                         <p>Solo para administradores</p>
                     </div>
                 @endif
 
                 @if(auth()->user()->isReport() || auth()->user()->isAdmin())
                     <a href="{{ route('reports.index') }}" class="menu-item">
-                        <h3>Reportes</h3>
-                        <p>Ver estadísticas y reportes</p>
+                        <h3>📊 Centro de Reportes</h3>
+                        <p>Reportes de usuarios y actividad</p>
                     </a>
                 @else
                     <div class="menu-item locked">
-                        <h3>Reportes</h3>
+                        <h3>📊 Centro de Reportes</h3>
                         <p>Solo para usuarios de informes</p>
                     </div>
                 @endif
 
                 @if(auth()->user()->isEnroller() || auth()->user()->isAdmin())
                     <a href="{{ route('enrollments.index') }}" class="menu-item">
-                        <h3>Inscripciones</h3>
-                        <p>Gestionar acreditaciones</p>
+                        <h3>📋 Gestión de Acreditaciones</h3>
+                        <p>Administrar procesos de acreditación</p>
                     </a>
                 @else
                     <div class="menu-item locked">
-                        <h3>Inscripciones</h3>
+                        <h3>📋 Gestión de Acreditaciones</h3>
                         <p>Solo para enroladores</p>
                     </div>
                 @endif
 
                 @if(auth()->user()->isReadOnly() || auth()->user()->isAdmin())
                     <div class="menu-item">
-                        <h3>Vista de Solo Lectura</h3>
-                        <p>Acceso limitado a datos</p>
+                        <h3>👁️ Vista de Solo Lectura</h3>
+                        <p>Acceso limitado a información</p>
                     </div>
                 @endif
             </div>

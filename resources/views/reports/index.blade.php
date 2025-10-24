@@ -42,60 +42,60 @@
 
     <div class="container">
         <div class="card">
-            <h1>Centro de Reportes</h1>
-            <p>Genera y visualiza reportes del sistema de acreditaciones.</p>
+            <h1>Centro de Reportes de Usuarios</h1>
+            <p>Reportes y estadísticas sobre la gestión de usuarios y accesos al sistema.</p>
         </div>
 
         <div class="stats">
             <div class="stat-item">
-                <div class="stat-number">0</div>
-                <div>Reportes Generados</div>
-            </div>
-            <div class="stat-item">
                 <div class="stat-number">{{ \App\Models\User::count() }}</div>
-                <div>Usuarios Activos</div>
+                <div>Usuarios Registrados</div>
             </div>
             <div class="stat-item">
-                <div class="stat-number">0</div>
-                <div>Acreditaciones</div>
+                <div class="stat-number">{{ \App\Models\User::whereNotNull('google_id')->count() }}</div>
+                <div>Usuarios Google</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">{{ \App\Models\User::whereNull('google_id')->count() }}</div>
+                <div>Usuarios Locales</div>
             </div>
             <div class="stat-item">
                 <div class="stat-number">{{ \App\Models\Role::count() }}</div>
-                <div>Roles</div>
+                <div>Roles Configurados</div>
             </div>
         </div>
 
         <div class="card">
-            <h2>Reportes Disponibles</h2>
+            <h2>Reportes de Gestión de Usuarios</h2>
             <div class="reports-grid">
                 <div class="report-card">
-                    <h3>📊 Reporte de Usuarios</h3>
-                    <p>Lista completa de usuarios registrados con sus roles y actividad.</p>
-                    <a href="#" class="btn">Generar Reporte</a>
+                    <h3>👥 Lista de Usuarios</h3>
+                    <p>Usuarios registrados con roles, fechas de registro y estado.</p>
+                    <a href="#" class="btn">Ver Lista</a>
                 </div>
                 <div class="report-card">
-                    <h3>📈 Estadísticas de Acreditaciones</h3>
-                    <p>Métricas y estadísticas sobre procesos de acreditación.</p>
-                    <a href="#" class="btn">Ver Estadísticas</a>
+                    <h3>📊 Distribución por Roles</h3>
+                    <p>Estadísticas de usuarios por cada rol del sistema.</p>
+                    <a href="#" class="btn">Ver Gráfico</a>
                 </div>
                 <div class="report-card">
-                    <h3>📅 Reporte por Fechas</h3>
-                    <p>Reportes filtrados por rango de fechas específico.</p>
-                    <a href="#" class="btn">Seleccionar Fechas</a>
+                    <h3>📅 Actividad Reciente</h3>
+                    <p>Usuarios activos en los últimos 30 días.</p>
+                    <a href="#" class="btn">Ver Actividad</a>
                 </div>
                 <div class="report-card">
-                    <h3>📋 Reporte de Roles</h3>
-                    <p>Distribución de usuarios por roles en el sistema.</p>
-                    <a href="#" class="btn">Generar Reporte</a>
+                    <h3>🔐 Usuarios Pendientes</h3>
+                    <p>Usuarios que deben cambiar contraseña.</p>
+                    <a href="#" class="btn">Ver Pendientes</a>
                 </div>
                 <div class="report-card">
-                    <h3>📊 Dashboard Ejecutivo</h3>
-                    <p>Resumen ejecutivo con KPIs principales.</p>
-                    <a href="#" class="btn">Ver Dashboard</a>
+                    <h3>📈 Crecimiento de Usuarios</h3>
+                    <p>Tendencia de registro de usuarios por mes.</p>
+                    <a href="#" class="btn">Ver Tendencia</a>
                 </div>
                 <div class="report-card">
-                    <h3>📤 Exportar Datos</h3>
-                    <p>Exportar datos del sistema en diferentes formatos.</p>
+                    <h3>📤 Exportar Usuarios</h3>
+                    <p>Exportar lista de usuarios en Excel/CSV.</p>
                     <a href="#" class="btn">Exportar</a>
                 </div>
             </div>

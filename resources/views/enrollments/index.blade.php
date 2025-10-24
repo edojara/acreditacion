@@ -47,23 +47,30 @@
     <div class="container">
         <div class="card">
             <h1>Gestión de Acreditaciones</h1>
-            <p>Administra los procesos de acreditación y enrolamiento de usuarios.</p>
+            <p>Administra los procesos de acreditación y enrolamiento de usuarios en el sistema.</p>
         </div>
 
         <div class="actions">
             <a href="#" class="btn">➕ Nueva Acreditación</a>
-            <a href="#" class="btn btn-secondary">📤 Importar Datos</a>
+            <a href="#" class="btn btn-secondary">📤 Importar Usuarios</a>
             <a href="#" class="btn btn-secondary">📥 Exportar Lista</a>
         </div>
 
         <div class="card">
-            <h2>Acreditaciones Activas</h2>
+            <h2>Proceso de Acreditación</h2>
 
             @if(true) <!-- Simulando que no hay acreditaciones aún -->
                 <div class="empty-state">
-                    <h3>📋 No hay acreditaciones registradas</h3>
-                    <p>Comienza creando la primera acreditación para el sistema.</p>
-                    <a href="#" class="btn" style="margin-top: 1rem;">Crear Primera Acreditación</a>
+                    <h3>🚀 Sistema de Acreditaciones</h3>
+                    <p>El sistema de acreditaciones se implementará en la siguiente fase del proyecto.</p>
+                    <p>Por ahora, este módulo está preparado para gestionar:</p>
+                    <ul style="text-align: left; max-width: 400px; margin: 1rem auto;">
+                        <li>✅ Procesos de acreditación de usuarios</li>
+                        <li>✅ Validación de documentos</li>
+                        <li>✅ Aprobación/rechazo de solicitudes</li>
+                        <li>✅ Seguimiento de estados</li>
+                        <li>✅ Reportes de acreditaciones</li>
+                    </ul>
                 </div>
             @else
                 <table class="table">
@@ -96,23 +103,27 @@
         </div>
 
         <div class="card">
-            <h2>Estadísticas de Acreditaciones</h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem;">
-                <div style="text-align: center; padding: 1rem; background: #f8fafc; border-radius: 8px;">
-                    <div style="font-size: 2rem; font-weight: bold; color: #f59e0b;">0</div>
-                    <div>Pendientes</div>
+            <h2>Preparación del Sistema</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                <div style="text-align: center; padding: 1.5rem; background: #f8fafc; border-radius: 8px;">
+                    <div style="font-size: 3rem; margin-bottom: 0.5rem;">🚀</div>
+                    <div style="font-weight: bold; margin-bottom: 0.5rem;">Próxima Fase</div>
+                    <div style="font-size: 0.9rem; color: #6b7280;">Implementación de acreditaciones</div>
                 </div>
-                <div style="text-align: center; padding: 1rem; background: #f8fafc; border-radius: 8px;">
-                    <div style="font-size: 2rem; font-weight: bold; color: #10b981;">0</div>
-                    <div>Aprobadas</div>
+                <div style="text-align: center; padding: 1.5rem; background: #f8fafc; border-radius: 8px;">
+                    <div style="font-size: 3rem; margin-bottom: 0.5rem;">📋</div>
+                    <div style="font-weight: bold; margin-bottom: 0.5rem;">Base Lista</div>
+                    <div style="font-size: 0.9rem; color: #6b7280;">Estructura preparada</div>
                 </div>
-                <div style="text-align: center; padding: 1rem; background: #f8fafc; border-radius: 8px;">
-                    <div style="font-size: 2rem; font-weight: bold; color: #ef4444;">0</div>
-                    <div>Rechazadas</div>
+                <div style="text-align: center; padding: 1.5rem; background: #f8fafc; border-radius: 8px;">
+                    <div style="font-size: 3rem; margin-bottom: 0.5rem;">🔐</div>
+                    <div style="font-weight: bold; margin-bottom: 0.5rem;">Acceso Seguro</div>
+                    <div style="font-size: 0.9rem; color: #6b7280;">Sistema de usuarios operativo</div>
                 </div>
-                <div style="text-align: center; padding: 1rem; background: #f8fafc; border-radius: 8px;">
-                    <div style="font-size: 2rem; font-weight: bold; color: #3b82f6;">0</div>
-                    <div>Total</div>
+                <div style="text-align: center; padding: 1.5rem; background: #f8fafc; border-radius: 8px;">
+                    <div style="font-size: 3rem; margin-bottom: 0.5rem;">📊</div>
+                    <div style="font-weight: bold; margin-bottom: 0.5rem;">Reportes</div>
+                    <div style="font-size: 0.9rem; color: #6b7280;">Sistema de reportes listo</div>
                 </div>
             </div>
         </div>

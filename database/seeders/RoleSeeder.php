@@ -64,7 +64,7 @@ class RoleSeeder extends Seeder
         // Crear usuario administrador por defecto
         $adminRole = Role::where('slug', 'admin')->first();
         if ($adminRole) {
-            User::create([
+            \App\Models\User::create([
                 'name' => 'Administrador',
                 'email' => 'admin@acreditacion.com',
                 'password' => bcrypt('Abcd.1234'),

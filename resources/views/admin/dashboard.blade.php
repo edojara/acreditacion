@@ -32,7 +32,10 @@
             @endif
             <span>{{ auth()->user()->name }}</span>
             <a href="{{ route('dashboard') }}">← Volver al Dashboard</a>
-            <a href="{{ route('logout') }}">Cerrar Sesión</a>
+            <form method="POST" action="{{ route('logout') }}" style="display: inline;">
+                @csrf
+                <button type="submit" style="background: none; border: none; color: white; text-decoration: underline; cursor: pointer; padding: 0;">Cerrar Sesión</button>
+            </form>
         </div>
     </nav>
 

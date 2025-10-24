@@ -66,7 +66,10 @@
         </form>
 
         <p style="text-align: center; margin-top: 1.5rem; color: #6b7280;">
-            <a href="{{ route('logout') }}" style="color: #dc2626; text-decoration: none;">Cerrar Sesión</a>
+            <form method="POST" action="{{ route('logout') }}" style="display: inline;">
+                @csrf
+                <button type="submit" style="background: none; border: none; color: #dc2626; text-decoration: underline; cursor: pointer; padding: 0;">Cerrar Sesión</button>
+            </form>
         </p>
     </div>
 </body>

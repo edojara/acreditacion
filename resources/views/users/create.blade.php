@@ -129,6 +129,25 @@
                             </div>
                         </div>
 
+                        <!-- Campo Google ID (solo para cuentas Google) -->
+                        <div class="row" id="google_id_field" style="display: none;">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="google_id">Google ID</label>
+                                    <input type="text" class="form-control @error('google_id') is-invalid @enderror"
+                                           id="google_id" name="google_id" value="{{ old('google_id') }}"
+                                           placeholder="Pegue aquí el Google ID del usuario">
+                                    @error('google_id')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                    <small class="form-text text-muted">
+                                        Para obtener el Google ID: El usuario debe intentar hacer login con Google primero,
+                                        luego copie el ID de los logs del servidor.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -188,9 +207,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const accountTypeGoogle = document.getElementById('account_type_google');
     const passwordFields = document.getElementById('password_fields');
     const forcePasswordChangeField = document.getElementById('force_password_change_field');
+    const googleIdField = document.getElementById('google_id_field');
     const emailHelp = document.getElementById('email_help');
     const passwordInput = document.getElementById('password');
     const confirmPasswordInput = document.getElementById('password_confirmation');
+    const googleIdInput = document.getElementById('google_id');
     const mustChangePasswordInput = document.getElementById('must_change_password');
 
     function toggleAccountType() {
@@ -198,15 +219,20 @@ document.addEventListener('DOMContentLoaded', function() {
             // Cuenta local
             passwordFields.style.display = 'block';
             forcePasswordChangeField.style.display = 'block';
+            googleIdField.style.display = 'none';
             passwordInput.required = true;
             confirmPasswordInput.required = true;
+            googleIdInput.required = false;
+            googleIdInput.value = '';
             emailHelp.textContent = 'Para cuentas locales: email para login.';
         } else {
             // Cuenta Google
             passwordFields.style.display = 'none';
             forcePasswordChangeField.style.display = 'none';
+            googleIdField.style.display = 'block';
             passwordInput.required = false;
             confirmPasswordInput.required = false;
+            googleIdInput.required = true;
             passwordInput.value = '';
             confirmPasswordInput.value = '';
             mustChangePasswordInput.checked = false;

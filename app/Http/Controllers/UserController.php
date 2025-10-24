@@ -47,8 +47,9 @@ class UserController extends Controller
         if ($request->account_type === 'local') {
             $rules['password'] = 'required|string|min:8|confirmed';
             $rules['must_change_password'] = 'boolean';
+        } elseif ($request->account_type === 'google') {
+            $rules['google_id'] = 'required|string|max:255';
         }
-        // Para cuentas Google no se requiere contraseña ni forzar cambio
 
         $request->validate($rules);
 
@@ -67,7 +68,7 @@ class UserController extends Controller
             // Cuenta Google - el usuario podrá acceder con Google OAuth
             $userData['email'] = $request->email; // Usar el email común
             $userData['password'] = Hash::make('temp_password_' . time()); // Contraseña temporal
-            $userData['google_id'] = 'pending'; // Marcador para indicar que debe vincularse con Google
+            $userData['google_id'] = $request->google_id; // Usar el Google ID proporcionado
             $userData['must_change_password'] = false; // No necesita cambiar contraseña ya que usará Google
         }
 
@@ -82,7 +83,7 @@ class UserController extends Controller
 
         $message = $request->account_type === 'local'
             ? 'Usuario local creado exitosamente.'
-            : 'Usuario Google creado exitosamente. El usuario podrá acceder con su cuenta Google.';
+            : 'Usuario Google creado exitosamente. El usuario podrá acceder con su cuenta Google vinculada.';
 
         return redirect()->route('users.index')->with('success', $message);
     }

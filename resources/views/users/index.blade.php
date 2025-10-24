@@ -59,10 +59,21 @@
                                             </span>
                                         </td>
                                         <td>
-                                            @if($user->must_change_password)
-                                                <span class="badge badge-warning">Debe cambiar contraseña</span>
+                                            @if($user->google_id === 'pending')
+                                                <span class="badge badge-info">
+                                                    <i class="fab fa-google"></i> Pendiente Google
+                                                </span>
+                                            @elseif($user->google_id)
+                                                <span class="badge badge-success">
+                                                    <i class="fab fa-google"></i> Google
+                                                </span>
                                             @else
-                                                <span class="badge badge-success">Activo</span>
+                                                <span class="badge badge-secondary">
+                                                    <i class="fas fa-key"></i> Local
+                                                </span>
+                                            @endif
+                                            @if($user->must_change_password)
+                                                <br><small class="text-warning">Debe cambiar contraseña</small>
                                             @endif
                                         </td>
                                         <td>

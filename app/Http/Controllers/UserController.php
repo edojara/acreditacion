@@ -33,23 +33,50 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        // Validación condicional según tipo de cuenta
+        $rules = [
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
             'role_id' => 'required|exists:roles,id',
-            'must_change_password' => 'boolean'
-        ]);
+            'must_change_password' => 'boolean',
+            'account_type' => 'required|in:local,google'
+        ];
 
-        $user = User::create([
+        if ($request->account_type === 'local') {
+            $rules['email'] = 'required|string|email|max:255|unique:users';
+            $rules['password'] = 'required|string|min:8|confirmed';
+        } else {
+            // Para cuentas Google, validamos el email de Google
+            $rules['google_email'] = 'required|string|email|max:255|unique:users,email';
+        }
+
+        $request->validate($rules);
+
+        $userData = [
             'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
             'role_id' => $request->role_id,
             'must_change_password' => $request->has('must_change_password'),
-        ]);
+        ];
 
-        return redirect()->route('users.index')->with('success', 'Usuario creado exitosamente.');
+        if ($request->account_type === 'local') {
+            // Cuenta local
+            $userData['email'] = $request->email;
+            $userData['password'] = Hash::make($request->password);
+            $userData['google_id'] = null; // Asegurar que no tenga google_id
+        } else {
+            // Cuenta Google - el usuario podrá acceder con Google OAuth
+            $userData['email'] = $request->google_email;
+            $userData['password'] = Hash::make('temp_password_' . time()); // Contraseña temporal
+            $userData['google_id'] = 'pending'; // Marcador para indicar que debe vincularse con Google
+            $userData['must_change_password'] = false; // No necesita cambiar contraseña ya que usará Google
+        }
+
+        $user = User::create($userData);
+
+        $message = $request->account_type === 'local'
+            ? 'Usuario local creado exitosamente.'
+            : 'Usuario Google creado exitosamente. El usuario podrá acceder con su cuenta Google.';
+
+        return redirect()->route('users.index')->with('success', $message);
     }
 
     /**

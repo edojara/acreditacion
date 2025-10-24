@@ -57,7 +57,11 @@
                                     <tr>
                                         <th>Tipo de Cuenta:</th>
                                         <td>
-                                            @if($user->google_id)
+                                            @if($user->google_id === 'pending')
+                                                <span class="badge badge-info">
+                                                    <i class="fab fa-google"></i> Pendiente vinculación Google
+                                                </span>
+                                            @elseif($user->google_id)
                                                 <span class="badge badge-success">
                                                     <i class="fab fa-google"></i> Google OAuth
                                                 </span>

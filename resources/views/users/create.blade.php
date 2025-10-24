@@ -89,6 +89,23 @@
                             </div>
                         </div>
 
+                        <!-- Email (común para ambos tipos) -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="email">Correo Electrónico <span class="text-danger">*</span></label>
+                                    <input type="email" class="form-control @error('email') is-invalid @enderror"
+                                           id="email" name="email" value="{{ old('email') }}" required>
+                                    @error('email')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                    <small class="form-text text-muted" id="email_help">
+                                        Para cuentas locales: email para login. Para cuentas Google: debe coincidir con la cuenta Google del usuario.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- Campos de contraseña (solo para cuentas locales) -->
                         <div class="row" id="password_fields">
                             <div class="col-md-6">
@@ -108,23 +125,6 @@
                                     <label for="password_confirmation">Confirmar Contraseña <span class="text-danger">*</span></label>
                                     <input type="password" class="form-control"
                                            id="password_confirmation" name="password_confirmation">
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Campo de email de Google (solo para cuentas Google) -->
-                        <div class="row" id="google_email_field" style="display: none;">
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label for="google_email">Correo Google <span class="text-danger">*</span></label>
-                                    <input type="email" class="form-control @error('google_email') is-invalid @enderror"
-                                           id="google_email" name="google_email" placeholder="usuario@gmail.com">
-                                    @error('google_email')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                    <small class="form-text text-muted">
-                                        El usuario podrá acceder con su cuenta Google asociada a este email
-                                    </small>
                                 </div>
                             </div>
                         </div>
@@ -149,7 +149,7 @@
                             </div>
 
                             <div class="col-md-6">
-                                <div class="form-group">
+                                <div class="form-group" id="force_password_change_field">
                                     <div class="custom-control custom-checkbox mt-4">
                                         <input type="checkbox" class="custom-control-input"
                                                id="must_change_password" name="must_change_password"
@@ -187,29 +187,30 @@ document.addEventListener('DOMContentLoaded', function() {
     const accountTypeLocal = document.getElementById('account_type_local');
     const accountTypeGoogle = document.getElementById('account_type_google');
     const passwordFields = document.getElementById('password_fields');
-    const googleEmailField = document.getElementById('google_email_field');
+    const forcePasswordChangeField = document.getElementById('force_password_change_field');
+    const emailHelp = document.getElementById('email_help');
     const passwordInput = document.getElementById('password');
     const confirmPasswordInput = document.getElementById('password_confirmation');
-    const googleEmailInput = document.getElementById('google_email');
+    const mustChangePasswordInput = document.getElementById('must_change_password');
 
     function toggleAccountType() {
         if (accountTypeLocal.checked) {
             // Cuenta local
             passwordFields.style.display = 'block';
-            googleEmailField.style.display = 'none';
+            forcePasswordChangeField.style.display = 'block';
             passwordInput.required = true;
             confirmPasswordInput.required = true;
-            googleEmailInput.required = false;
-            googleEmailInput.value = '';
+            emailHelp.textContent = 'Para cuentas locales: email para login.';
         } else {
             // Cuenta Google
             passwordFields.style.display = 'none';
-            googleEmailField.style.display = 'block';
+            forcePasswordChangeField.style.display = 'none';
             passwordInput.required = false;
             confirmPasswordInput.required = false;
             passwordInput.value = '';
             confirmPasswordInput.value = '';
-            googleEmailInput.required = true;
+            mustChangePasswordInput.checked = false;
+            emailHelp.textContent = 'Para cuentas Google: debe coincidir con la cuenta Google del usuario.';
         }
     }
 

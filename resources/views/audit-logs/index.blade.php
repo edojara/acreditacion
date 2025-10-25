@@ -74,6 +74,8 @@
                     <label for="action" class="mr-2">Acción:</label>
                     <select name="action" id="action" class="form-control">
                         <option value="">Todas las acciones</option>
+                        <option value="login" {{ request('action') == 'login' ? 'selected' : '' }}>Login Exitoso</option>
+                        <option value="login_failed" {{ request('action') == 'login_failed' ? 'selected' : '' }}>Login Fallido</option>
                         <option value="login_google" {{ request('action') == 'login_google' ? 'selected' : '' }}>Login Google</option>
                         <option value="login_google_denied" {{ request('action') == 'login_google_denied' ? 'selected' : '' }}>Login Denegado</option>
                         <option value="user_created" {{ request('action') == 'user_created' ? 'selected' : '' }}>Usuario Creado</option>
@@ -133,7 +135,19 @@
                                 {{ $log->user->name }}
                                 <br><small class="text-muted">{{ $log->user->email }}</small>
                             @else
-                                <span class="text-muted">Usuario no encontrado</span>
+                                @if(in_array($log->action, ['login_failed', 'login_google_denied']))
+                                    <span class="text-warning">
+                                        <i class="fas fa-exclamation-triangle mr-1"></i>
+                                        Email no registrado
+                                    </span>
+                                    @if($log->details && str_contains($log->details, 'email no encontrado'))
+                                        <br><small class="text-muted">{{ Str::after($log->details, 'email no encontrado en usuarios pre-registrados: ') ?: Str::after($log->details, 'email: ') }}</small>
+                                    @elseif($log->old_values && isset($log->old_values['attempted_email']))
+                                        <br><small class="text-muted">{{ $log->old_values['attempted_email'] }}</small>
+                                    @endif
+                                @else
+                                    <span class="text-muted">Usuario no encontrado</span>
+                                @endif
                             @endif
                         </td>
                         <td>
@@ -147,9 +161,19 @@
                         </td>
                         <td>
                             @switch($log->action)
+                                @case('login')
+                                    <span class="badge badge-success">
+                                        <i class="fas fa-sign-in-alt mr-1"></i>Login Exitoso
+                                    </span>
+                                    @break
+                                @case('login_failed')
+                                    <span class="badge badge-danger">
+                                        <i class="fas fa-times mr-1"></i>Login Fallido
+                                    </span>
+                                    @break
                                 @case('login_google')
                                     <span class="badge badge-success">
-                                        <i class="fab fa-google mr-1"></i>Login Exitoso
+                                        <i class="fab fa-google mr-1"></i>Login Google
                                     </span>
                                     @break
                                 @case('login_google_denied')

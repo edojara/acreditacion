@@ -23,7 +23,7 @@ class LoginController extends Controller
             $user = Auth::user();
             \Log::info('User logged in: ' . $user->email);
 
-            // Registrar login en audit log
+            // Registrar login exitoso en audit log
             \App\Models\AuditLog::log('login', 'Usuario inició sesión con credenciales', [
                 'user_email' => $user->email,
                 'model_type' => 'User',
@@ -37,6 +37,12 @@ class LoginController extends Controller
 
             return $this->redirectBasedOnRole($user);
         }
+
+        // Registrar intento de login fallido
+        \App\Models\AuditLog::log('login_failed', 'Intento de login fallido - credenciales incorrectas', [
+            'attempted_email' => $request->email,
+            'reason' => 'Credenciales inválidas',
+        ]);
 
         return back()->withErrors([
             'email' => 'Las credenciales proporcionadas no son correctas.',

@@ -19,6 +19,12 @@
     <div class="login-container">
         <h2 style="text-align: center; margin-bottom: 2rem; color: #1f2937;">Iniciar Sesión</h2>
 
+        @if(session('error'))
+            <div style="background: #fee2e2; color: #dc2626; padding: 1rem; border-radius: 4px; margin-bottom: 1rem;">
+                <p style="margin: 0;">{{ session('error') }}</p>
+            </div>
+        @endif
+
         @if($errors->any())
             <div style="background: #fee2e2; color: #dc2626; padding: 1rem; border-radius: 4px; margin-bottom: 1rem;">
                 <ul style="margin: 0; padding-left: 1rem;">

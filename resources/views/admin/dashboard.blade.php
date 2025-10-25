@@ -103,18 +103,10 @@
                         </div>
 
                         <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
-                            <button class="btn btn-secondary btn-block btn-lg" disabled>
-                                <i class="fas fa-shield-alt fa-2x d-block mb-2"></i>
-                                <strong>Gestionar Roles</strong><br>
-                                <small>Configurar permisos y roles de usuario</small>
-                            </button>
-                        </div>
-
-                        <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
-                            <button class="btn btn-secondary btn-block btn-lg" disabled>
-                                <i class="fas fa-shield-alt fa-2x d-block mb-2"></i>
-                                <strong>Gestionar Roles</strong><br>
-                                <small>Configurar permisos y roles de usuario</small>
+                            <button class="btn btn-success btn-block btn-lg" disabled>
+                                <i class="fas fa-chart-line fa-2x d-block mb-2"></i>
+                                <strong>Actividad de Usuarios</strong><br>
+                                <small>Ver logs de acceso y actividad</small>
                             </button>
                         </div>
 

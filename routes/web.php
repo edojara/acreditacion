@@ -43,6 +43,9 @@ Route::middleware('auth')->group(function () {
         Route::resource('users', App\Http\Controllers\UserController::class);
         Route::patch('users/{user}/force-password-change', [App\Http\Controllers\UserController::class, 'forcePasswordChange'])->name('users.force-password-change');
         Route::patch('users/{user}/reset-password', [App\Http\Controllers\UserController::class, 'resetPassword'])->name('users.reset-password');
+
+        // Audit Logs Routes
+        Route::resource('audit-logs', App\Http\Controllers\AuditLogController::class)->only(['index', 'show']);
     });
 
     Route::middleware('role:report')->group(function () {

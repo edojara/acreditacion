@@ -103,11 +103,11 @@
                         </div>
 
                         <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
-                            <button class="btn btn-success btn-block btn-lg" disabled>
+                            <a href="{{ route('audit-logs.index') }}" class="btn btn-success btn-block btn-lg">
                                 <i class="fas fa-chart-line fa-2x d-block mb-2"></i>
                                 <strong>Actividad de Usuarios</strong><br>
                                 <small>Ver logs de acceso y actividad</small>
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </div>

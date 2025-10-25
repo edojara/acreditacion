@@ -111,18 +111,10 @@
                         </div>
 
                         <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
-                            <button class="btn btn-info btn-block btn-lg" disabled>
-                                <i class="fas fa-envelope fa-2x d-block mb-2"></i>
-                                <strong>Invitaciones</strong><br>
-                                <small>Enviar invitaciones a nuevos usuarios</small>
-                            </button>
-                        </div>
-
-                        <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
-                            <button class="btn btn-warning btn-block btn-lg" disabled>
-                                <i class="fas fa-key fa-2x d-block mb-2"></i>
-                                <strong>Restablecer Contraseñas</strong><br>
-                                <small>Forzar cambio de contraseña a usuarios</small>
+                            <button class="btn btn-secondary btn-block btn-lg" disabled>
+                                <i class="fas fa-shield-alt fa-2x d-block mb-2"></i>
+                                <strong>Gestionar Roles</strong><br>
+                                <small>Configurar permisos y roles de usuario</small>
                             </button>
                         </div>
 
@@ -131,14 +123,6 @@
                                 <i class="fas fa-chart-line fa-2x d-block mb-2"></i>
                                 <strong>Actividad de Usuarios</strong><br>
                                 <small>Ver logs de acceso y actividad</small>
-                            </button>
-                        </div>
-
-                        <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
-                            <button class="btn btn-dark btn-block btn-lg" disabled>
-                                <i class="fas fa-cogs fa-2x d-block mb-2"></i>
-                                <strong>Configuración de Acceso</strong><br>
-                                <small>Configurar políticas de seguridad</small>
                             </button>
                         </div>
                     </div>

@@ -27,7 +27,7 @@
 
     <!-- Estadísticas -->
     <div class="row">
-        <div class="col-lg-3 col-6">
+        <div class="col-lg-4 col-6">
             <div class="small-box bg-info">
                 <div class="inner">
                     <h3>{{ \App\Models\User::count() }}</h3>
@@ -42,20 +42,7 @@
             </div>
         </div>
 
-        <div class="col-lg-3 col-6">
-            <div class="small-box bg-success">
-                <div class="inner">
-                    <h3>{{ \App\Models\Role::count() }}</h3>
-                    <p>Roles Configurados</p>
-                </div>
-                <div class="icon">
-                    <i class="fas fa-shield-alt"></i>
-                </div>
-                <div class="small-box-footer">&nbsp;</div>
-            </div>
-        </div>
-
-        <div class="col-lg-3 col-6">
+        <div class="col-lg-4 col-6">
             <div class="small-box bg-warning">
                 <div class="inner">
                     <h3>{{ \App\Models\User::where('must_change_password', true)->count() }}</h3>
@@ -68,7 +55,7 @@
             </div>
         </div>
 
-        <div class="col-lg-3 col-6">
+        <div class="col-lg-4 col-6">
             <div class="small-box bg-danger">
                 <div class="inner">
                     <h3>{{ \App\Models\User::whereNotNull('google_id')->count() }}</h3>
@@ -94,19 +81,35 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
-                            <a href="{{ route('users.index') }}" class="btn btn-primary btn-block btn-lg">
-                                <i class="fas fa-users fa-2x d-block mb-2"></i>
+                        <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+                            <a href="{{ route('users.index') }}" class="btn btn-primary btn-block">
+                                <i class="fas fa-users fa-lg d-block mb-2"></i>
                                 <strong>Gestionar Usuarios</strong><br>
-                                <small>Crear, editar y eliminar usuarios del sistema</small>
+                                <small>Crear, editar y eliminar usuarios</small>
                             </a>
                         </div>
 
-                        <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
-                            <a href="{{ route('audit-logs.index') }}" class="btn btn-success btn-block btn-lg">
-                                <i class="fas fa-chart-line fa-2x d-block mb-2"></i>
+                        <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+                            <a href="{{ route('audit-logs.index') }}" class="btn btn-success btn-block">
+                                <i class="fas fa-chart-line fa-lg d-block mb-2"></i>
                                 <strong>Actividad de Usuarios</strong><br>
                                 <small>Ver logs de acceso y actividad</small>
+                            </a>
+                        </div>
+
+                        <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+                            <a href="{{ route('users.create') }}" class="btn btn-info btn-block">
+                                <i class="fas fa-user-plus fa-lg d-block mb-2"></i>
+                                <strong>Crear Usuario</strong><br>
+                                <small>Agregar nuevo usuario al sistema</small>
+                            </a>
+                        </div>
+
+                        <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+                            <a href="#" class="btn btn-warning btn-block">
+                                <i class="fas fa-cogs fa-lg d-block mb-2"></i>
+                                <strong>Configuración</strong><br>
+                                <small>Ajustes del sistema</small>
                             </a>
                         </div>
                     </div>

@@ -1,29 +1,22 @@
-@extends('layouts.app')
+<!-- Modal para Crear Entidad Educativa -->
+<div class="modal fade" id="createEntityModal" tabindex="-1" role="dialog" aria-labelledby="createEntityModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createEntityModalLabel">
+                    <i class="fas fa-plus mr-2"></i>
+                    Crear Nueva Entidad Educativa
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
 
-@section('title', 'Crear Entidad Educativa')
+            <form method="POST" action="{{ route('educational-entities.store') }}" id="createEntityForm">
+                @csrf
+                <div class="modal-body">
 
-@section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('educational-entities.index') }}">Entidades</a></li>
-    <li class="breadcrumb-item active">Crear</li>
-@endsection
-
-@section('content')
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">
-                        <i class="fas fa-plus mr-2"></i>
-                        Crear Nueva Entidad Educativa
-                    </h3>
-                </div>
-
-                <form method="POST" action="{{ route('educational-entities.store') }}">
-                    @csrf
-
-                    <div class="card-body">
-                        <div class="row">
+                    <div class="row">
                             <!-- Información Básica -->
                             <div class="col-md-6">
                                 <div class="card">
@@ -155,18 +148,65 @@
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-save"></i> Crear Entidad
-                        </button>
-                        <a href="{{ route('educational-entities.index') }}" class="btn btn-secondary">
-                            <i class="fas fa-times"></i> Cancelar
-                        </a>
-                    </div>
-                </form>
-            </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        <i class="fas fa-times"></i> Cancelar
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Crear Entidad
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
-@endsection
+
+<!-- Script para manejar el modal -->
+<script>
+$(document).ready(function() {
+    // Manejar envío del formulario
+    $('#createEntityForm').on('submit', function(e) {
+        e.preventDefault();
+
+        const formData = new FormData(this);
+
+        $.ajax({
+            url: $(this).attr('action'),
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(response) {
+                $('#createEntityModal').modal('hide');
+                $('#createEntityForm')[0].reset();
+
+                // Mostrar mensaje de éxito
+                toastr.success('Entidad educativa creada exitosamente');
+
+                // Recargar la página o actualizar la tabla
+                location.reload();
+            },
+            error: function(xhr) {
+                if (xhr.status === 422) {
+                    // Errores de validación
+                    const errors = xhr.responseJSON.errors;
+                    let errorMessages = [];
+
+                    for (let field in errors) {
+                        errorMessages.push(errors[field][0]);
+                    }
+
+                    toastr.error(errorMessages.join('<br>'));
+                } else {
+                    toastr.error('Error al crear la entidad educativa');
+                }
+            }
+        });
+    });
+});
+</script>

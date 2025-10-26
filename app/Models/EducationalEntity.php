@@ -47,11 +47,6 @@ class EducationalEntity extends Model
         return $query->where('type', $type);
     }
 
-    public function scopeByType($query, $type)
-    {
-        return $query->where('type', $type);
-    }
-
     public function scopeByRegion($query, $region)
     {
         return $query->where('region', $region);

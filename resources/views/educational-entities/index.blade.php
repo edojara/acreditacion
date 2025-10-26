@@ -502,14 +502,6 @@ document.addEventListener('DOMContentLoaded', function() {
                                             @enderror
                                         </div>
 
-                                        <div class="form-group">
-                                            <label for="edit_code">Código <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control @error('code') is-invalid @enderror"
-                                                   id="edit_code" name="code" value="" required>
-                                            @error('code')
-                                                <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
-                                        </div>
 
                                         <div class="form-group">
                                             <label for="edit_type">Tipo de Entidad <span class="text-danger">*</span></label>
@@ -525,17 +517,6 @@ document.addEventListener('DOMContentLoaded', function() {
                                             @enderror
                                         </div>
 
-                                        <div class="form-group">
-                                            <label for="edit_status">Estado <span class="text-danger">*</span></label>
-                                            <select class="form-control @error('status') is-invalid @enderror" id="edit_status" name="status" required>
-                                                <option value="activo">Activo</option>
-                                                <option value="inactivo">Inactivo</option>
-                                                <option value="suspendido">Suspendido</option>
-                                            </select>
-                                            @error('status')
-                                                <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -674,9 +655,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Llenar los campos del formulario
         modal.querySelector('#edit_name').value = entityName;
-        modal.querySelector('#edit_code').value = entityCode;
         modal.querySelector('#edit_type').value = entityType;
-        modal.querySelector('#edit_status').value = entityStatus;
         modal.querySelector('#edit_address').value = entityAddress || '';
         modal.querySelector('#edit_city').value = entityCity || '';
         modal.querySelector('#edit_region').value = entityRegion || '';

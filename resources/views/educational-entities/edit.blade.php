@@ -197,16 +197,16 @@
                             </div>
                         </div>
 
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Actualizar Entidad
+                            </button>
+                            <a href="{{ route('educational-entities.index') }}" class="btn btn-secondary ml-2">
+                                <i class="fas fa-times"></i> Cancelar
+                            </a>
+                        </div>
                     </div>
 
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-save"></i> Actualizar Entidad
-                        </button>
-                        <a href="{{ route('educational-entities.index') }}" class="btn btn-secondary ml-2">
-                            <i class="fas fa-times"></i> Cancelar
-                        </a>
-                    </div>
                 </form>
             </div>
         </div>

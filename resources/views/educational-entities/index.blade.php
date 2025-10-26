@@ -158,7 +158,12 @@
                 <!-- Paginación -->
                 @if($entities->hasPages())
                 <div class="card-footer">
-                    {{ $entities->appends(request()->query())->links() }}
+                    <div class="d-flex justify-content-center">
+                        {{ $entities->appends(request()->query())->links() }}
+                    </div>
+                    <small class="text-muted d-block text-center mt-2">
+                        Mostrando {{ $entities->firstItem() }}-{{ $entities->lastItem() }} de {{ $entities->total() }} entidades
+                    </small>
                 </div>
                 @endif
             </div>
@@ -393,6 +398,30 @@ document.addEventListener('DOMContentLoaded', function() {
     .excel-table {
         min-width: 800px;
     }
+}
+
+/* Estilos para paginación mínima */
+.pagination {
+    margin-bottom: 0;
+    font-size: 0.7rem;
+    transform: scale(0.8);
+    transform-origin: center;
+}
+.pagination .page-link {
+    padding: 0.2rem 0.4rem;
+    font-size: 0.65rem;
+    line-height: 1;
+    border-radius: 0.15rem;
+    min-width: auto;
+    border-width: 1px;
+}
+.pagination .page-item {
+    margin: 0 0.5px;
+}
+.pagination .page-item.active .page-link {
+    background-color: #007bff;
+    border-color: #007bff;
+    font-weight: 600;
 }
 </style>
 @endsection

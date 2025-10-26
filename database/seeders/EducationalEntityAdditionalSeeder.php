@@ -1,0 +1,1102 @@
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use App\Models\EducationalEntity;
+use App\Models\EntityContact;
+
+class EducationalEntityAdditionalSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
+    {
+        $institutions = [
+            // Universidades adicionales (8-40)
+            [
+                'name' => 'Universidad Metropolitana de Ciencias de la Educación',
+                'code' => 'UMCE-016',
+                'type' => 'universidad',
+                'city' => 'Santiago',
+                'region' => 'Metropolitana',
+                'phone' => '+56 2 2897 7000',
+                'email' => 'info@umce.cl',
+                'website' => 'https://www.umce.cl',
+                'address' => 'Av. José Pedro Alessandri 774',
+                'description' => 'Universidad pública especializada en pedagogía'
+            ],
+            [
+                'name' => 'Universidad de O\'Higgins',
+                'code' => 'UOH-017',
+                'type' => 'universidad',
+                'city' => 'Rancagua',
+                'region' => 'O\'Higgins',
+                'phone' => '+56 72 297 4000',
+                'email' => 'info@uoh.cl',
+                'website' => 'https://www.uoh.cl',
+                'address' => 'Av. Libertador Bernardo O\'Higgins 611',
+                'description' => 'Universidad pública de la región de O\'Higgins'
+            ],
+            [
+                'name' => 'Universidad de Atacama',
+                'code' => 'UDA-018',
+                'type' => 'universidad',
+                'city' => 'Copiapó',
+                'region' => 'Atacama',
+                'phone' => '+56 52 225 5000',
+                'email' => 'info@uda.cl',
+                'website' => 'https://www.uda.cl',
+                'address' => 'Av. Copayapu 485',
+                'description' => 'Universidad pública de la región de Atacama'
+            ],
+            [
+                'name' => 'Universidad Arturo Prat',
+                'code' => 'UNAP-019',
+                'type' => 'universidad',
+                'city' => 'Iquique',
+                'region' => 'Tarapacá',
+                'phone' => '+56 57 233 5000',
+                'email' => 'info@unap.cl',
+                'website' => 'https://www.unap.cl',
+                'address' => 'Av. Arturo Prat Chacón 2120',
+                'description' => 'Universidad pública de la región de Tarapacá'
+            ],
+            [
+                'name' => 'Universidad Católica del Maule',
+                'code' => 'UCM-020',
+                'type' => 'universidad',
+                'city' => 'Talca',
+                'region' => 'Maule',
+                'phone' => '+56 71 241 5000',
+                'email' => 'info@ucm.cl',
+                'website' => 'https://www.ucm.cl',
+                'address' => 'Av. San Miguel 3605',
+                'description' => 'Universidad privada católica en Talca'
+            ],
+            [
+                'name' => 'Universidad Católica del Norte',
+                'code' => 'UCN-021',
+                'type' => 'universidad',
+                'city' => 'Antofagasta',
+                'region' => 'Antofagasta',
+                'phone' => '+56 55 235 5000',
+                'email' => 'info@ucn.cl',
+                'website' => 'https://www.ucn.cl',
+                'address' => 'Av. Angamos 0610',
+                'description' => 'Universidad privada católica en Antofagasta'
+            ],
+            [
+                'name' => 'Universidad Católica de la Santísima Concepción',
+                'code' => 'UCSC-022',
+                'type' => 'universidad',
+                'city' => 'Concepción',
+                'region' => 'Biobío',
+                'phone' => '+56 41 234 5000',
+                'email' => 'info@ucsc.cl',
+                'website' => 'https://www.ucsc.cl',
+                'address' => 'Caupolicán 491',
+                'description' => 'Universidad privada católica en Concepción'
+            ],
+            [
+                'name' => 'Universidad Católica de Temuco',
+                'code' => 'UCT-023',
+                'type' => 'universidad',
+                'city' => 'Temuco',
+                'region' => 'Araucanía',
+                'phone' => '+56 45 220 5000',
+                'email' => 'info@uct.cl',
+                'website' => 'https://www.uct.cl',
+                'address' => 'Manuel Montt 056',
+                'description' => 'Universidad privada católica en Temuco'
+            ],
+            [
+                'name' => 'Universidad Central de Chile',
+                'code' => 'UCEN-024',
+                'type' => 'universidad',
+                'city' => 'Santiago',
+                'region' => 'Metropolitana',
+                'phone' => '+56 2 2354 1000',
+                'email' => 'info@ucentral.cl',
+                'website' => 'https://www.ucentral.cl',
+                'address' => 'Toesca 1783',
+                'description' => 'Universidad privada en Santiago centro'
+            ],
+            [
+                'name' => 'Universidad de Las Américas',
+                'code' => 'UDLA-025',
+                'type' => 'universidad',
+                'city' => 'Santiago',
+                'region' => 'Metropolitana',
+                'phone' => '+56 2 2300 0000',
+                'email' => 'info@udla.cl',
+                'website' => 'https://www.udla.cl',
+                'address' => 'Manuel Montt 948',
+                'description' => 'Universidad privada con campus en varias ciudades'
+            ],
+            [
+                'name' => 'Universidad de Los Andes',
+                'code' => 'UANDES-026',
+                'type' => 'universidad',
+                'city' => 'Santiago',
+                'region' => 'Metropolitana',
+                'phone' => '+56 2 2618 1000',
+                'email' => 'info@uandes.cl',
+                'website' => 'https://www.uandes.cl',
+                'address' => 'Monseñor Álvaro del Portillo 12455',
+                'description' => 'Universidad privada en Santiago oriente'
+            ],
+            [
+                'name' => 'Universidad del Desarrollo',
+                'code' => 'UDD-027',
+                'type' => 'universidad',
+                'city' => 'Santiago',
+                'region' => 'Metropolitana',
+                'phone' => '+56 2 2327 9000',
+                'email' => 'info@udd.cl',
+                'website' => 'https://www.udd.cl',
+                'address' => 'Av. Plaza 680',
+                'description' => 'Universidad privada con campus en Concepción'
+            ],
+            [
+                'name' => 'Universidad Finis Terrae',
+                'code' => 'UFT-028',
+                'type' => 'universidad',
+                'city' => 'Santiago',
+                'region' => 'Metropolitana',
+                'phone' => '+56 2 2331 1000',
+                'email' => 'info@uft.cl',
+                'website' => 'https://www.uft.cl',
+                'address' => 'Pedro de Valdivia 1509',
+                'description' => 'Universidad privada jesuita en Santiago'
+            ],
+            [
+                'name' => 'Universidad Mayor',
+                'code' => 'UMAYOR-029',
+                'type' => 'universidad',
+                'city' => 'Santiago',
+                'region' => 'Metropolitana',
+                'phone' => '+56 2 2302 5000',
+                'email' => 'info@umayor.cl',
+                'website' => 'https://www.umayor.cl',
+                'address' => 'José Miguel Carrera 1105',
+                'description' => 'Universidad privada con múltiples sedes'
+            ],
+            [
+                'name' => 'Universidad San Sebastián',
+                'code' => 'USS-030',
+                'type' => 'universidad',
+                'city' => 'Santiago',
+                'region' => 'Metropolitana',
+                'phone' => '+56 2 2620 7000',
+                'email' => 'info@uss.cl',
+                'website' => 'https://www.uss.cl',
+                'address' => 'Bellavista 7',
+                'description' => 'Universidad privada con campus en regiones'
+            ],
+            [
+                'name' => 'Universidad SEK',
+                'code' => 'USEK-031',
+                'type' => 'universidad',
+                'city' => 'Santiago',
+                'region' => 'Metropolitana',
+                'phone' => '+56 2 2206 9000',
+                'email' => 'info@sek.cl',
+                'website' => 'https://www.sek.cl',
+                'address' => 'Av. Pdte. Eduardo Frei Montalva 1501',
+                'description' => 'Universidad privada especializada en negocios'
+            ],
+            [
+                'name' => 'Universidad Viña del Mar',
+                'code' => 'UVM-032',
+                'type' => 'universidad',
+                'city' => 'Viña del Mar',
+                'region' => 'Valparaíso',
+                'phone' => '+56 32 278 7000',
+                'email' => 'info@uvm.cl',
+                'website' => 'https://www.uvm.cl',
+                'address' => 'Diego Portales 342',
+                'description' => 'Universidad privada en Viña del Mar'
+            ],
+            [
+                'name' => 'Universidad Adolfo Ibáñez',
+                'code' => 'UAI-033',
+                'type' => 'universidad',
+                'city' => 'Santiago',
+                'region' => 'Metropolitana',
+                'phone' => '+56 2 2331 1000',
+                'email' => 'info@uai.cl',
+                'website' => 'https://www.uai.cl',
+                'address' => 'Av. Diagonal Las Torres 2640',
+                'description' => 'Universidad privada enfocada en negocios'
+            ],
+            [
+                'name' => 'Universidad Alberto Hurtado',
+                'code' => 'UAH-034',
+                'type' => 'universidad',
+                'city' => 'Santiago',
+                'region' => 'Metropolitana',
+                'phone' => '+56 2 2889 7000',
+                'email' => 'info@uahurtado.cl',
+                'website' => 'https://www.uahurtado.cl',
+                'address' => 'Cienfuegos 41',
+                'description' => 'Universidad privada jesuita en Santiago'
+            ],
+            [
+                'name' => 'Universidad Diego Portales',
+                'code' => 'UDP-035',
+                'type' => 'universidad',
+                'city' => 'Santiago',
+                'region' => 'Metropolitana',
+                'phone' => '+56 2 2676 4000',
+                'email' => 'info@udp.cl',
+                'website' => 'https://www.udp.cl',
+                'address' => 'Ejército 441',
+                'description' => 'Universidad privada en Santiago centro'
+            ],
+            [
+                'name' => 'Universidad Gabriela Mistral',
+                'code' => 'UGM-036',
+                'type' => 'universidad',
+                'city' => 'Santiago',
+                'region' => 'Metropolitana',
+                'phone' => '+56 2 2426 9000',
+                'email' => 'info@ugm.cl',
+                'website' => 'https://www.ugm.cl',
+                'address' => 'Av. Ricardo Lyon 1177',
+                'description' => 'Universidad privada en Santiago poniente'
+            ],
+            [
+                'name' => 'Universidad Iberoamericana de Ciencias y Tecnología',
+                'code' => 'UNICIT-037',
+                'type' => 'universidad',
+                'city' => 'Santiago',
+                'region' => 'Metropolitana',
+                'phone' => '+56 2 2385 5000',
+                'email' => 'info@unicit.cl',
+                'website' => 'https://www.unicit.cl',
+                'address' => 'Av. Los Pajaritos 2222',
+                'description' => 'Universidad privada especializada en tecnología'
+            ],
+            [
+                'name' => 'Universidad Internacional SEK',
+                'code' => 'UISEK-038',
+                'type' => 'universidad',
+                'city' => 'Santiago',
+                'region' => 'Metropolitana',
+                'phone' => '+56 2 2206 9000',
+                'email' => 'info@uisek.cl',
+                'website' => 'https://www.uisek.cl',
+                'address' => 'Av. Pdte. Eduardo Frei Montalva 1501',
+                'description' => 'Universidad privada internacional'
+            ],
+            [
+                'name' => 'Universidad La República',
+                'code' => 'ULAREP-039',
+                'type' => 'universidad',
+                'city' => 'Santiago',
+                'region' => 'Metropolitana',
+                'phone' => '+56 2 2385 5000',
+                'email' => 'info@larepublica.cl',
+                'website' => 'https://www.larepublica.cl',
+                'address' => 'Av. Los Pajaritos 2222',
+                'description' => 'Universidad privada en Santiago'
+            ],
+            [
+                'name' => 'Universidad Los Leones',
+                'code' => 'ULEONES-040',
+                'type' => 'universidad',
+                'city' => 'Santiago',
+                'region' => 'Metropolitana',
+                'phone' => '+56 2 2385 5000',
+                'email' => 'info@leones.cl',
+                'website' => 'https://www.leones.cl',
+                'address' => 'Av. Los Pajaritos 2222',
+                'description' => 'Universidad privada en Santiago'
+            ],
+            // Institutos Profesionales (41-70)
+            [
+                'name' => 'Instituto Profesional AIEP',
+                'code' => 'AIEP-041',
+                'type' => 'instituto',
+                'city' => 'Santiago',
+                'region' => 'Metropolitana',
+                'phone' => '+56 2 2385 5000',
+                'email' => 'info@aiep.cl',
+                'website' => 'https://www.aiep.cl',
+                'address' => 'Av. Los Pajaritos 2222',
+                'description' => 'Instituto Profesional con múltiples sedes'
+            ],
+            [
+                'name' => 'Instituto Profesional DUOC UC',
+                'code' => 'DUOC-042',
+                'type' => 'instituto',
+                'city' => 'Santiago',
+                'region' => 'Metropolitana',
+                'phone' => '+56 2 2385 5000',
+                'email' => 'info@duoc.cl',
+                'website' => 'https://www.duoc.cl',
+                'address' => 'Av. Los Pajaritos 2222',
+                'description' => 'Instituto Profesional de la Pontificia Universidad Católica'
+            ],
+            [
+                'name' => 'Instituto Profesional INACAP',
+                'code' => 'INACAP-043',
+                'type' => 'instituto',
+                'city' => 'Santiago',
+                'region' => 'Metropolitana',
+                'phone' => '+56 2 2385 5000',
+                'email' => 'info@inacap.cl',
+                'website' => 'https://www.inacap.cl',
+                'address' => 'Av. Los Pajaritos 2222',
+                'description' => 'Instituto Profesional técnico con múltiples sedes'
+            ],
+            [
+                'name' => 'Instituto Profesional IP Chile',
+                'code' => 'IPCHILE-044',
+                'type' => 'instituto',
+                'city' => 'Santiago',
+                'region' => 'Metropolitana',
+                'phone' => '+56 2 2385 5000',
+                'email' => 'info@ipchile.cl',
+                'website' => 'https://www.ipchile.cl',
+                'address' => 'Av. Los Pajaritos 2222',
+                'description' => 'Instituto Profesional privado'
+            ],
+            [
+                'name' => 'Instituto Profesional Los Leones',
+                'code' => 'IPLEONES-045',
+                'type' => 'instituto',
+                'city' => 'Santiago',
+                'region' => 'Metropolitana',
+                'phone' => '+56 2 2385 5000',
+                'email' => 'info@losleones.cl',
+                'website' => 'https://www.losleones.cl',
+                'address' => 'Av. Los Pajaritos 2222',
+                'description' => 'Instituto Profesional privado'
+            ],
+            [
+                'name' => 'Instituto Profesional Santo Tomás',
+                'code' => 'IST-046',
+                'type' => 'instituto',
+                'city' => 'Santiago',
+                'region' => 'Metropolitana',
+                'phone' => '+56 2 2385 5000',
+                'email' => 'info@santotomas.cl',
+                'website' => 'https://www.santotomas.cl',
+                'address' => 'Av. Los Pajaritos 2222',
+                'description' => 'Instituto Profesional con presencia nacional'
+            ],
+            [
+                'name' => 'Instituto Profesional Virginio Gómez',
+                'code' => 'IVG-047',
+                'type' => 'instituto',
+                'city' => 'Santiago',
+                'region' => 'Metropolitana',
+                'phone' => '+56 2 2385 5000',
+                'email' => 'info@vgomez.cl',
+                'website' => 'https://www.vgomez.cl',
+                'address' => 'Av. Los Pajaritos 2222',
+                'description' => 'Instituto Profesional privado'
+            ],
+            [
+                'name' => 'Instituto Profesional La Araucana',
+                'code' => 'IPLA-048',
+                'type' => 'instituto',
+                'city' => 'Santiago',
+                'region' => 'Metropolitana',
+                'phone' => '+56 2 2385 5000',
+                'email' => 'info@araucana.cl',
+                'website' => 'https://www.araucana.cl',
+                'address' => 'Av. Los Pajaritos 2222',
+                'description' => 'Instituto Profesional privado'
+            ],
+            [
+                'name' => 'Instituto Profesional Providencia',
+                'code' => 'IPP-049',
+                'type' => 'instituto',
+                'city' => 'Santiago',
+                'region' => 'Metropolitana',
+                'phone' => '+56 2 2385 5000',
+                'email' => 'info@providencia.cl',
+                'website' => 'https://www.providencia.cl',
+                'address' => 'Av. Los Pajaritos 2222',
+                'description' => 'Instituto Profesional privado'
+            ],
+            [
+                'name' => 'Instituto Profesional de Chile',
+                'code' => 'IPCH-050',
+                'type' => 'instituto',
+                'city' => 'Santiago',
+                'region' => 'Metropolitana',
+                'phone' => '+56 2 2385 5000',
+                'email' => 'info@ipchile.cl',
+                'website' => 'https://www.ipchile.cl',
+                'address' => 'Av. Los Pajaritos 2222',
+                'description' => 'Instituto Profesional privado'
+            ],
+            [
+                'name' => 'Instituto Profesional Valle Central',
+                'code' => 'IPVC-051',
+                'type' => 'instituto',
+                'city' => 'Rancagua',
+                'region' => 'O\'Higgins',
+                'phone' => '+56 72 222 5000',
+                'email' => 'info@vallecentral.cl',
+                'website' => 'https://www.vallecentral.cl',
+                'address' => 'Av. José Manuel Balmaceda 581',
+                'description' => 'Instituto Profesional en Rancagua'
+            ],
+            [
+                'name' => 'Instituto Profesional de la Región de Coquimbo',
+                'code' => 'IPCOQ-052',
+                'type' => 'instituto',
+                'city' => 'La Serena',
+                'region' => 'Coquimbo',
+                'phone' => '+56 51 222 4000',
+                'email' => 'info@ipcoquimbo.cl',
+                'website' => 'https://www.ipcoquimbo.cl',
+                'address' => 'Av. Francisco de Aguirre 1001',
+                'description' => 'Instituto Profesional en La Serena'
+            ],
+            [
+                'name' => 'Instituto Profesional de la Región de Valparaíso',
+                'code' => 'IPVALPO-053',
+                'type' => 'instituto',
+                'city' => 'Valparaíso',
+                'region' => 'Valparaíso',
+                'phone' => '+56 32 222 3000',
+                'email' => 'info@ipvalpo.cl',
+                'website' => 'https://www.ipvalpo.cl',
+                'address' => 'Av. Pedro Montt 2153',
+                'description' => 'Instituto Profesional en Valparaíso'
+            ],
+            [
+                'name' => 'Instituto Profesional de la Región del Biobío',
+                'code' => 'IPBIO-054',
+                'type' => 'instituto',
+                'city' => 'Concepción',
+                'region' => 'Biobío',
+                'phone' => '+56 41 222 2000',
+                'email' => 'info@ipbiobio.cl',
+                'website' => 'https://www.ipbiobio.cl',
+                'address' => 'Av. Arturo Prat 321',
+                'description' => 'Instituto Profesional en Concepción'
+            ],
+            [
+                'name' => 'Instituto Profesional de la Araucanía',
+                'code' => 'IPARAUC-055',
+                'type' => 'instituto',
+                'city' => 'Temuco',
+                'region' => 'Araucanía',
+                'phone' => '+56 45 222 1000',
+                'email' => 'info@iparaucania.cl',
+                'website' => 'https://www.iparaucania.cl',
+                'address' => 'Av. Alemania 0845',
+                'description' => 'Instituto Profesional en Temuco'
+            ],
+            [
+                'name' => 'Instituto Profesional de Los Lagos',
+                'code' => 'IPLAGOS-056',
+                'type' => 'instituto',
+                'city' => 'Puerto Montt',
+                'region' => 'Los Lagos',
+                'phone' => '+56 65 222 0000',
+                'email' => 'info@iplagos.cl',
+                'website' => 'https://www.iplagos.cl',
+                'address' => 'Av. Diego Portales 2001',
+                'description' => 'Instituto Profesional en Puerto Montt'
+            ],
+            [
+                'name' => 'Instituto Profesional de Magallanes',
+                'code' => 'IPMAG-057',
+                'type' => 'instituto',
+                'city' => 'Punta Arenas',
+                'region' => 'Magallanes',
+                'phone' => '+56 61 222 9000',
+                'email' => 'info@ipmagallanes.cl',
+                'website' => 'https://www.ipmagallanes.cl',
+                'address' => 'Av. Colón 399',
+                'description' => 'Instituto Profesional en Punta Arenas'
+            ],
+            [
+                'name' => 'Instituto Profesional de Tarapacá',
+                'code' => 'IPTAR-058',
+                'type' => 'instituto',
+                'city' => 'Iquique',
+                'region' => 'Tarapacá',
+                'phone' => '+56 57 222 8000',
+                'email' => 'info@iptarapaca.cl',
+                'website' => 'https://www.iptarapaca.cl',
+                'address' => 'Av. Arturo Prat 595',
+                'description' => 'Instituto Profesional en Iquique'
+            ],
+            [
+                'name' => 'Instituto Profesional de Antofagasta',
+                'code' => 'IPANTOF-059',
+                'type' => 'instituto',
+                'city' => 'Antofagasta',
+                'region' => 'Antofagasta',
+                'phone' => '+56 55 222 7000',
+                'email' => 'info@ipantofagasta.cl',
+                'website' => 'https://www.ipantofagasta.cl',
+                'address' => 'Av. Argentina 2515',
+                'description' => 'Instituto Profesional en Antofagasta'
+            ],
+            [
+                'name' => 'Instituto Profesional de Atacama',
+                'code' => 'IPATAC-060',
+                'type' => 'instituto',
+                'city' => 'Copiapó',
+                'region' => 'Atacama',
+                'phone' => '+56 52 222 6000',
+                'email' => 'info@ipatacama.cl',
+                'website' => 'https://www.ipatacama.cl',
+                'address' => 'Av. Copiapó 441',
+                'description' => 'Instituto Profesional en Copiapó'
+            ],
+            // Centros de Formación Técnica (61-100)
+            [
+                'name' => 'Centro de Formación Técnica ENAC',
+                'code' => 'ENAC-061',
+                'type' => 'centro_educativo',
+                'city' => 'Santiago',
+                'region' => 'Metropolitana',
+                'phone' => '+56 2 2385 5000',
+                'email' => 'info@enac.cl',
+                'website' => 'https://www.enac.cl',
+                'address' => 'Av. Los Pajaritos 2222',
+                'description' => 'Centro de Formación Técnica especializado en aviación'
+            ],
+            [
+                'name' => 'Centro de Formación Técnica ICEL',
+                'code' => 'ICEL-062',
+                'type' => 'centro_educativo',
+                'city' => 'Santiago',
+                'region' => 'Metropolitana',
+                'phone' => '+56 2 2385 5000',
+                'email' => 'info@icel.cl',
+                'website' => 'https://www.icel.cl',
+                'address' => 'Av. Los Pajaritos 2222',
+                'description' => 'Centro de Formación Técnica privado'
+            ],
+            [
+                'name' => 'Centro de Formación Técnica INACAP',
+                'code' => 'CFTINACAP-063',
+                'type' => 'centro_educativo',
+                'city' => 'Santiago',
+                'region' => 'Metropolitana',
+                'phone' => '+56 2 2385 5000',
+                'email' => 'info@cftinacap.cl',
+                'website' => 'https://www.cftinacap.cl',
+                'address' => 'Av. Los Pajaritos 2222',
+                'description' => 'Centro de Formación Técnica de INACAP'
+            ],
+            [
+                'name' => 'Centro de Formación Técnica DUOC UC',
+                'code' => 'CFTDUOC-064',
+                'type' => 'centro_educativo',
+                'city' => 'Santiago',
+                'region' => 'Metropolitana',
+                'phone' => '+56 2 2385 5000',
+                'email' => 'info@cftduoc.cl',
+                'website' => 'https://www.cftduoc.cl',
+                'address' => 'Av. Los Pajaritos 2222',
+                'description' => 'Centro de Formación Técnica de DUOC UC'
+            ],
+            [
+                'name' => 'Centro de Formación Técnica PUCV',
+                'code' => 'CFTPUCV-065',
+                'type' => 'centro_educativo',
+                'city' => 'Valparaíso',
+                'region' => 'Valparaíso',
+                'phone' => '+56 32 227 3000',
+                'email' => 'info@cftpucv.cl',
+                'website' => 'https://www.cftpucv.cl',
+                'address' => 'Av. Brasil 2950',
+                'description' => 'Centro de Formación Técnica PUCV'
+            ],
+            [
+                'name' => 'Centro de Formación Técnica UCN',
+                'code' => 'CFTUCN-066',
+                'type' => 'centro_educativo',
+                'city' => 'Antofagasta',
+                'region' => 'Antofagasta',
+                'phone' => '+56 55 235 5000',
+                'email' => 'info@cftucn.cl',
+                'website' => 'https://www.cftucn.cl',
+                'address' => 'Av. Angamos 0610',
+                'description' => 'Centro de Formación Técnica UCN'
+            ],
+            [
+                'name' => 'Centro de Formación Técnica UDP',
+                'code' => 'CFTUDP-067',
+                'type' => 'centro_educativo',
+                'city' => 'Santiago',
+                'region' => 'Metropolitana',
+                'phone' => '+56 2 2676 4000',
+                'email' => 'info@cftudp.cl',
+                'website' => 'https://www.cftudp.cl',
+                'address' => 'Ejército 441',
+                'description' => 'Centro de Formación Técnica UDP'
+            ],
+            [
+                'name' => 'Centro de Formación Técnica UDD',
+                'code' => 'CFTUDD-068',
+                'type' => 'centro_educativo',
+                'city' => 'Santiago',
+                'region' => 'Metropolitana',
+                'phone' => '+56 2 2327 9000',
+                'email' => 'info@cftudd.cl',
+                'website' => 'https://www.cftudd.cl',
+                'address' => 'Av. Plaza 680',
+                'description' => 'Centro de Formación Técnica UDD'
+            ],
+            [
+                'name' => 'Centro de Formación Técnica UFT',
+                'code' => 'CFTUFT-069',
+                'type' => 'centro_educativo',
+                'city' => 'Santiago',
+                'region' => 'Metropolitana',
+                'phone' => '+56 2 2331 1000',
+                'email' => 'info@cftuft.cl',
+                'website' => 'https://www.cftuft.cl',
+                'address' => 'Pedro de Valdivia 1509',
+                'description' => 'Centro de Formación Técnica UFT'
+            ],
+            [
+                'name' => 'Centro de Formación Técnica USS',
+                'code' => 'CFTUSS-070',
+                'type' => 'centro_educativo',
+                'city' => 'Santiago',
+                'region' => 'Metropolitana',
+                'phone' => '+56 2 2620 7000',
+                'email' => 'info@cftuss.cl',
+                'website' => 'https://www.cftuss.cl',
+                'address' => 'Bellavista 7',
+                'description' => 'Centro de Formación Técnica USS'
+            ],
+            [
+                'name' => 'Centro de Formación Técnica UVM',
+                'code' => 'CFTUVM-071',
+                'type' => 'centro_educativo',
+                'city' => 'Viña del Mar',
+                'region' => 'Valparaíso',
+                'phone' => '+56 32 278 7000',
+                'email' => 'info@cftuvm.cl',
+                'website' => 'https://www.cftuvm.cl',
+                'address' => 'Diego Portales 342',
+                'description' => 'Centro de Formación Técnica UVM'
+            ],
+            [
+                'name' => 'Centro de Formación Técnica ULA',
+                'code' => 'CFTULA-072',
+                'type' => 'centro_educativo',
+                'city' => 'Santiago',
+                'region' => 'Metropolitana',
+                'phone' => '+56 2 2300 0000',
+                'email' => 'info@cftula.cl',
+                'website' => 'https://www.cftula.cl',
+                'address' => 'Manuel Montt 948',
+                'description' => 'Centro de Formación Técnica ULA'
+            ],
+            [
+                'name' => 'Centro de Formación Técnica UANDES',
+                'code' => 'CFTUANDES-073',
+                'type' => 'centro_educativo',
+                'city' => 'Santiago',
+                'region' => 'Metropolitana',
+                'phone' => '+56 2 2618 1000',
+                'email' => 'info@cftuandes.cl',
+                'website' => 'https://www.cftuandes.cl',
+                'address' => 'Monseñor Álvaro del Portillo 12455',
+                'description' => 'Centro de Formación Técnica UANDES'
+            ],
+            [
+                'name' => 'Centro de Formación Técnica UAI',
+                'code' => 'CFTUAI-074',
+                'type' => 'centro_educativo',
+                'city' => 'Santiago',
+                'region' => 'Metropolitana',
+                'phone' => '+56 2 2331 1000',
+                'email' => 'info@cftuai.cl',
+                'website' => 'https://www.cftuai.cl',
+                'address' => 'Av. Diagonal Las Torres 2640',
+                'description' => 'Centro de Formación Técnica UAI'
+            ],
+            [
+                'name' => 'Centro de Formación Técnica UAH',
+                'code' => 'CFTUAH-075',
+                'type' => 'centro_educativo',
+                'city' => 'Santiago',
+                'region' => 'Metropolitana',
+                'phone' => '+56 2 2889 7000',
+                'email' => 'info@cftuah.cl',
+                'website' => 'https://www.cftuah.cl',
+                'address' => 'Cienfuegos 41',
+                'description' => 'Centro de Formación Técnica UAH'
+            ],
+            [
+                'name' => 'Centro de Formación Técnica UCM',
+                'code' => 'CFTUCM-076',
+                'type' => 'centro_educativo',
+                'city' => 'Talca',
+                'region' => 'Maule',
+                'phone' => '+56 71 241 5000',
+                'email' => 'info@cftucm.cl',
+                'website' => 'https://www.cftucm.cl',
+                'address' => 'Av. San Miguel 3605',
+                'description' => 'Centro de Formación Técnica UCM'
+            ],
+            [
+                'name' => 'Centro de Formación Técnica UCT',
+                'code' => 'CFTUCT-077',
+                'type' => 'centro_educativo',
+                'city' => 'Temuco',
+                'region' => 'Araucanía',
+                'phone' => '+56 45 220 5000',
+                'email' => 'info@cftuct.cl',
+                'website' => 'https://www.cftuct.cl',
+                'address' => 'Manuel Montt 056',
+                'description' => 'Centro de Formación Técnica UCT'
+            ],
+            [
+                'name' => 'Centro de Formación Técnica UACH',
+                'code' => 'CFTUACH-078',
+                'type' => 'centro_educativo',
+                'city' => 'Valdivia',
+                'region' => 'Los Ríos',
+                'phone' => '+56 63 222 1000',
+                'email' => 'info@cftuach.cl',
+                'website' => 'https://www.cftuach.cl',
+                'address' => 'Isla Teja s/n',
+                'description' => 'Centro de Formación Técnica UACH'
+            ],
+            [
+                'name' => 'Centro de Formación Técnica UFRO',
+                'code' => 'CFTUFRO-079',
+                'type' => 'centro_educativo',
+                'city' => 'Temuco',
+                'region' => 'Araucanía',
+                'phone' => '+56 45 232 5000',
+                'email' => 'info@cftufro.cl',
+                'website' => 'https://www.cftufro.cl',
+                'address' => 'Av. Francisco Salazar 01145',
+                'description' => 'Centro de Formación Técnica UFRO'
+            ],
+            [
+                'name' => 'Centro de Formación Técnica UOH',
+                'code' => 'CFTUOH-080',
+                'type' => 'centro_educativo',
+                'city' => 'Rancagua',
+                'region' => 'O\'Higgins',
+                'phone' => '+56 72 297 4000',
+                'email' => 'info@cftuoh.cl',
+                'website' => 'https://www.cftuoh.cl',
+                'address' => 'Av. Libertador Bernardo O\'Higgins 611',
+                'description' => 'Centro de Formación Técnica UOH'
+            ],
+            [
+                'name' => 'Centro de Formación Técnica UDA',
+                'code' => 'CFTUDA-081',
+                'type' => 'centro_educativo',
+                'city' => 'Copiapó',
+                'region' => 'Atacama',
+                'phone' => '+56 52 225 5000',
+                'email' => 'info@cftuda.cl',
+                'website' => 'https://www.cftuda.cl',
+                'address' => 'Av. Copayapu 485',
+                'description' => 'Centro de Formación Técnica UDA'
+            ],
+            [
+                'name' => 'Centro de Formación Técnica UNAP',
+                'code' => 'CFTUNAP-082',
+                'type' => 'centro_educativo',
+                'city' => 'Iquique',
+                'region' => 'Tarapacá',
+                'phone' => '+56 57 233 5000',
+                'email' => 'info@cftunap.cl',
+                'website' => 'https://www.cftunap.cl',
+                'address' => 'Av. Arturo Prat Chacón 2120',
+                'description' => 'Centro de Formación Técnica UNAP'
+            ],
+            [
+                'name' => 'Centro de Formación Técnica UTA',
+                'code' => 'CFTUTA-083',
+                'type' => 'centro_educativo',
+                'city' => 'Arica',
+                'region' => 'Arica y Parinacota',
+                'phone' => '+56 58 220 5000',
+                'email' => 'info@cftuta.cl',
+                'website' => 'https://www.cftuta.cl',
+                'address' => 'Av. General Velásquez 1775',
+                'description' => 'Centro de Formación Técnica UTA'
+            ],
+            [
+                'name' => 'Centro de Formación Técnica UMAG',
+                'code' => 'CFTUMAG-084',
+                'type' => 'centro_educativo',
+                'city' => 'Punta Arenas',
+                'region' => 'Magallanes',
+                'phone' => '+56 61 262 0000',
+                'email' => 'info@cftumag.cl',
+                'website' => 'https://www.cftumag.cl',
+                'address' => 'Av. Bulnes 01855',
+                'description' => 'Centro de Formación Técnica UMAG'
+            ],
+            [
+                'name' => 'Centro de Formación Técnica ULS',
+                'code' => 'CFTULS-085',
+                'type' => 'centro_educativo',
+                'city' => 'La Serena',
+                'region' => 'Coquimbo',
+                'phone' => '+56 51 220 4000',
+                'email' => 'info@cftuls.cl',
+                'website' => 'https://www.cftuls.cl',
+                'address' => 'Av. Raúl Bitrán Nachary s/n',
+                'description' => 'Centro de Formación Técnica ULS'
+            ],
+            [
+                'name' => 'Centro de Formación Técnica UA',
+                'code' => 'CFTUA-086',
+                'type' => 'centro_educativo',
+                'city' => 'Antofagasta',
+                'region' => 'Antofagasta',
+                'phone' => '+56 55 263 7000',
+                'email' => 'info@cftua.cl',
+                'website' => 'https://www.cftua.cl',
+                'address' => 'Av. Angamos 601',
+                'description' => 'Centro de Formación Técnica UA'
+            ],
+            [
+                'name' => 'Centro de Formación Técnica USACH',
+                'code' => 'CFTUSACH-087',
+                'type' => 'centro_educativo',
+                'city' => 'Santiago',
+                'region' => 'Metropolitana',
+                'phone' => '+56 2 2718 0000',
+                'email' => 'info@cftusach.cl',
+                'website' => 'https://www.cftusach.cl',
+                'address' => 'Av. Libertador Bernardo O\'Higgins 3363',
+                'description' => 'Centro de Formación Técnica USACH'
+            ],
+            [
+                'name' => 'Centro de Formación Técnica UTALCA',
+                'code' => 'CFTUTALCA-088',
+                'type' => 'centro_educativo',
+                'city' => 'Talca',
+                'region' => 'Maule',
+                'phone' => '+56 71 220 0000',
+                'email' => 'info@cftutalca.cl',
+                'website' => 'https://www.cftutalca.cl',
+                'address' => 'Av. Lircay s/n',
+                'description' => 'Centro de Formación Técnica UTALCA'
+            ],
+            [
+                'name' => 'Centro de Formación Técnica UDEC',
+                'code' => 'CFTUDEC-089',
+                'type' => 'centro_educativo',
+                'city' => 'Concepción',
+                'region' => 'Biobío',
+                'phone' => '+56 41 220 4000',
+                'email' => 'info@cftudec.cl',
+                'website' => 'https://www.cftudec.cl',
+                'address' => 'Edmundo Larenas 215',
+                'description' => 'Centro de Formación Técnica UDEC'
+            ],
+            [
+                'name' => 'Centro de Formación Técnica UACh',
+                'code' => 'CFTUACH-090',
+                'type' => 'centro_educativo',
+                'city' => 'Valdivia',
+                'region' => 'Los Ríos',
+                'phone' => '+56 63 222 1000',
+                'email' => 'info@cftuach.cl',
+                'website' => 'https://www.cftuach.cl',
+                'address' => 'Isla Teja s/n',
+                'description' => 'Centro de Formación Técnica UACh'
+            ],
+            [
+                'name' => 'Centro de Formación Técnica UV',
+                'code' => 'CFTUV-091',
+                'type' => 'centro_educativo',
+                'city' => 'Valparaíso',
+                'region' => 'Valparaíso',
+                'phone' => '+56 32 250 7000',
+                'email' => 'info@cftuv.cl',
+                'website' => 'https://www.cftuv.cl',
+                'address' => 'Av. Gran Bretaña 1093',
+                'description' => 'Centro de Formación Técnica UV'
+            ],
+            [
+                'name' => 'Centro de Formación Técnica UPLA',
+                'code' => 'CFTUPLA-092',
+                'type' => 'centro_educativo',
+                'city' => 'Valparaíso',
+                'region' => 'Valparaíso',
+                'phone' => '+56 32 250 0500',
+                'email' => 'info@cftupla.cl',
+                'website' => 'https://www.cftupla.cl',
+                'address' => 'Av. Leopoldo Carvallo 270',
+                'description' => 'Centro de Formación Técnica UPLA'
+            ],
+            [
+                'name' => 'Centro de Formación Técnica PUC',
+                'code' => 'CFTPUC-093',
+                'type' => 'centro_educativo',
+                'city' => 'Santiago',
+                'region' => 'Metropolitana',
+                'phone' => '+56 2 2354 2000',
+                'email' => 'info@cftpuc.cl',
+                'website' => 'https://www.cftpuc.cl',
+                'address' => 'Av. Libertador Bernardo O\'Higgins 340',
+                'description' => 'Centro de Formación Técnica PUC'
+            ],
+            [
+                'name' => 'Centro de Formación Técnica UCH',
+                'code' => 'CFTUCH-094',
+                'type' => 'centro_educativo',
+                'city' => 'Santiago',
+                'region' => 'Metropolitana',
+                'phone' => '+56 2 2978 2000',
+                'email' => 'info@cftuch.cl',
+                'website' => 'https://www.cftuch.cl',
+                'address' => 'Av. Francisco Bilbao 1307',
+                'description' => 'Centro de Formación Técnica UCH'
+            ],
+            [
+                'name' => 'Centro de Formación Técnica UFT',
+                'code' => 'CFTUFT-095',
+                'type' => 'centro_educativo',
+                'city' => 'Santiago',
+                'region' => 'Metropolitana',
+                'phone' => '+56 2 2331 1000',
+                'email' => 'info@cftuft.cl',
+                'website' => 'https://www.cftuft.cl',
+                'address' => 'Pedro de Valdivia 1509',
+                'description' => 'Centro de Formación Técnica UFT'
+            ],
+            [
+                'name' => 'Centro de Formación Técnica UMCE',
+                'code' => 'CFTUMCE-096',
+                'type' => 'centro_educativo',
+                'city' => 'Santiago',
+                'region' => 'Metropolitana',
+                'phone' => '+56 2 2897 7000',
+                'email' => 'info@cftumce.cl',
+                'website' => 'https://www.cftumce.cl',
+                'address' => 'Av. José Pedro Alessandri 774',
+                'description' => 'Centro de Formación Técnica UMCE'
+            ],
+            [
+                'name' => 'Centro de Formación Técnica UANDES',
+                'code' => 'CFTUANDES-097',
+                'type' => 'centro_educativo',
+                'city' => 'Santiago',
+                'region' => 'Metropolitana',
+                'phone' => '+56 2 2618 1000',
+                'email' => 'info@cftuandes.cl',
+                'website' => 'https://www.cftuandes.cl',
+                'address' => 'Monseñor Álvaro del Portillo 12455',
+                'description' => 'Centro de Formación Técnica UANDES'
+            ],
+            [
+                'name' => 'Centro de Formación Técnica UDD',
+                'code' => 'CFTUDD-098',
+                'type' => 'centro_educativo',
+                'city' => 'Santiago',
+                'region' => 'Metropolitana',
+                'phone' => '+56 2 2327 9000',
+                'email' => 'info@cftudd.cl',
+                'website' => 'https://www.cftudd.cl',
+                'address' => 'Av. Plaza 680',
+                'description' => 'Centro de Formación Técnica UDD'
+            ],
+            [
+                'name' => 'Centro de Formación Técnica UAI',
+                'code' => 'CFTUAI-099',
+                'type' => 'centro_educativo',
+                'city' => 'Santiago',
+                'region' => 'Metropolitana',
+                'phone' => '+56 2 2331 1000',
+                'email' => 'info@cftuai.cl',
+                'website' => 'https://www.cftuai.cl',
+                'address' => 'Av. Diagonal Las Torres 2640',
+                'description' => 'Centro de Formación Técnica UAI'
+            ],
+            [
+                'name' => 'Centro de Formación Técnica UAH',
+                'code' => 'CFTUAH-100',
+                'type' => 'centro_educativo',
+                'city' => 'Santiago',
+                'region' => 'Metropolitana',
+                'phone' => '+56 2 2889 7000',
+                'email' => 'info@cftuah.cl',
+                'website' => 'https://www.cftuah.cl',
+                'address' => 'Cienfuegos 41',
+                'description' => 'Centro de Formación Técnica UAH'
+            ]
+        ];
+
+        foreach ($institutions as $institution) {
+            EducationalEntity::create($institution);
+        }
+
+        // Crear algunos contactos de ejemplo para las primeras instituciones
+        $contacts = [
+            [
+                'educational_entity_id' => 8, // UMCE
+                'name' => 'María González',
+                'position' => 'Directora de Admisión',
+                'email' => 'admision@umce.cl',
+                'phone' => '+56 2 2897 7001',
+                'department' => 'Admisión'
+            ],
+            [
+                'educational_entity_id' => 9, // UOH
+                'name' => 'Carlos Rodríguez',
+                'position' => 'Coordinador Académico',
+                'email' => 'academico@uoh.cl',
+                'phone' => '+56 72 297 4001',
+                'department' => 'Académico'
+            ],
+            [
+                'educational_entity_id' => 10, // UDA
+                'name' => 'Ana Silva',
+                'position' => 'Jefa de Admisión',
+                'email' => 'admision@uda.cl',
+                'phone' => '+56 52 225 5001',
+                'department' => 'Admisión'
+            ],
+            [
+                'educational_entity_id' => 11, // UNAP
+                'name' => 'Pedro Morales',
+                'position' => 'Director de Postgrado',
+                'email' => 'postgrado@unap.cl',
+                'phone' => '+56 57 233 5001',
+                'department' => 'Postgrado'
+            ],
+            [
+                'educational_entity_id' => 41, // AIEP
+                'name' => 'Juan Pérez',
+                'position' => 'Director Ejecutivo',
+                'email' => 'director@aiep.cl',
+                'phone' => '+56 2 2385 5001',
+                'department' => 'Dirección'
+            ],
+            [
+                'educational_entity_id' => 42, // DUOC
+                'name' => 'Carolina López',
+                'position' => 'Coordinadora Académica',
+                'email' => 'academica@duoc.cl',
+                'phone' => '+56 2 2385 5002',
+                'department' => 'Académico'
+            ]
+        ];
+
+        foreach ($contacts as $contact) {
+            EntityContact::create($contact);
+        }
+    }
+}

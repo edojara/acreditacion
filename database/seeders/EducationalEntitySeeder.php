@@ -100,7 +100,7 @@ class EducationalEntitySeeder extends Seeder
             $entity = EducationalEntity::create([
                 'name' => $entityData['name'],
                 'code' => $this->generateCode($entityData['name']),
-                'type' => $entityData['type'],
+                'type' => $this->normalizeType($entityData['type']),
                 'address' => $entityData['address'],
                 'city' => 'Santiago',
                 'region' => 'Metropolitana',
@@ -176,5 +176,19 @@ class EducationalEntitySeeder extends Seeder
         $code .= rand(10, 99);
 
         return $code;
+    }
+
+    private function normalizeType(string $type): string
+    {
+        // Normalizar tipos para que coincidan con el enum de la migración
+        $typeMap = [
+            'Universidad' => 'universidad',
+            'Instituto' => 'instituto',
+            'Colegio' => 'colegio',
+            'Centro Educativo' => 'centro_educativo',
+            'Otro' => 'otro',
+        ];
+
+        return $typeMap[$type] ?? 'universidad';
     }
 }

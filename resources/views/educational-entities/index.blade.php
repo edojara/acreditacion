@@ -235,21 +235,37 @@ document.addEventListener('DOMContentLoaded', function() {
                 const currentValue = inputElement.value;
                 const cursorPosition = inputElement.selectionStart;
 
+                // Crear un campo oculto para preservar el foco
+                const focusField = document.createElement('input');
+                focusField.type = 'hidden';
+                focusField.name = 'focus_field';
+                focusField.value = 'searchInput';
+                inputElement.closest('form').appendChild(focusField);
+
                 // Enviar el formulario
                 inputElement.closest('form').submit();
-
-                // Restaurar el foco después de un breve delay
-                setTimeout(() => {
-                    const restoredInput = document.getElementById('searchInput');
-                    if (restoredInput) {
-                        restoredInput.focus();
-                        restoredInput.value = currentValue;
-                        restoredInput.setSelectionRange(cursorPosition, cursorPosition);
-                    }
-                }, 100);
             }, 500); // Esperar 500ms después de que el usuario deje de escribir
         });
     }
+
+    // Restaurar foco después de cargar la página
+    document.addEventListener('DOMContentLoaded', function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const focusField = urlParams.get('focus_field');
+
+        if (focusField === 'searchInput') {
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                // Pequeño delay para asegurar que el DOM esté listo
+                setTimeout(() => {
+                    searchInput.focus();
+                    // Mover cursor al final del texto
+                    const len = searchInput.value.length;
+                    searchInput.setSelectionRange(len, len);
+                }, 100);
+            }
+        }
+    });
 
     // Test: mostrar URLs de las primeras filas
     clickableRows.forEach(function(row, index) {

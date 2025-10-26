@@ -62,9 +62,9 @@
                         </div>
 
                         <div class="form-group mr-3">
-                            <input type="text" name="search" class="form-control form-control-sm"
-                                   placeholder="Buscar por nombre o código..."
-                                   value="{{ request('search') }}">
+                            <input type="text" name="search" id="searchInput" class="form-control form-control-sm"
+                                    placeholder="Buscar por nombre o código..."
+                                    value="{{ request('search') }}">
                         </div>
 
                         <button type="submit" class="btn btn-secondary btn-sm mr-2">
@@ -216,12 +216,24 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Auto-submit de filtros al cambiar select (usando vanilla JS)
-    const filterSelects = document.querySelectorAll('#type, #status, #region');
+    const filterSelects = document.querySelectorAll('#type, #region');
     filterSelects.forEach(function(select) {
         select.addEventListener('change', function() {
             this.closest('form').submit();
         });
     });
+
+    // Búsqueda en tiempo real con debounce
+    let searchTimeout;
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+        searchInput.addEventListener('input', function() {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                this.closest('form').submit();
+            }, 500); // Esperar 500ms después de que el usuario deje de escribir
+        });
+    }
 
     // Test: mostrar URLs de las primeras filas
     clickableRows.forEach(function(row, index) {

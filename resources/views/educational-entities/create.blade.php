@@ -115,6 +115,16 @@
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>
+
+                                        <div class="form-group">
+                                            <label for="contact_name">Nombre del Contacto</label>
+                                            <input type="text" class="form-control @error('contact_name') is-invalid @enderror"
+                                                   id="contact_name" name="contact_name" value="{{ old('contact_name') }}">
+                                            @error('contact_name')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                            <small class="form-text text-muted">Persona de contacto principal</small>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -126,21 +136,11 @@
                                 <div class="card">
                                     <div class="card-header">
                                         <h5 class="card-title mb-0">
-                                            <i class="fas fa-file-alt mr-2"></i>
+                                            <i class="fas fa-globe mr-2"></i>
                                             Información Adicional
                                         </h5>
                                     </div>
                                     <div class="card-body">
-                                        <div class="form-group">
-                                            <label for="description">Descripción</label>
-                                            <textarea class="form-control @error('description') is-invalid @enderror"
-                                                      id="description" name="description" rows="3">{{ old('description') }}</textarea>
-                                            @error('description')
-                                                <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
-                                            <small class="form-text text-muted">Breve descripción de la institución</small>
-                                        </div>
-
                                         <div class="form-group">
                                             <label for="website">Sitio Web</label>
                                             <input type="url" class="form-control @error('website') is-invalid @enderror"
@@ -149,31 +149,6 @@
                                             @error('website')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="founded_year">Año de Fundación</label>
-                                                    <input type="number" class="form-control @error('founded_year') is-invalid @enderror"
-                                                           id="founded_year" name="founded_year" value="{{ old('founded_year') }}"
-                                                           min="1800" max="{{ date('Y') }}">
-                                                    @error('founded_year')
-                                                        <div class="invalid-feedback">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="student_count">Número de Estudiantes</label>
-                                                    <input type="number" class="form-control @error('student_count') is-invalid @enderror"
-                                                           id="student_count" name="student_count" value="{{ old('student_count') }}"
-                                                           min="0">
-                                                    @error('student_count')
-                                                        <div class="invalid-feedback">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>

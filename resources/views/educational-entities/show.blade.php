@@ -4,7 +4,7 @@
 
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="{{ route('educational-entities.index') }}">Entidades Educativas</a></li>
-    <li class="breadcrumb-item active">{{ $entity->name }}</li>
+    <li class="breadcrumb-item active">{{ $educationalEntity->name }}</li>
 @endsection
 
 @section('content')
@@ -16,13 +16,13 @@
                 <div class="card-header">
                     <h3 class="card-title">
                         <i class="fas fa-university mr-2"></i>
-                        {{ $entity->name }}
+                        {{ $educationalEntity->name }}
                     </h3>
                     <div class="card-tools">
-                        <span class="badge badge-{{ $entity->status === 'activo' ? 'success' : ($entity->status === 'inactivo' ? 'secondary' : 'warning') }}">
-                            {{ ucfirst($entity->status) }}
+                        <span class="badge badge-{{ $educationalEntity->status === 'activo' ? 'success' : ($educationalEntity->status === 'inactivo' ? 'secondary' : 'warning') }}">
+                            {{ ucfirst($educationalEntity->status) }}
                         </span>
-                        <span class="badge badge-info">{{ ucfirst($entity->type) }}</span>
+                        <span class="badge badge-info">{{ ucfirst($educationalEntity->type) }}</span>
                     </div>
                 </div>
                 <div class="card-body">
@@ -30,72 +30,72 @@
                         <div class="col-md-6">
                             <dl class="row">
                                 <dt class="col-sm-4">Código:</dt>
-                                <dd class="col-sm-8">{{ $entity->code }}</dd>
+                                <dd class="col-sm-8">{{ $educationalEntity->code }}</dd>
 
                                 <dt class="col-sm-4">Tipo:</dt>
-                                <dd class="col-sm-8">{{ ucfirst($entity->type) }}</dd>
+                                <dd class="col-sm-8">{{ ucfirst($educationalEntity->type) }}</dd>
 
                                 <dt class="col-sm-4">Estado:</dt>
                                 <dd class="col-sm-8">
-                                    <span class="badge badge-{{ $entity->status === 'activo' ? 'success' : ($entity->status === 'inactivo' ? 'secondary' : 'warning') }}">
-                                        {{ ucfirst($entity->status) }}
+                                    <span class="badge badge-{{ $educationalEntity->status === 'activo' ? 'success' : ($educationalEntity->status === 'inactivo' ? 'secondary' : 'warning') }}">
+                                        {{ ucfirst($educationalEntity->status) }}
                                     </span>
                                 </dd>
 
-                                @if($entity->phone)
+                                @if($educationalEntity->phone)
                                 <dt class="col-sm-4">Teléfono:</dt>
-                                <dd class="col-sm-8">{{ $entity->phone }}</dd>
+                                <dd class="col-sm-8">{{ $educationalEntity->phone }}</dd>
                                 @endif
 
-                                @if($entity->email)
+                                @if($educationalEntity->email)
                                 <dt class="col-sm-4">Email:</dt>
                                 <dd class="col-sm-8">
-                                    <a href="mailto:{{ $entity->email }}">{{ $entity->email }}</a>
+                                    <a href="mailto:{{ $educationalEntity->email }}">{{ $educationalEntity->email }}</a>
                                 </dd>
                                 @endif
                             </dl>
                         </div>
                         <div class="col-md-6">
                             <dl class="row">
-                                @if($entity->address)
+                                @if($educationalEntity->address)
                                 <dt class="col-sm-4">Dirección:</dt>
-                                <dd class="col-sm-8">{{ $entity->address }}</dd>
+                                <dd class="col-sm-8">{{ $educationalEntity->address }}</dd>
                                 @endif
 
-                                @if($entity->city)
+                                @if($educationalEntity->city)
                                 <dt class="col-sm-4">Ciudad:</dt>
-                                <dd class="col-sm-8">{{ $entity->city }}</dd>
+                                <dd class="col-sm-8">{{ $educationalEntity->city }}</dd>
                                 @endif
 
-                                @if($entity->region)
+                                @if($educationalEntity->region)
                                 <dt class="col-sm-4">Región:</dt>
-                                <dd class="col-sm-8">{{ $entity->region }}</dd>
+                                <dd class="col-sm-8">{{ $educationalEntity->region }}</dd>
                                 @endif
 
-                                @if($entity->country)
+                                @if($educationalEntity->country)
                                 <dt class="col-sm-4">País:</dt>
-                                <dd class="col-sm-8">{{ $entity->country }}</dd>
+                                <dd class="col-sm-8">{{ $educationalEntity->country }}</dd>
                                 @endif
 
-                                @if($entity->website)
+                                @if($educationalEntity->website)
                                 <dt class="col-sm-4">Sitio Web:</dt>
                                 <dd class="col-sm-8">
-                                    <a href="{{ $entity->website }}" target="_blank">{{ $entity->website }}</a>
+                                    <a href="{{ $educationalEntity->website }}" target="_blank">{{ $educationalEntity->website }}</a>
                                 </dd>
                                 @endif
                             </dl>
                         </div>
                     </div>
 
-                    @if($entity->description)
+                    @if($educationalEntity->description)
                     <div class="mt-3">
                         <h5>Descripción</h5>
-                        <p class="text-muted">{{ $entity->description }}</p>
+                        <p class="text-muted">{{ $educationalEntity->description }}</p>
                     </div>
                     @endif
                 </div>
                 <div class="card-footer">
-                    <a href="{{ route('educational-entities.edit', $entity) }}" class="btn btn-primary">
+                    <a href="{{ route('educational-entities.edit', $educationalEntity) }}" class="btn btn-primary">
                         <i class="fas fa-edit"></i> Editar
                     </a>
                     <a href="{{ route('educational-entities.index') }}" class="btn btn-secondary">
@@ -121,9 +121,9 @@
                     </div>
                 </div>
                 <div class="card-body p-0">
-                    @if($entity->contacts->count() > 0)
+                    @if($educationalEntity->contacts->count() > 0)
                         <ul class="list-group list-group-flush">
-                            @foreach($entity->contacts as $contact)
+                            @foreach($educationalEntity->contacts as $contact)
                             <li class="list-group-item">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div>
@@ -180,11 +180,11 @@
                     <div class="row text-center">
                         <div class="col-6">
                             <div class="text-muted">Contactos</div>
-                            <div class="h4">{{ $entity->contacts->count() }}</div>
+                            <div class="h4">{{ $educationalEntity->contacts->count() }}</div>
                         </div>
                         <div class="col-6">
                             <div class="text-muted">Creado</div>
-                            <div class="h6">{{ $entity->created_at->format('d/m/Y') }}</div>
+                            <div class="h6">{{ $educationalEntity->created_at->format('d/m/Y') }}</div>
                         </div>
                     </div>
                 </div>
@@ -209,7 +209,7 @@
 
             <form method="POST" action="{{ route('entity-contacts.store') }}" id="addContactForm">
                 @csrf
-                <input type="hidden" name="educational_entity_id" value="{{ $entity->id }}">
+                <input type="hidden" name="educational_entity_id" value="{{ $educationalEntity->id }}">
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="contact_name">Nombre <span class="text-danger">*</span></label>

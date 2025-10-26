@@ -112,7 +112,7 @@
                 <div class="card-header">
                     <h3 class="card-title">
                         <i class="fas fa-address-book mr-2"></i>
-                        Contactos ({{ $entity->contacts->count() }})
+                        Contactos ({{ $educationalEntity->contacts->count() }})
                     </h3>
                     <div class="card-tools">
                         <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#addContactModal">

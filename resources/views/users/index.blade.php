@@ -154,20 +154,23 @@
 .btn-group .btn {
     margin-right: 2px;
 }
-/* Estilos para paginación mucho más compacta */
+/* Estilos para paginación mínima */
 .pagination {
     margin-bottom: 0;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
+    transform: scale(0.8);
+    transform-origin: center;
 }
 .pagination .page-link {
-    padding: 0.25rem 0.5rem;
-    font-size: 0.75rem;
-    line-height: 1.2;
-    border-radius: 0.2rem;
+    padding: 0.2rem 0.4rem;
+    font-size: 0.65rem;
+    line-height: 1;
+    border-radius: 0.15rem;
     min-width: auto;
+    border-width: 1px;
 }
 .pagination .page-item {
-    margin: 0 1px;
+    margin: 0 0.5px;
 }
 .pagination .page-item.active .page-link {
     background-color: #007bff;

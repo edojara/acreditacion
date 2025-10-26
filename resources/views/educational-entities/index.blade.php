@@ -650,80 +650,97 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <!-- Script para manejar el modal de edición -->
 <script>
-$(document).ready(function() {
+document.addEventListener('DOMContentLoaded', function() {
     // Manejar apertura del modal de edición
-    $('#editEntityModal').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget);
-        var entityId = button.data('entity-id');
-        var entityName = button.data('entity-name');
-        var entityCode = button.data('entity-code');
-        var entityType = button.data('entity-type');
-        var entityStatus = button.data('entity-status');
-        var entityAddress = button.data('entity-address');
-        var entityCity = button.data('entity-city');
-        var entityRegion = button.data('entity-region');
-        var entityCountry = button.data('entity-country');
-        var entityPhone = button.data('entity-phone');
-        var entityEmail = button.data('entity-email');
-        var entityWebsite = button.data('entity-website');
+    var editModal = document.getElementById('editEntityModal');
+    editModal.addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget;
+        var entityId = button.getAttribute('data-entity-id');
+        var entityName = button.getAttribute('data-entity-name');
+        var entityCode = button.getAttribute('data-entity-code');
+        var entityType = button.getAttribute('data-entity-type');
+        var entityStatus = button.getAttribute('data-entity-status');
+        var entityAddress = button.getAttribute('data-entity-address');
+        var entityCity = button.getAttribute('data-entity-city');
+        var entityRegion = button.getAttribute('data-entity-region');
+        var entityCountry = button.getAttribute('data-entity-country');
+        var entityPhone = button.getAttribute('data-entity-phone');
+        var entityEmail = button.getAttribute('data-entity-email');
+        var entityWebsite = button.getAttribute('data-entity-website');
 
-        var modal = $(this);
-        modal.find('#editEntityModalLabel').text('Editar Entidad Educativa: ' + entityName);
-        modal.find('#editEntityForm').attr('action', '/educational-entities/' + entityId);
+        var modal = this;
+        modal.querySelector('#editEntityModalLabel').textContent = 'Editar Entidad Educativa: ' + entityName;
+        modal.querySelector('#editEntityForm').setAttribute('action', '/educational-entities/' + entityId);
 
         // Llenar los campos del formulario
-        modal.find('#edit_name').val(entityName);
-        modal.find('#edit_code').val(entityCode);
-        modal.find('#edit_type').val(entityType);
-        modal.find('#edit_status').val(entityStatus);
-        modal.find('#edit_address').val(entityAddress || '');
-        modal.find('#edit_city').val(entityCity || '');
-        modal.find('#edit_region').val(entityRegion || '');
-        modal.find('#edit_country').val(entityCountry || 'Chile');
-        modal.find('#edit_phone').val(entityPhone || '');
-        modal.find('#edit_email').val(entityEmail || '');
-        modal.find('#edit_website').val(entityWebsite || '');
+        modal.querySelector('#edit_name').value = entityName;
+        modal.querySelector('#edit_code').value = entityCode;
+        modal.querySelector('#edit_type').value = entityType;
+        modal.querySelector('#edit_status').value = entityStatus;
+        modal.querySelector('#edit_address').value = entityAddress || '';
+        modal.querySelector('#edit_city').value = entityCity || '';
+        modal.querySelector('#edit_region').value = entityRegion || '';
+        modal.querySelector('#edit_country').value = entityCountry || 'Chile';
+        modal.querySelector('#edit_phone').value = entityPhone || '';
+        modal.querySelector('#edit_email').value = entityEmail || '';
+        modal.querySelector('#edit_website').value = entityWebsite || '';
     });
 
     // Manejar envío del formulario de edición
-    $('#editEntityForm').on('submit', function(e) {
+    var editForm = document.getElementById('editEntityForm');
+    editForm.addEventListener('submit', function(e) {
         e.preventDefault();
 
         const formData = new FormData(this);
 
-        $.ajax({
-            url: $(this).attr('action'),
-            type: 'POST',
-            data: formData,
-            processData: false,
-            contentType: false,
+        fetch(this.getAttribute('action'), {
+            method: 'POST',
+            body: formData,
             headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            success: function(response) {
-                $('#editEntityModal').modal('hide');
-                $('#editEntityForm')[0].reset();
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                return response.json().then(errorData => {
+                    throw new Error(JSON.stringify(errorData));
+                });
+            }
+        })
+        .then(data => {
+            // Cerrar modal
+            var modal = bootstrap.Modal.getInstance(document.getElementById('editEntityModal'));
+            modal.hide();
 
-                // Mostrar mensaje de éxito
-                toastr.success('Entidad educativa actualizada exitosamente');
+            // Resetear formulario
+            editForm.reset();
 
-                // Recargar la página para mostrar los cambios
-                location.reload();
-            },
-            error: function(xhr) {
-                if (xhr.status === 422) {
+            // Mostrar mensaje de éxito (usando vanilla JS alert por ahora)
+            alert('Entidad educativa actualizada exitosamente');
+
+            // Recargar la página para mostrar los cambios
+            location.reload();
+        })
+        .catch(error => {
+            try {
+                const errorData = JSON.parse(error.message);
+                if (errorData.errors) {
                     // Errores de validación
-                    const errors = xhr.responseJSON.errors;
+                    const errors = errorData.errors;
                     let errorMessages = [];
 
                     for (let field in errors) {
                         errorMessages.push(errors[field][0]);
                     }
 
-                    toastr.error(errorMessages.join('<br>'));
+                    alert('Errores de validación:\n' + errorMessages.join('\n'));
                 } else {
-                    toastr.error('Error al actualizar la entidad educativa');
+                    alert('Error al actualizar la entidad educativa');
                 }
+            } catch (e) {
+                alert('Error al actualizar la entidad educativa');
             }
         });
     });

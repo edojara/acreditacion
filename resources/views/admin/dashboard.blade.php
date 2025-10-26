@@ -106,40 +106,36 @@
         </div>
     </div>
 
-    <!-- Acciones Rápidas -->
+    <!-- Menú Compacto -->
     <div class="row">
         <div class="col-12">
             <div class="card shadow">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Acciones Rápidas</h6>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-3 mb-3">
-                            <a href="{{ route('users.index') }}" class="btn btn-outline-primary btn-block p-3">
-                                <i class="fas fa-users fa-2x mb-2 d-block"></i>
-                                <strong>Gestionar Usuarios</strong>
+                <div class="card-body p-3">
+                    <div class="row text-center">
+                        <div class="col-md-4 mb-2">
+                            <a href="{{ route('users.index') }}" class="text-decoration-none">
+                                <div class="d-flex align-items-center justify-content-center p-2 rounded hover-bg-light">
+                                    <i class="fas fa-users fa-lg text-primary mr-2"></i>
+                                    <span class="text-primary font-weight-bold">Gestionar Usuarios</span>
+                                </div>
                             </a>
                         </div>
 
-                        <div class="col-md-3 mb-3">
-                            <a href="{{ route('users.create') }}" class="btn btn-outline-success btn-block p-3">
-                                <i class="fas fa-user-plus fa-2x mb-2 d-block"></i>
-                                <strong>Crear Usuario</strong>
+                        <div class="col-md-4 mb-2">
+                            <a href="{{ route('audit-logs.index') }}" class="text-decoration-none">
+                                <div class="d-flex align-items-center justify-content-center p-2 rounded hover-bg-light">
+                                    <i class="fas fa-history fa-lg text-info mr-2"></i>
+                                    <span class="text-info font-weight-bold">Ver Actividad</span>
+                                </div>
                             </a>
                         </div>
 
-                        <div class="col-md-3 mb-3">
-                            <a href="{{ route('audit-logs.index') }}" class="btn btn-outline-info btn-block p-3">
-                                <i class="fas fa-history fa-2x mb-2 d-block"></i>
-                                <strong>Ver Actividad</strong>
-                            </a>
-                        </div>
-
-                        <div class="col-md-3 mb-3">
-                            <a href="{{ route('reports.index') }}" class="btn btn-outline-warning btn-block p-3">
-                                <i class="fas fa-chart-bar fa-2x mb-2 d-block"></i>
-                                <strong>Reportes</strong>
+                        <div class="col-md-4 mb-2">
+                            <a href="{{ route('reports.index') }}" class="text-decoration-none">
+                                <div class="d-flex align-items-center justify-content-center p-2 rounded hover-bg-light">
+                                    <i class="fas fa-chart-bar fa-lg text-warning mr-2"></i>
+                                    <span class="text-warning font-weight-bold">Reportes</span>
+                                </div>
                             </a>
                         </div>
                     </div>
@@ -205,10 +201,9 @@
     border-bottom: 1px solid #e3e6f0;
 }
 
-.btn-outline-primary:hover, .btn-outline-success:hover,
-.btn-outline-info:hover, .btn-outline-warning:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.15);
+.hover-bg-light:hover {
+    background-color: #f8f9fc !important;
+    transition: background-color 0.2s ease;
 }
 
 .border-left-primary {

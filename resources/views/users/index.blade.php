@@ -127,7 +127,21 @@
                     </div>
 
                     <div class="d-flex justify-content-center">
-                        {{ $users->links() }}
+                        @if($users->onFirstPage())
+                            <span class="btn btn-outline-secondary btn-sm disabled">Anterior</span>
+                        @else
+                            <a href="{{ $users->previousPageUrl() }}" class="btn btn-outline-primary btn-sm">Anterior</a>
+                        @endif
+
+                        <span class="mx-2 align-self-center text-muted">
+                            Página {{ $users->currentPage() }} de {{ $users->lastPage() }}
+                        </span>
+
+                        @if($users->hasMorePages())
+                            <a href="{{ $users->nextPageUrl() }}" class="btn btn-outline-primary btn-sm">Siguiente</a>
+                        @else
+                            <span class="btn btn-outline-secondary btn-sm disabled">Siguiente</span>
+                        @endif
                     </div>
                 </div>
 

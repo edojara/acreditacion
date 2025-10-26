@@ -159,7 +159,21 @@
                 @if($entities->hasPages())
                 <div class="card-footer">
                     <div class="d-flex justify-content-center">
-                        {{ $entities->appends(request()->query())->links() }}
+                        @if($entities->onFirstPage())
+                            <span class="btn btn-outline-secondary btn-sm disabled">Anterior</span>
+                        @else
+                            <a href="{{ $entities->appends(request()->query())->previousPageUrl() }}" class="btn btn-outline-primary btn-sm">Anterior</a>
+                        @endif
+
+                        <span class="mx-2 align-self-center text-muted">
+                            Página {{ $entities->currentPage() }} de {{ $entities->lastPage() }}
+                        </span>
+
+                        @if($entities->hasMorePages())
+                            <a href="{{ $entities->appends(request()->query())->nextPageUrl() }}" class="btn btn-outline-primary btn-sm">Siguiente</a>
+                        @else
+                            <span class="btn btn-outline-secondary btn-sm disabled">Siguiente</span>
+                        @endif
                     </div>
                     <small class="text-muted d-block text-center mt-2">
                         Mostrando {{ $entities->firstItem() }}-{{ $entities->lastItem() }} de {{ $entities->total() }} entidades

@@ -179,19 +179,41 @@
 
 <script>
 $(document).ready(function() {
+    // Debug: mostrar que el script se cargó
+    console.log('Script de doble click cargado - Versión 2');
+
+    // Verificar que jQuery está disponible
+    if (typeof $ === 'undefined') {
+        console.error('jQuery no está cargado');
+        return;
+    }
+
+    // Verificar que las filas existen
+    const rowCount = $('.clickable-row').length;
+    console.log('Encontradas', rowCount, 'filas clickables');
+
     // Doble click en fila para ver detalles
-    $('.clickable-row').on('dblclick', function() {
+    $('.clickable-row').on('dblclick', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
         const url = $(this).data('href');
+        console.log('Doble click detectado en fila:', this);
+        console.log('URL destino:', url);
+
         if (url) {
-            console.log('Navegando a:', url); // Debug
+            console.log('Navegando a:', url);
             window.location.href = url;
+        } else {
+            console.error('No se encontró URL en data-href');
         }
     });
 
-    // Click simple también funciona (opcional)
+    // Click simple para feedback visual
     $('.clickable-row').on('click', function(e) {
         // Solo si no se hizo click en botones de acción
         if (!$(e.target).closest('.btn').length) {
+            console.log('Click simple en fila');
             $(this).css('background-color', '#e3f2fd');
             setTimeout(() => {
                 $(this).css('background-color', '');
@@ -217,8 +239,12 @@ $(document).ready(function() {
         }
     );
 
-    // Debug: mostrar que el script se cargó
-    console.log('Script de doble click cargado');
+    // Test: mostrar URLs de las primeras filas
+    $('.clickable-row').each(function(index) {
+        if (index < 3) { // Solo las primeras 3
+            console.log('Fila', index + 1, '- URL:', $(this).data('href'));
+        }
+    });
 });
 </script>
 

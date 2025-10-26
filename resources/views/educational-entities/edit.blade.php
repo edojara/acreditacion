@@ -197,29 +197,6 @@
                             </div>
                         </div>
 
-                        <!-- Descripción -->
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h5 class="card-title mb-0">
-                                            <i class="fas fa-file-alt mr-2"></i>
-                                            Descripción
-                                        </h5>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="form-group">
-                                            <textarea class="form-control @error('description') is-invalid @enderror"
-                                                      id="description" name="description" rows="4"
-                                                      placeholder="Descripción detallada de la entidad educativa...">{{ old('description', $educationalEntity->description) }}</textarea>
-                                            @error('description')
-                                                <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
 
                     <div class="card-footer">

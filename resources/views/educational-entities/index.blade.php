@@ -88,84 +88,78 @@
                     </form>
                 </div>
 
-                <!-- Tabla de Entidades Moderna -->
-                <div class="card-body p-0">
+                <!-- Tabla Estilo Excel -->
+                <div class="card-body table-responsive p-0">
                     @if($entities->count() > 0)
-                    <div class="entities-grid">
-                        @foreach($entities as $index => $entity)
-                        <div class="entity-card {{ $index % 2 === 0 ? 'card-primary' : 'card-secondary' }}"
-                             data-href="{{ route('educational-entities.show', $entity) }}"
-                             title="Doble click para ver detalles">
-                            <div class="card-header-custom">
-                                <div class="entity-code">
-                                    <code>{{ $entity->code }}</code>
-                                </div>
-                                <div class="entity-status">
-                                    <span class="status-badge {{ $entity->status }}">
+                    <table class="table table-bordered table-striped table-hover excel-table" id="entitiesTable">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th class="text-center">#</th>
+                                <th>Código</th>
+                                <th>Nombre</th>
+                                <th>Tipo</th>
+                                <th>Ciudad</th>
+                                <th>Región</th>
+                                <th>Teléfono</th>
+                                <th>Email</th>
+                                <th>Estado</th>
+                                <th>Contactos</th>
+                                <th class="text-center">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($entities as $index => $entity)
+                            <tr class="clickable-row" data-href="{{ route('educational-entities.show', $entity) }}" style="cursor: pointer;">
+                                <td class="text-center">{{ $loop->iteration }}</td>
+                                <td>
+                                    <code class="bg-light px-2 py-1 rounded">{{ $entity->code }}</code>
+                                </td>
+                                <td class="font-weight-bold">{{ $entity->name }}</td>
+                                <td>
+                                    <span class="badge badge-info">{{ ucfirst($entity->type) }}</span>
+                                </td>
+                                <td>{{ $entity->city ?? '-' }}</td>
+                                <td>{{ $entity->region ?? '-' }}</td>
+                                <td>{{ $entity->phone ?? '-' }}</td>
+                                <td>
+                                    @if($entity->email)
+                                        <a href="mailto:{{ $entity->email }}" class="text-decoration-none">{{ $entity->email }}</a>
+                                    @else
+                                        -
+                                    @endif
+                                </td>
+                                <td>
+                                    <span class="badge badge-{{ $entity->status === 'activo' ? 'success' : ($entity->status === 'inactivo' ? 'secondary' : 'warning') }}">
                                         {{ ucfirst($entity->status) }}
                                     </span>
-                                </div>
-                            </div>
-
-                            <div class="card-body-custom">
-                                <div class="entity-name">
-                                    <h5 class="mb-1">{{ $entity->name }}</h5>
-                                    <span class="entity-type badge-modern">{{ ucfirst($entity->type) }}</span>
-                                </div>
-
-                                <div class="entity-details">
-                                    <div class="detail-row">
-                                        <i class="fas fa-map-marker-alt"></i>
-                                        <span>{{ $entity->city ?? 'No especificada' }}, {{ $entity->region ?? 'No especificada' }}</span>
+                                </td>
+                                <td class="text-center">
+                                    <span class="badge badge-light">{{ $entity->contacts_count ?? 0 }}</span>
+                                </td>
+                                <td class="text-center">
+                                    <div class="btn-group btn-group-sm">
+                                        <a href="{{ route('educational-entities.show', $entity) }}"
+                                           class="btn btn-outline-info btn-sm" title="Ver Detalles">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="{{ route('educational-entities.edit', $entity) }}"
+                                           class="btn btn-outline-warning btn-sm" title="Editar">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <form method="POST" action="{{ route('educational-entities.destroy', $entity) }}"
+                                              class="d-inline" onsubmit="return confirm('¿Está seguro de eliminar esta entidad?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-outline-danger btn-sm" title="Eliminar">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
                                     </div>
-
-                                    @if($entity->phone)
-                                    <div class="detail-row">
-                                        <i class="fas fa-phone"></i>
-                                        <span>{{ $entity->phone }}</span>
-                                    </div>
-                                    @endif
-
-                                    @if($entity->email)
-                                    <div class="detail-row">
-                                        <i class="fas fa-envelope"></i>
-                                        <span>{{ $entity->email }}</span>
-                                    </div>
-                                    @endif
-                                </div>
-
-                                <div class="entity-stats">
-                                    <div class="stat-item">
-                                        <span class="stat-number">{{ $entity->contacts_count ?? 0 }}</span>
-                                        <span class="stat-label">Contactos</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="card-actions">
-                                <a href="{{ route('educational-entities.show', $entity) }}"
-                                   class="action-btn view-btn" title="Ver Detalles">
-                                    <i class="fas fa-eye"></i>
-                                    <span>Ver</span>
-                                </a>
-                                <a href="{{ route('educational-entities.edit', $entity) }}"
-                                   class="action-btn edit-btn" title="Editar">
-                                    <i class="fas fa-edit"></i>
-                                    <span>Editar</span>
-                                </a>
-                                <form method="POST" action="{{ route('educational-entities.destroy', $entity) }}"
-                                      class="d-inline" onsubmit="return confirm('¿Está seguro de eliminar esta entidad?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="action-btn delete-btn" title="Eliminar">
-                                        <i class="fas fa-trash"></i>
-                                        <span>Eliminar</span>
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                        @endforeach
-                    </div>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                     @else
                     <div class="text-center py-5">
                         <i class="fas fa-university fa-4x text-muted mb-3"></i>
@@ -261,242 +255,102 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <style>
-/* Grid Layout Moderno */
-.entities-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-    gap: 20px;
-    padding: 20px;
+/* Estilo Excel-like Table */
+.excel-table {
+    font-size: 0.875em;
+    border-collapse: collapse;
 }
 
-.entity-card {
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
-    border: none;
-    overflow: hidden;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    cursor: pointer;
-    position: relative;
-}
-
-.entity-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
-}
-
-.entity-card.card-primary {
-    border-left: 4px solid #007bff;
-}
-
-.entity-card.card-secondary {
-    border-left: 4px solid #28a745;
-}
-
-/* Header de la Card */
-.card-header-custom {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+.excel-table th {
+    background: #343a40 !important;
     color: white;
-    padding: 16px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.entity-code code {
-    background: rgba(255, 255, 255, 0.2);
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 0.9em;
-    font-weight: bold;
-}
-
-.status-badge {
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 0.75em;
     font-weight: 600;
     text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 12px 8px;
+    border: 1px solid #dee2e6;
+    position: sticky;
+    top: 0;
+    z-index: 10;
 }
 
-.status-badge.activo {
-    background: #28a745;
-    color: white;
+.excel-table td {
+    padding: 8px;
+    border: 1px solid #dee2e6;
+    vertical-align: middle;
 }
 
-.status-badge.inactivo {
-    background: #6c757d;
-    color: white;
+.excel-table tbody tr:nth-child(odd) {
+    background-color: #f8f9fa;
 }
 
-.status-badge.suspendido {
-    background: #ffc107;
-    color: #212529;
+.excel-table tbody tr:nth-child(even) {
+    background-color: #ffffff;
 }
 
-/* Body de la Card */
-.card-body-custom {
-    padding: 20px;
+.excel-table tbody tr:hover {
+    background-color: #e3f2fd !important;
+    cursor: pointer;
 }
 
-.entity-name h5 {
-    color: #2c3e50;
-    margin-bottom: 8px;
-    font-weight: 600;
-}
-
-.badge-modern {
-    background: linear-gradient(45deg, #667eea, #764ba2);
-    color: white;
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 0.75em;
-    font-weight: 500;
-}
-
-.entity-details {
-    margin: 16px 0;
-}
-
-.detail-row {
-    display: flex;
-    align-items: center;
-    margin-bottom: 8px;
-    color: #6c757d;
-    font-size: 0.9em;
-}
-
-.detail-row i {
-    margin-right: 8px;
-    width: 16px;
-    color: #007bff;
-}
-
-/* Estadísticas */
-.entity-stats {
-    margin-top: 16px;
-    padding-top: 16px;
-    border-top: 1px solid #e9ecef;
-}
-
-.stat-item {
+/* Celdas especiales */
+.excel-table .text-center {
     text-align: center;
 }
 
-.stat-number {
-    display: block;
-    font-size: 1.5em;
-    font-weight: bold;
-    color: #007bff;
-}
-
-.stat-label {
-    color: #6c757d;
-    font-size: 0.8em;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-/* Acciones */
-.card-actions {
-    padding: 16px 20px;
+.excel-table code {
+    font-family: 'Courier New', monospace;
     background: #f8f9fa;
-    display: flex;
-    gap: 8px;
-    border-top: 1px solid #e9ecef;
+    border: 1px solid #dee2e6;
+    border-radius: 3px;
 }
 
-.action-btn {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 8px 4px;
-    border: none;
-    border-radius: 8px;
-    text-decoration: none;
-    transition: all 0.2s ease;
+/* Botones de acción */
+.excel-table .btn-group .btn {
+    margin: 0 1px;
+    border-radius: 3px !important;
+    padding: 4px 8px;
+}
+
+.excel-table .btn-group .btn i {
     font-size: 0.8em;
-    color: white;
 }
 
-.action-btn span {
-    margin-top: 4px;
+/* Badges */
+.excel-table .badge {
     font-size: 0.75em;
+    padding: 4px 8px;
 }
 
-.action-btn.view-btn {
-    background: #17a2b8;
-}
-
-.action-btn.view-btn:hover {
-    background: #138496;
-    transform: translateY(-2px);
-}
-
-.action-btn.edit-btn {
-    background: #ffc107;
-    color: #212529;
-}
-
-.action-btn.edit-btn:hover {
-    background: #e0a800;
-    transform: translateY(-2px);
-}
-
-.action-btn.delete-btn {
-    background: #dc3545;
-}
-
-.action-btn.delete-btn:hover {
-    background: #c82333;
-    transform: translateY(-2px);
-}
-
-/* Responsive Design */
+/* Responsive */
 @media (max-width: 768px) {
-    .entities-grid {
-        grid-template-columns: 1fr;
-        padding: 15px;
-        gap: 15px;
+    .excel-table {
+        font-size: 0.75em;
     }
 
-    .entity-card {
-        margin: 0;
+    .excel-table th,
+    .excel-table td {
+        padding: 4px;
     }
 
-    .card-actions {
-        flex-direction: row;
-        padding: 12px 15px;
+    .excel-table .btn-group {
+        flex-direction: column;
     }
 
-    .action-btn {
-        flex-direction: row;
-        padding: 6px 8px;
-    }
-
-    .action-btn span {
-        margin-top: 0;
-        margin-left: 6px;
+    .excel-table .btn-group .btn {
+        margin: 1px 0;
     }
 }
 
-@media (max-width: 480px) {
-    .entities-grid {
-        padding: 10px;
-        gap: 10px;
+/* Scroll horizontal en móviles */
+@media (max-width: 576px) {
+    .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
     }
 
-    .card-header-custom {
-        padding: 12px 15px;
-    }
-
-    .card-body-custom {
-        padding: 15px;
-    }
-
-    .entity-name h5 {
-        font-size: 1.1em;
+    .excel-table {
+        min-width: 800px;
     }
 }
 </style>

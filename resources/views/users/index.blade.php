@@ -154,19 +154,25 @@
 .btn-group .btn {
     margin-right: 2px;
 }
-/* Estilos para paginación más compacta */
+/* Estilos para paginación mucho más compacta */
 .pagination {
     margin-bottom: 0;
+    font-size: 0.8rem;
 }
 .pagination .page-link {
-    padding: 0.375rem 0.75rem;
-    font-size: 0.875rem;
-    line-height: 1.5;
-    border-radius: 0.25rem;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+    line-height: 1.2;
+    border-radius: 0.2rem;
+    min-width: auto;
+}
+.pagination .page-item {
+    margin: 0 1px;
 }
 .pagination .page-item.active .page-link {
     background-color: #007bff;
     border-color: #007bff;
+    font-weight: 600;
 }
 </style>
 @endsection

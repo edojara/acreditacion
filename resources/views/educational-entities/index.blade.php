@@ -38,15 +38,6 @@
                             </select>
                         </div>
 
-                        <div class="form-group mr-3">
-                            <label for="status" class="mr-2">Estado:</label>
-                            <select name="status" id="status" class="form-control form-control-sm">
-                                <option value="">Todos</option>
-                                <option value="activo" {{ request('status') === 'activo' ? 'selected' : '' }}>Activo</option>
-                                <option value="inactivo" {{ request('status') === 'inactivo' ? 'selected' : '' }}>Inactivo</option>
-                                <option value="suspendido" {{ request('status') === 'suspendido' ? 'selected' : '' }}>Suspendido</option>
-                            </select>
-                        </div>
 
                         <div class="form-group mr-3">
                             <label for="region" class="mr-2">Región:</label>
@@ -102,7 +93,6 @@
                                 <th>Región</th>
                                 <th>Teléfono</th>
                                 <th>Email</th>
-                                <th>Estado</th>
                                 <th>Contactos</th>
                                 <th class="text-center">Acciones</th>
                             </tr>
@@ -127,11 +117,6 @@
                                     @else
                                         -
                                     @endif
-                                </td>
-                                <td>
-                                    <span class="badge badge-{{ $entity->status === 'activo' ? 'success' : ($entity->status === 'inactivo' ? 'secondary' : 'warning') }}">
-                                        {{ ucfirst($entity->status) }}
-                                    </span>
                                 </td>
                                 <td class="text-center">
                                     <span class="badge badge-light">{{ $entity->contacts_count ?? 0 }}</span>

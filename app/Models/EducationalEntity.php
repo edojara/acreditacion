@@ -22,7 +22,6 @@ class EducationalEntity extends Model
         'email',
         'website',
         'type',
-        'status',
         'metadata',
     ];
 
@@ -39,14 +38,13 @@ class EducationalEntity extends Model
     public function primaryContact()
     {
         return $this->hasOne(EntityContact::class, 'educational_entity_id')
-                   ->where('is_primary', true)
-                   ->where('status', 'activo');
+                    ->where('is_primary', true);
     }
 
     // Scopes útiles
-    public function scopeActive($query)
+    public function scopeByType($query, $type)
     {
-        return $query->where('status', 'activo');
+        return $query->where('type', $type);
     }
 
     public function scopeByType($query, $type)
@@ -68,6 +66,6 @@ class EducationalEntity extends Model
 
     public function getContactCountAttribute()
     {
-        return $this->contacts()->where('status', 'activo')->count();
+        return $this->contacts()->count();
     }
 }

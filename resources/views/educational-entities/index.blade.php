@@ -125,10 +125,23 @@
                                            class="btn btn-outline-info btn-sm" title="Ver Detalles">
                                             <i class="fas fa-eye"></i>
                                         </a>
-                                        <a href="{{ route('educational-entities.edit', $entity) }}"
-                                           class="btn btn-outline-warning btn-sm" title="Editar">
+                                        <button type="button" class="btn btn-outline-warning btn-sm"
+                                                data-toggle="modal" data-target="#editEntityModal"
+                                                data-entity-id="{{ $entity->id }}"
+                                                data-entity-name="{{ $entity->name }}"
+                                                data-entity-code="{{ $entity->code }}"
+                                                data-entity-type="{{ $entity->type }}"
+                                                data-entity-status="{{ $entity->status }}"
+                                                data-entity-address="{{ $entity->address }}"
+                                                data-entity-city="{{ $entity->city }}"
+                                                data-entity-region="{{ $entity->region }}"
+                                                data-entity-country="{{ $entity->country }}"
+                                                data-entity-phone="{{ $entity->phone }}"
+                                                data-entity-email="{{ $entity->email }}"
+                                                data-entity-website="{{ $entity->website }}"
+                                                title="Editar">
                                             <i class="fas fa-edit"></i>
-                                        </a>
+                                        </button>
                                         <form method="POST" action="{{ route('educational-entities.destroy', $entity) }}"
                                               class="d-inline" onsubmit="return confirm('¿Está seguro de eliminar esta entidad?')">
                                             @csrf
@@ -449,4 +462,271 @@ document.addEventListener('DOMContentLoaded', function() {
     background-color: #e9ecef;
 }
 </style>
+
+<!-- Modal para Editar Entidad Educativa -->
+<div class="modal fade" id="editEntityModal" tabindex="-1" role="dialog" aria-labelledby="editEntityModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editEntityModalLabel">
+                    <i class="fas fa-edit mr-2"></i>
+                    Editar Entidad Educativa
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form method="POST" action="" id="editEntityForm">
+                @csrf
+                @method('PUT')
+                <div class="modal-body">
+
+                    <div class="row">
+                            <!-- Información Básica -->
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5 class="card-title mb-0">
+                                            <i class="fas fa-info-circle mr-2"></i>
+                                            Información Básica
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label for="edit_name">Nombre <span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                                   id="edit_name" name="name" value="" required>
+                                            @error('name')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="edit_code">Código <span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control @error('code') is-invalid @enderror"
+                                                   id="edit_code" name="code" value="" required>
+                                            @error('code')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="edit_type">Tipo de Entidad <span class="text-danger">*</span></label>
+                                            <select class="form-control @error('type') is-invalid @enderror" id="edit_type" name="type" required>
+                                                <option value="universidad">Universidad</option>
+                                                <option value="instituto">Instituto</option>
+                                                <option value="colegio">Colegio</option>
+                                                <option value="centro_educativo">Centro Educativo</option>
+                                                <option value="otro">Otro</option>
+                                            </select>
+                                            @error('type')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="edit_status">Estado <span class="text-danger">*</span></label>
+                                            <select class="form-control @error('status') is-invalid @enderror" id="edit_status" name="status" required>
+                                                <option value="activo">Activo</option>
+                                                <option value="inactivo">Inactivo</option>
+                                                <option value="suspendido">Suspendido</option>
+                                            </select>
+                                            @error('status')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ubicación y Contacto -->
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5 class="card-title mb-0">
+                                            <i class="fas fa-map-marker-alt mr-2"></i>
+                                            Ubicación y Contacto
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label for="edit_address">Dirección</label>
+                                            <input type="text" class="form-control @error('address') is-invalid @enderror"
+                                                   id="edit_address" name="address" value="">
+                                            @error('address')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="edit_city">Ciudad</label>
+                                            <input type="text" class="form-control @error('city') is-invalid @enderror"
+                                                   id="edit_city" name="city" value="">
+                                            @error('city')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="edit_region">Región</label>
+                                            <select class="form-control @error('region') is-invalid @enderror" id="edit_region" name="region">
+                                                <option value="">Seleccionar región...</option>
+                                                <option value="Metropolitana">Metropolitana</option>
+                                                <option value="Valparaíso">Valparaíso</option>
+                                                <option value="Biobío">Biobío</option>
+                                                <option value="Maule">Maule</option>
+                                                <option value="Ñuble">Ñuble</option>
+                                                <option value="Araucanía">Araucanía</option>
+                                                <option value="Los Ríos">Los Ríos</option>
+                                                <option value="Los Lagos">Los Lagos</option>
+                                                <option value="Aysén">Aysén</option>
+                                                <option value="Magallanes">Magallanes</option>
+                                                <option value="Arica y Parinacota">Arica y Parinacota</option>
+                                                <option value="Tarapacá">Tarapacá</option>
+                                                <option value="Antofagasta">Antofagasta</option>
+                                                <option value="Atacama">Atacama</option>
+                                                <option value="Coquimbo">Coquimbo</option>
+                                            </select>
+                                            @error('region')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="edit_country">País</label>
+                                            <input type="text" class="form-control @error('country') is-invalid @enderror"
+                                                   id="edit_country" name="country" value="Chile">
+                                            @error('country')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="edit_phone">Teléfono</label>
+                                            <input type="tel" class="form-control @error('phone') is-invalid @enderror"
+                                                   id="edit_phone" name="phone" value="">
+                                            @error('phone')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="edit_email">Email</label>
+                                            <input type="email" class="form-control @error('email') is-invalid @enderror"
+                                                   id="edit_email" name="email" value="">
+                                            @error('email')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="edit_website">Sitio Web</label>
+                                            <input type="url" class="form-control @error('website') is-invalid @enderror"
+                                                   id="edit_website" name="website" value=""
+                                                   placeholder="https://ejemplo.com">
+                                            @error('website')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        <i class="fas fa-times"></i> Cancelar
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Actualizar Entidad
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Script para manejar el modal de edición -->
+<script>
+$(document).ready(function() {
+    // Manejar apertura del modal de edición
+    $('#editEntityModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var entityId = button.data('entity-id');
+        var entityName = button.data('entity-name');
+        var entityCode = button.data('entity-code');
+        var entityType = button.data('entity-type');
+        var entityStatus = button.data('entity-status');
+        var entityAddress = button.data('entity-address');
+        var entityCity = button.data('entity-city');
+        var entityRegion = button.data('entity-region');
+        var entityCountry = button.data('entity-country');
+        var entityPhone = button.data('entity-phone');
+        var entityEmail = button.data('entity-email');
+        var entityWebsite = button.data('entity-website');
+
+        var modal = $(this);
+        modal.find('#editEntityModalLabel').text('Editar Entidad Educativa: ' + entityName);
+        modal.find('#editEntityForm').attr('action', '/educational-entities/' + entityId);
+
+        // Llenar los campos del formulario
+        modal.find('#edit_name').val(entityName);
+        modal.find('#edit_code').val(entityCode);
+        modal.find('#edit_type').val(entityType);
+        modal.find('#edit_status').val(entityStatus);
+        modal.find('#edit_address').val(entityAddress || '');
+        modal.find('#edit_city').val(entityCity || '');
+        modal.find('#edit_region').val(entityRegion || '');
+        modal.find('#edit_country').val(entityCountry || 'Chile');
+        modal.find('#edit_phone').val(entityPhone || '');
+        modal.find('#edit_email').val(entityEmail || '');
+        modal.find('#edit_website').val(entityWebsite || '');
+    });
+
+    // Manejar envío del formulario de edición
+    $('#editEntityForm').on('submit', function(e) {
+        e.preventDefault();
+
+        const formData = new FormData(this);
+
+        $.ajax({
+            url: $(this).attr('action'),
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(response) {
+                $('#editEntityModal').modal('hide');
+                $('#editEntityForm')[0].reset();
+
+                // Mostrar mensaje de éxito
+                toastr.success('Entidad educativa actualizada exitosamente');
+
+                // Recargar la página para mostrar los cambios
+                location.reload();
+            },
+            error: function(xhr) {
+                if (xhr.status === 422) {
+                    // Errores de validación
+                    const errors = xhr.responseJSON.errors;
+                    let errorMessages = [];
+
+                    for (let field in errors) {
+                        errorMessages.push(errors[field][0]);
+                    }
+
+                    toastr.error(errorMessages.join('<br>'));
+                } else {
+                    toastr.error('Error al actualizar la entidad educativa');
+                }
+            }
+        });
+    });
+});
+</script>
 @endsection

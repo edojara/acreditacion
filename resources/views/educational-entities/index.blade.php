@@ -17,9 +17,9 @@
                         Gestión de Entidades Educativas
                     </h3>
                     <div class="card-tools">
-                        <a href="{{ route('educational-entities.create') }}" class="btn btn-primary btn-sm">
+                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#createEntityModal">
                             <i class="fas fa-plus"></i> Nueva Entidad
-                        </a>
+                        </button>
                     </div>
                 </div>
 
@@ -119,9 +119,9 @@
                                         <div class="py-4">
                                             <i class="fas fa-university fa-3x text-muted mb-3"></i>
                                             <p class="text-muted">No hay entidades educativas registradas.</p>
-                                            <a href="{{ route('educational-entities.create') }}" class="btn btn-primary">
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createEntityModal">
                                                 <i class="fas fa-plus"></i> Crear Primera Entidad
-                                            </a>
+                                            </button>
                                         </div>
                                     </td>
                                 </tr>
@@ -141,4 +141,7 @@
         </div>
     </div>
 </div>
+
+<!-- Incluir el modal de creación -->
+@include('educational-entities.create')
 @endsection

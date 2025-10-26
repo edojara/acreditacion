@@ -106,7 +106,7 @@
                         </thead>
                         <tbody>
                             @foreach($entities as $entity)
-                            <tr class="entity-row" data-url="{{ route('educational-entities.show', $entity) }}" style="cursor: pointer;">
+                            <tr class="entity-row clickable-row" data-href="{{ route('educational-entities.show', $entity) }}" style="cursor: pointer;" title="Doble click para ver detalles">
                                 <td>
                                     <code>{{ $entity->code }}</code>
                                 </td>
@@ -180,10 +180,22 @@
 <script>
 $(document).ready(function() {
     // Doble click en fila para ver detalles
-    $('.entity-row').on('dblclick', function() {
-        const url = $(this).data('url');
+    $('.clickable-row').on('dblclick', function() {
+        const url = $(this).data('href');
         if (url) {
+            console.log('Navegando a:', url); // Debug
             window.location.href = url;
+        }
+    });
+
+    // Click simple también funciona (opcional)
+    $('.clickable-row').on('click', function(e) {
+        // Solo si no se hizo click en botones de acción
+        if (!$(e.target).closest('.btn').length) {
+            $(this).css('background-color', '#e3f2fd');
+            setTimeout(() => {
+                $(this).css('background-color', '');
+            }, 150);
         }
     });
 
@@ -196,7 +208,7 @@ $(document).ready(function() {
     });
 
     // Mejorar UX con hover en filas
-    $('.entity-row').hover(
+    $('.clickable-row').hover(
         function() {
             $(this).addClass('table-active');
         },
@@ -205,8 +217,8 @@ $(document).ready(function() {
         }
     );
 
-    // Mostrar mensaje de doble click
-    $('.entity-row').first().attr('title', 'Doble click para ver detalles');
+    // Debug: mostrar que el script se cargó
+    console.log('Script de doble click cargado');
 });
 </script>
 

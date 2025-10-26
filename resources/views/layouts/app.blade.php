@@ -31,7 +31,7 @@
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="{{ route('dashboard') }}" class="nav-link">Inicio</a>
+                    <a href="{{ route('educational-entities.index') }}" class="nav-link">Inicio</a>
                 </li>
             </ul>
 
@@ -93,7 +93,7 @@
                         <i class="fas fa-user-circle fa-2x text-white"></i>
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">{{ auth()->user()->name }}</a>
+                        <a href="{{ route('educational-entities.index') }}" class="d-block">{{ auth()->user()->name }}</a>
                         <small class="text-white-50">
                             <span class="badge badge-{{ auth()->user()->role->name === 'admin' ? 'danger' : (auth()->user()->role->name === 'report' ? 'warning' : 'info') }}">
                                 {{ ucfirst(auth()->user()->role->name) }}
@@ -114,15 +114,7 @@
                         </li>
 
                         @if(auth()->user()->role->name === 'admin')
-                            <!-- Admin Dashboard -->
-                            <li class="nav-item">
-                                <a href="{{ route('admin.dashboard') }}" class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
-                                    <i class="nav-icon fas fa-cog"></i>
-                                    <p>Panel Admin</p>
-                                </a>
-                            </li>
-
-                            <!-- Educational Entities -->
+                            <!-- Educational Entities - Ahora es la página principal -->
                             <li class="nav-item">
                                 <a href="{{ route('educational-entities.index') }}" class="nav-link {{ request()->routeIs('educational-entities.*') ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-university"></i>
@@ -187,7 +179,7 @@
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Inicio</a></li>
+                                <li class="breadcrumb-item"><a href="{{ route('educational-entities.index') }}">Inicio</a></li>
                                 @yield('breadcrumb')
                             </ol>
                         </div><!-- /.col -->

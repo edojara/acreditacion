@@ -53,14 +53,17 @@ Route::middleware('auth')->group(function () {
         Route::patch('users/{user}/force-password-change', [App\Http\Controllers\UserController::class, 'forcePasswordChange'])->name('users.force-password-change');
         Route::patch('users/{user}/reset-password', [App\Http\Controllers\UserController::class, 'resetPassword'])->name('users.reset-password');
 
+        // Audit Logs Routes
+        Route::resource('audit-logs', App\Http\Controllers\AuditLogController::class)->only(['index', 'show']);
+    });
+
+    // Rutas para admin y enrolador
+    Route::middleware(['auth', 'role:admin,enrolador'])->group(function () {
         // Educational Entities Routes
         Route::resource('educational-entities', EducationalEntityController::class);
 
         // Entity Contacts Routes
         Route::resource('entity-contacts', EntityContactController::class);
-
-        // Audit Logs Routes
-        Route::resource('audit-logs', App\Http\Controllers\AuditLogController::class)->only(['index', 'show']);
     });
 
     Route::middleware('role:report')->group(function () {

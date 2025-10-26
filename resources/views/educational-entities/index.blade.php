@@ -178,73 +178,73 @@
 </div>
 
 <script>
-$(document).ready(function() {
+document.addEventListener('DOMContentLoaded', function() {
     // Debug: mostrar que el script se cargó
-    console.log('Script de doble click cargado - Versión 2');
-
-    // Verificar que jQuery está disponible
-    if (typeof $ === 'undefined') {
-        console.error('jQuery no está cargado');
-        return;
-    }
+    console.log('Script de doble click cargado - Versión 3 (Vanilla JS)');
 
     // Verificar que las filas existen
-    const rowCount = $('.clickable-row').length;
-    console.log('Encontradas', rowCount, 'filas clickables');
+    const clickableRows = document.querySelectorAll('.clickable-row');
+    console.log('Encontradas', clickableRows.length, 'filas clickables');
 
     // Doble click en fila para ver detalles
-    $('.clickable-row').on('dblclick', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
+    clickableRows.forEach(function(row) {
+        row.addEventListener('dblclick', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
 
-        const url = $(this).data('href');
-        console.log('Doble click detectado en fila:', this);
-        console.log('URL destino:', url);
+            const url = this.getAttribute('data-href');
+            console.log('Doble click detectado en fila:', this);
+            console.log('URL destino:', url);
 
-        if (url) {
-            console.log('Navegando a:', url);
-            window.location.href = url;
-        } else {
-            console.error('No se encontró URL en data-href');
-        }
+            if (url) {
+                console.log('Navegando a:', url);
+                window.location.href = url;
+            } else {
+                console.error('No se encontró URL en data-href');
+            }
+        });
+
+        // Click simple para feedback visual
+        row.addEventListener('click', function(e) {
+            // Solo si no se hizo click en botones de acción
+            if (!e.target.closest('.btn')) {
+                console.log('Click simple en fila');
+                this.style.backgroundColor = '#e3f2fd';
+                setTimeout(() => {
+                    this.style.backgroundColor = '';
+                }, 150);
+            }
+        });
+
+        // Hover effects
+        row.addEventListener('mouseenter', function() {
+            this.classList.add('table-active');
+        });
+
+        row.addEventListener('mouseleave', function() {
+            this.classList.remove('table-active');
+        });
     });
 
-    // Click simple para feedback visual
-    $('.clickable-row').on('click', function(e) {
-        // Solo si no se hizo click en botones de acción
-        if (!$(e.target).closest('.btn').length) {
-            console.log('Click simple en fila');
-            $(this).css('background-color', '#e3f2fd');
-            setTimeout(() => {
-                $(this).css('background-color', '');
-            }, 150);
-        }
+    // Auto-submit de filtros al cambiar select (usando vanilla JS)
+    const filterSelects = document.querySelectorAll('#type, #status, #region');
+    filterSelects.forEach(function(select) {
+        select.addEventListener('change', function() {
+            this.closest('form').submit();
+        });
     });
-
-    // Tooltip para botones de acción
-    $('[title]').tooltip();
-
-    // Auto-submit de filtros al cambiar select
-    $('#type, #status, #region').on('change', function() {
-        $(this).closest('form').submit();
-    });
-
-    // Mejorar UX con hover en filas
-    $('.clickable-row').hover(
-        function() {
-            $(this).addClass('table-active');
-        },
-        function() {
-            $(this).removeClass('table-active');
-        }
-    );
 
     // Test: mostrar URLs de las primeras filas
-    $('.clickable-row').each(function(index) {
+    clickableRows.forEach(function(row, index) {
         if (index < 3) { // Solo las primeras 3
-            console.log('Fila', index + 1, '- URL:', $(this).data('href'));
+            console.log('Fila', index + 1, '- URL:', row.getAttribute('data-href'));
         }
     });
+
+    // Verificar que Bootstrap tooltips funcionen (si jQuery está disponible)
+    if (typeof $ !== 'undefined') {
+        $('[title]').tooltip();
+    }
 });
 </script>
 

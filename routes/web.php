@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\EducationalEntityController;
+use App\Http\Controllers\EntityContactController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -43,6 +45,12 @@ Route::middleware('auth')->group(function () {
         Route::resource('users', App\Http\Controllers\UserController::class);
         Route::patch('users/{user}/force-password-change', [App\Http\Controllers\UserController::class, 'forcePasswordChange'])->name('users.force-password-change');
         Route::patch('users/{user}/reset-password', [App\Http\Controllers\UserController::class, 'resetPassword'])->name('users.reset-password');
+
+        // Educational Entities Routes
+        Route::resource('educational-entities', EducationalEntityController::class);
+
+        // Entity Contacts Routes
+        Route::resource('entity-contacts', EntityContactController::class);
 
         // Audit Logs Routes
         Route::resource('audit-logs', App\Http\Controllers\AuditLogController::class)->only(['index', 'show']);

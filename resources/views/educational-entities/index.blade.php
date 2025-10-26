@@ -229,8 +229,24 @@ document.addEventListener('DOMContentLoaded', function() {
     if (searchInput) {
         searchInput.addEventListener('input', function() {
             clearTimeout(searchTimeout);
+            const inputElement = this; // Guardar referencia al elemento
             searchTimeout = setTimeout(() => {
-                this.closest('form').submit();
+                // Guardar el valor actual y posición del cursor
+                const currentValue = inputElement.value;
+                const cursorPosition = inputElement.selectionStart;
+
+                // Enviar el formulario
+                inputElement.closest('form').submit();
+
+                // Restaurar el foco después de un breve delay
+                setTimeout(() => {
+                    const restoredInput = document.getElementById('searchInput');
+                    if (restoredInput) {
+                        restoredInput.focus();
+                        restoredInput.value = currentValue;
+                        restoredInput.setSelectionRange(cursorPosition, cursorPosition);
+                    }
+                }, 100);
             }, 500); // Esperar 500ms después de que el usuario deje de escribir
         });
     }

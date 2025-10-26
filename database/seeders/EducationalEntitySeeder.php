@@ -99,11 +99,14 @@ class EducationalEntitySeeder extends Seeder
         foreach ($entities as $entityData) {
             $entity = EducationalEntity::create([
                 'name' => $entityData['name'],
+                'code' => $this->generateCode($entityData['name']),
                 'type' => $entityData['type'],
                 'address' => $entityData['address'],
+                'city' => 'Santiago',
+                'region' => 'Metropolitana',
                 'email' => $entityData['email'],
                 'phone' => $entityData['phone'],
-                'contact_name' => $entityData['contact_name'],
+                'status' => 'activo',
             ]);
 
             // Crear 1-3 contactos adicionales por entidad (ficticios)
@@ -157,5 +160,21 @@ class EducationalEntitySeeder extends Seeder
     private function getRandomPhone(): string
     {
         return '+56 9 ' . rand(1000, 9999) . ' ' . rand(1000, 9999);
+    }
+
+    private function generateCode(string $name): string
+    {
+        // Generar código único basado en el nombre
+        $words = explode(' ', $name);
+        $code = '';
+
+        foreach ($words as $word) {
+            $code .= strtoupper(substr($word, 0, 1));
+        }
+
+        // Agregar números aleatorios si es necesario para asegurar unicidad
+        $code .= rand(10, 99);
+
+        return $code;
     }
 }

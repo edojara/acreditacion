@@ -17,303 +17,214 @@
                         Gestión de Entidades Educativas
                     </h3>
                     <div class="card-tools">
-                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#createEntityModal">
+                        <a href="{{ route('educational-entities.create') }}" class="btn btn-primary btn-sm">
                             <i class="fas fa-plus"></i> Nueva Entidad
-                        </button>
+                        </a>
                     </div>
                 </div>
 
-                <div class="card-body">
-                    <!-- Filtros -->
-                    <form method="GET" class="mb-4">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <select name="type" class="form-control">
-                                    <option value="">Todos los tipos</option>
-                                    <option value="universidad" {{ request('type') == 'universidad' ? 'selected' : '' }}>Universidad</option>
-                                    <option value="instituto" {{ request('type') == 'instituto' ? 'selected' : '' }}>Instituto</option>
-                                    <option value="colegio" {{ request('type') == 'colegio' ? 'selected' : '' }}>Colegio</option>
-                                    <option value="centro_educativo" {{ request('type') == 'centro_educativo' ? 'selected' : '' }}>Centro Educativo</option>
-                                    <option value="otro" {{ request('type') == 'otro' ? 'selected' : '' }}>Otro</option>
-                                </select>
-                            </div>
-                            <div class="col-md-3">
-                                <select name="status" class="form-control">
-                                    <option value="">Todos los estados</option>
-                                    <option value="activo" {{ request('status') == 'activo' ? 'selected' : '' }}>Activo</option>
-                                    <option value="inactivo" {{ request('status') == 'inactivo' ? 'selected' : '' }}>Inactivo</option>
-                                    <option value="suspendido" {{ request('status') == 'suspendido' ? 'selected' : '' }}>Suspendido</option>
-                                </select>
-                            </div>
-                            <div class="col-md-3">
-                                <input type="text" name="search" class="form-control" placeholder="Buscar por nombre, código o ciudad" value="{{ request('search') }}">
-                            </div>
-                            <div class="col-md-3">
-                                <button type="submit" class="btn btn-secondary btn-block">
-                                    <i class="fas fa-search"></i> Filtrar
-                                </button>
-                            </div>
+                <!-- Filtros -->
+                <div class="card-body border-bottom">
+                    <form method="GET" action="{{ route('educational-entities.index') }}" class="form-inline">
+                        <div class="form-group mr-3">
+                            <label for="type" class="mr-2">Tipo:</label>
+                            <select name="type" id="type" class="form-control form-control-sm">
+                                <option value="">Todos</option>
+                                <option value="universidad" {{ request('type') === 'universidad' ? 'selected' : '' }}>Universidad</option>
+                                <option value="instituto" {{ request('type') === 'instituto' ? 'selected' : '' }}>Instituto</option>
+                                <option value="colegio" {{ request('type') === 'colegio' ? 'selected' : '' }}>Colegio</option>
+                                <option value="centro_educativo" {{ request('type') === 'centro_educativo' ? 'selected' : '' }}>Centro Educativo</option>
+                                <option value="otro" {{ request('type') === 'otro' ? 'selected' : '' }}>Otro</option>
+                            </select>
                         </div>
+
+                        <div class="form-group mr-3">
+                            <label for="status" class="mr-2">Estado:</label>
+                            <select name="status" id="status" class="form-control form-control-sm">
+                                <option value="">Todos</option>
+                                <option value="activo" {{ request('status') === 'activo' ? 'selected' : '' }}>Activo</option>
+                                <option value="inactivo" {{ request('status') === 'inactivo' ? 'selected' : '' }}>Inactivo</option>
+                                <option value="suspendido" {{ request('status') === 'suspendido' ? 'selected' : '' }}>Suspendido</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group mr-3">
+                            <label for="region" class="mr-2">Región:</label>
+                            <select name="region" id="region" class="form-control form-control-sm">
+                                <option value="">Todas</option>
+                                <option value="Metropolitana" {{ request('region') === 'Metropolitana' ? 'selected' : '' }}>Metropolitana</option>
+                                <option value="Valparaíso" {{ request('region') === 'Valparaíso' ? 'selected' : '' }}>Valparaíso</option>
+                                <option value="Biobío" {{ request('region') === 'Biobío' ? 'selected' : '' }}>Biobío</option>
+                                <option value="Maule" {{ request('region') === 'Maule' ? 'selected' : '' }}>Maule</option>
+                                <option value="Ñuble" {{ request('region') === 'Ñuble' ? 'selected' : '' }}>Ñuble</option>
+                                <option value="Araucanía" {{ request('region') === 'Araucanía' ? 'selected' : '' }}>Araucanía</option>
+                                <option value="Los Ríos" {{ request('region') === 'Los Ríos' ? 'selected' : '' }}>Los Ríos</option>
+                                <option value="Los Lagos" {{ request('region') === 'Los Lagos' ? 'selected' : '' }}>Los Lagos</option>
+                                <option value="Aysén" {{ request('region') === 'Aysén' ? 'selected' : '' }}>Aysén</option>
+                                <option value="Magallanes" {{ request('region') === 'Magallanes' ? 'selected' : '' }}>Magallanes</option>
+                                <option value="Arica y Parinacota" {{ request('region') === 'Arica y Parinacota' ? 'selected' : '' }}>Arica y Parinacota</option>
+                                <option value="Tarapacá" {{ request('region') === 'Tarapacá' ? 'selected' : '' }}>Tarapacá</option>
+                                <option value="Antofagasta" {{ request('region') === 'Antofagasta' ? 'selected' : '' }}>Antofagasta</option>
+                                <option value="Atacama" {{ request('region') === 'Atacama' ? 'selected' : '' }}>Atacama</option>
+                                <option value="Coquimbo" {{ request('region') === 'Coquimbo' ? 'selected' : '' }}>Coquimbo</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group mr-3">
+                            <input type="text" name="search" class="form-control form-control-sm"
+                                   placeholder="Buscar por nombre o código..."
+                                   value="{{ request('search') }}">
+                        </div>
+
+                        <button type="submit" class="btn btn-secondary btn-sm mr-2">
+                            <i class="fas fa-search"></i> Filtrar
+                        </button>
+
+                        @if(request()->hasAny(['type', 'status', 'region', 'search']))
+                        <a href="{{ route('educational-entities.index') }}" class="btn btn-outline-secondary btn-sm">
+                            <i class="fas fa-times"></i> Limpiar
+                        </a>
+                        @endif
                     </form>
+                </div>
 
-                    <!-- Tabla -->
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Código</th>
-                                    <th>Nombre</th>
-                                    <th>Tipo</th>
-                                    <th>Ciudad</th>
-                                    <th>Estado</th>
-                                    <th>Contactos</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @forelse($entities as $entity)
-                                <tr>
-                                    <td>{{ $entity->code }}</td>
-                                    <td>
-                                        <strong>{{ $entity->name }}</strong>
-                                        @if($entity->email)
-                                        <br><small class="text-muted">{{ $entity->email }}</small>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <span class="badge badge-info">{{ ucfirst(str_replace('_', ' ', $entity->type)) }}</span>
-                                    </td>
-                                    <td>{{ $entity->city }}</td>
-                                    <td>
-                                        @if($entity->status == 'activo')
-                                            <span class="badge badge-success">Activo</span>
-                                        @elseif($entity->status == 'inactivo')
-                                            <span class="badge badge-secondary">Inactivo</span>
-                                        @else
-                                            <span class="badge badge-warning">Suspendido</span>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <span class="badge badge-light">{{ $entity->contact_count }}</span>
-                                        @if($entity->primaryContact)
-                                            <br><small class="text-muted">{{ $entity->primaryContact->name }}</small>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <div class="btn-group">
-                                            <a href="{{ route('educational-entities.show', $entity) }}" class="btn btn-info btn-sm" title="Ver">
-                                                <i class="fas fa-eye"></i>
-                                            </a>
-                                            <a href="{{ route('educational-entities.edit', $entity) }}" class="btn btn-warning btn-sm" title="Editar">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                            <a href="{{ route('entity-contacts.create', ['educational_entity_id' => $entity->id]) }}" class="btn btn-success btn-sm" title="Agregar Contacto">
-                                                <i class="fas fa-user-plus"></i>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                @empty
-                                <tr>
-                                    <td colspan="7" class="text-center">
-                                        <div class="py-4">
-                                            <i class="fas fa-university fa-3x text-muted mb-3"></i>
-                                            <p class="text-muted">No hay entidades educativas registradas.</p>
-                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createEntityModal">
-                                                <i class="fas fa-plus"></i> Crear Primera Entidad
+                <!-- Tabla de Entidades -->
+                <div class="card-body table-responsive p-0">
+                    @if($entities->count() > 0)
+                    <table class="table table-hover text-nowrap" id="entitiesTable">
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Nombre</th>
+                                <th>Tipo</th>
+                                <th>Ciudad</th>
+                                <th>Región</th>
+                                <th>Estado</th>
+                                <th>Contactos</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($entities as $entity)
+                            <tr class="entity-row" data-url="{{ route('educational-entities.show', $entity) }}" style="cursor: pointer;">
+                                <td>
+                                    <code>{{ $entity->code }}</code>
+                                </td>
+                                <td>
+                                    <strong>{{ $entity->name }}</strong>
+                                    @if($entity->phone)
+                                    <br>
+                                    <small class="text-muted">{{ $entity->phone }}</small>
+                                    @endif
+                                </td>
+                                <td>
+                                    <span class="badge badge-info">{{ ucfirst($entity->type) }}</span>
+                                </td>
+                                <td>{{ $entity->city ?? '-' }}</td>
+                                <td>{{ $entity->region ?? '-' }}</td>
+                                <td>
+                                    <span class="badge badge-{{ $entity->status === 'activo' ? 'success' : ($entity->status === 'inactivo' ? 'secondary' : 'warning') }}">
+                                        {{ ucfirst($entity->status) }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="badge badge-light">{{ $entity->contacts_count ?? 0 }}</span>
+                                </td>
+                                <td>
+                                    <div class="btn-group">
+                                        <a href="{{ route('educational-entities.show', $entity) }}"
+                                           class="btn btn-info btn-sm" title="Ver Detalles">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="{{ route('educational-entities.edit', $entity) }}"
+                                           class="btn btn-warning btn-sm" title="Editar">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <form method="POST" action="{{ route('educational-entities.destroy', $entity) }}"
+                                              class="d-inline" onsubmit="return confirm('¿Está seguro de eliminar esta entidad?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm" title="Eliminar">
+                                                <i class="fas fa-trash"></i>
                                             </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                    @else
+                    <div class="text-center py-5">
+                        <i class="fas fa-university fa-4x text-muted mb-3"></i>
+                        <h4>No hay entidades educativas registradas</h4>
+                        <p class="text-muted">Comience creando la primera entidad educativa del sistema.</p>
+                        <a href="{{ route('educational-entities.create') }}" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Crear Primera Entidad
+                        </a>
                     </div>
-
-                    <!-- Paginación -->
-                    @if($entities->hasPages())
-                        <div class="d-flex justify-content-center">
-                            {{ $entities->appends(request()->query())->links() }}
-                        </div>
                     @endif
                 </div>
+
+                <!-- Paginación -->
+                @if($entities->hasPages())
+                <div class="card-footer">
+                    {{ $entities->appends(request()->query())->links() }}
+                </div>
+                @endif
             </div>
         </div>
     </div>
 </div>
 
-<!-- Modal para Crear Entidad Educativa -->
-<div class="modal fade" id="createEntityModal" tabindex="-1" role="dialog" aria-labelledby="createEntityModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="createEntityModalLabel">
-                    <i class="fas fa-plus mr-2"></i>
-                    Crear Nueva Entidad Educativa
-                </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-
-            <form method="POST" action="{{ route('educational-entities.store') }}" id="createEntityForm">
-                @csrf
-                <div class="modal-body">
-                    <div class="row">
-                        <!-- Información Básica -->
-                        <div class="col-md-6">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h5 class="card-title mb-0">
-                                        <i class="fas fa-info-circle mr-2"></i>
-                                        Información Básica
-                                    </h5>
-                                </div>
-                                <div class="card-body">
-                                    <div class="form-group">
-                                        <label for="name">Nombre <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control @error('name') is-invalid @enderror"
-                                               id="name" name="name" value="{{ old('name') }}" required>
-                                        @error('name')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="type">Tipo de Entidad <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control @error('type') is-invalid @enderror"
-                                               id="type" name="type" value="{{ old('type') }}" required
-                                               list="entity-types" autocomplete="off">
-                                        <datalist id="entity-types">
-                                            @foreach(\App\Models\EducationalEntity::distinct('type')->pluck('type')->filter() as $existingType)
-                                                <option value="{{ $existingType }}">
-                                            @endforeach
-                                            <option value="Universidad">
-                                            <option value="Instituto">
-                                            <option value="Colegio">
-                                            <option value="Centro Educativo">
-                                            <option value="Otro">
-                                        </datalist>
-                                        @error('type')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                        <small class="form-text text-muted">Escribe o selecciona un tipo de entidad existente</small>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Ubicación y Contacto -->
-                        <div class="col-md-6">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h5 class="card-title mb-0">
-                                        <i class="fas fa-map-marker-alt mr-2"></i>
-                                        Ubicación y Contacto
-                                    </h5>
-                                </div>
-                                <div class="card-body">
-                                    <div class="form-group">
-                                        <label for="address">Dirección</label>
-                                        <textarea class="form-control @error('address') is-invalid @enderror"
-                                                  id="address" name="address" rows="2">{{ old('address') }}</textarea>
-                                        @error('address')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="email">Email Institucional</label>
-                                        <input type="email" class="form-control @error('email') is-invalid @enderror"
-                                               id="email" name="email" value="{{ old('email') }}">
-                                        @error('email')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="phone">Teléfono</label>
-                                        <input type="text" class="form-control @error('phone') is-invalid @enderror"
-                                               id="phone" name="phone" value="{{ old('phone') }}">
-                                        @error('phone')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="contact_name">Nombre del Contacto</label>
-                                        <input type="text" class="form-control @error('contact_name') is-invalid @enderror"
-                                               id="contact_name" name="contact_name" value="{{ old('contact_name') }}">
-                                        @error('contact_name')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                        <small class="form-text text-muted">Persona de contacto principal</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                        <i class="fas fa-times"></i> Cancelar
-                    </button>
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-save"></i> Crear Entidad
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<!-- Script para manejar el modal -->
 <script>
 $(document).ready(function() {
-    // Manejar envío del formulario
-    $('#createEntityForm').on('submit', function(e) {
-        e.preventDefault();
-
-        const formData = new FormData(this);
-
-        $.ajax({
-            url: $(this).attr('action'),
-            type: 'POST',
-            data: formData,
-            processData: false,
-            contentType: false,
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            success: function(response) {
-                $('#createEntityModal').modal('hide');
-                $('#createEntityForm')[0].reset();
-
-                // Mostrar mensaje de éxito
-                toastr.success('Entidad educativa creada exitosamente');
-
-                // Recargar la página o actualizar la tabla
-                location.reload();
-            },
-            error: function(xhr) {
-                if (xhr.status === 422) {
-                    // Errores de validación
-                    const errors = xhr.responseJSON.errors;
-                    let errorMessages = [];
-
-                    for (let field in errors) {
-                        errorMessages.push(errors[field][0]);
-                    }
-
-                    toastr.error(errorMessages.join('<br>'));
-                } else {
-                    toastr.error('Error al crear la entidad educativa');
-                }
-            }
-        });
+    // Doble click en fila para ver detalles
+    $('.entity-row').on('dblclick', function() {
+        const url = $(this).data('url');
+        if (url) {
+            window.location.href = url;
+        }
     });
+
+    // Tooltip para botones de acción
+    $('[title]').tooltip();
+
+    // Auto-submit de filtros al cambiar select
+    $('#type, #status, #region').on('change', function() {
+        $(this).closest('form').submit();
+    });
+
+    // Mejorar UX con hover en filas
+    $('.entity-row').hover(
+        function() {
+            $(this).addClass('table-active');
+        },
+        function() {
+            $(this).removeClass('table-active');
+        }
+    );
+
+    // Mostrar mensaje de doble click
+    $('.entity-row').first().attr('title', 'Doble click para ver detalles');
 });
 </script>
+
+<style>
+.entity-row:hover {
+    background-color: #f8f9fa !important;
+}
+
+.table-hover .entity-row:hover {
+    background-color: #e3f2fd !important;
+}
+
+.btn-group .btn {
+    margin-right: 2px;
+}
+
+.badge {
+    font-size: 0.75em;
+}
+</style>
 @endsection

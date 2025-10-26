@@ -400,28 +400,35 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 }
 
-/* Estilos para paginación mínima */
+/* Paginación minimalista - prácticamente invisible */
 .pagination {
     margin-bottom: 0;
-    font-size: 0.7rem;
-    transform: scale(0.8);
+    font-size: 0.6rem;
+    transform: scale(0.6);
     transform-origin: center;
+    opacity: 0.7;
 }
 .pagination .page-link {
-    padding: 0.2rem 0.4rem;
-    font-size: 0.65rem;
+    padding: 0.15rem 0.3rem;
+    font-size: 0.55rem;
     line-height: 1;
-    border-radius: 0.15rem;
+    border-radius: 0.1rem;
     min-width: auto;
     border-width: 1px;
+    color: #6c757d;
 }
 .pagination .page-item {
-    margin: 0 0.5px;
+    margin: 0 0.3px;
 }
 .pagination .page-item.active .page-link {
     background-color: #007bff;
     border-color: #007bff;
+    color: white;
     font-weight: 600;
+}
+.pagination .page-link:hover {
+    color: #0056b3;
+    background-color: #e9ecef;
 }
 </style>
 @endsection

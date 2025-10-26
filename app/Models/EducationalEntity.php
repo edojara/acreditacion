@@ -13,7 +13,6 @@ class EducationalEntity extends Model
     protected $fillable = [
         'name',
         'code',
-        'description',
         'address',
         'city',
         'region',

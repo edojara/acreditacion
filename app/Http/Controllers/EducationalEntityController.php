@@ -59,7 +59,6 @@ class EducationalEntityController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255|unique:educational_entities',
             'code' => 'required|string|max:50|unique:educational_entities',
-            'description' => 'nullable|string|max:1000',
             'address' => 'nullable|string|max:255',
             'city' => 'nullable|string|max:100',
             'region' => 'nullable|string|max:100',
@@ -112,7 +111,6 @@ class EducationalEntityController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255', Rule::unique('educational_entities')->ignore($educationalEntity->id)],
             'code' => ['required', 'string', 'max:50', Rule::unique('educational_entities')->ignore($educationalEntity->id)],
-            'description' => 'nullable|string|max:1000',
             'address' => 'nullable|string|max:255',
             'city' => 'nullable|string|max:100',
             'region' => 'nullable|string|max:100',

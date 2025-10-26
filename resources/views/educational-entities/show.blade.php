@@ -132,12 +132,6 @@ $(document).ready(function() {
                         </div>
                     </div>
 
-                    @if($educationalEntity->description)
-                    <div class="mt-3">
-                        <h5>Descripción</h5>
-                        <p class="text-muted">{{ $educationalEntity->description }}</p>
-                    </div>
-                    @endif
                 </div>
                 <div class="card-footer">
                     <a href="{{ route('educational-entities.edit', $educationalEntity) }}" class="btn btn-primary">

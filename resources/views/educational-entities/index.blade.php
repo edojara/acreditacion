@@ -200,17 +200,6 @@
                                         <small class="form-text text-muted">Escribe o selecciona un tipo de entidad existente</small>
                                     </div>
 
-                                    <div class="form-group">
-                                        <label for="status">Estado <span class="text-danger">*</span></label>
-                                        <select class="form-control @error('status') is-invalid @enderror" id="status" name="status" required>
-                                            <option value="activo" {{ old('status', 'activo') == 'activo' ? 'selected' : '' }}>Activo</option>
-                                            <option value="inactivo" {{ old('status') == 'inactivo' ? 'selected' : '' }}>Inactivo</option>
-                                            <option value="suspendido" {{ old('status') == 'suspendido' ? 'selected' : '' }}>Suspendido</option>
-                                        </select>
-                                        @error('status')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
                                 </div>
                             </div>
                         </div>

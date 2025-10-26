@@ -130,6 +130,47 @@
                         {{ $users->links() }}
                     </div>
                 </div>
+
+                <div class="card-footer">
+                    <small class="text-muted">
+                        Mostrando {{ $users->firstItem() }}-{{ $users->lastItem() }} de {{ $users->total() }} usuarios
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
+
+@section('styles')
+<style>
+.table th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+}
+.badge {
+    font-size: 0.75em;
+}
+.btn-group .btn {
+    margin-right: 2px;
+}
+/* Estilos para paginación más compacta */
+.pagination {
+    margin-bottom: 0;
+}
+.pagination .page-link {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    border-radius: 0.25rem;
+}
+.pagination .page-item.active .page-link {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+</style>
+@endsection
+                </div>
             </div>
         </div>
     </div>

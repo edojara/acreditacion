@@ -505,13 +505,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
                                         <div class="form-group">
                                             <label for="edit_type">Tipo de Entidad <span class="text-danger">*</span></label>
-                                            <select class="form-control @error('type') is-invalid @enderror" id="edit_type" name="type" required>
-                                                <option value="universidad">Universidad</option>
-                                                <option value="instituto">Instituto</option>
-                                                <option value="colegio">Colegio</option>
-                                                <option value="centro_educativo">Centro Educativo</option>
-                                                <option value="otro">Otro</option>
-                                            </select>
+                                            <input type="text" class="form-control @error('type') is-invalid @enderror"
+                                                   id="edit_type" name="type" list="editTypeList" required
+                                                   placeholder="Escribe o selecciona un tipo...">
+                                            <datalist id="editTypeList">
+                                                @foreach($existingTypes ?? [] as $type)
+                                                    <option value="{{ $type }}">
+                                                @endforeach
+                                            </datalist>
                                             @error('type')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror

@@ -40,7 +40,10 @@ class EducationalEntityController extends Controller
 
         $entities = $query->paginate(15);
 
-        return view('educational-entities.index', compact('entities'));
+        // Obtener tipos únicos para autocompletar
+        $existingTypes = EducationalEntity::distinct()->pluck('type')->filter()->values();
+
+        return view('educational-entities.index', compact('entities', 'existingTypes'));
     }
 
     /**

@@ -133,17 +133,6 @@
                                             Información Adicional
                                         </h5>
                                     </div>
-                                    <div class="card-body">
-                                        <div class="form-group">
-                                            <label for="website">Sitio Web</label>
-                                            <input type="url" class="form-control @error('website') is-invalid @enderror"
-                                                   id="website" name="website" value="{{ old('website') }}"
-                                                   placeholder="https://www.ejemplo.cl">
-                                            @error('website')
-                                                <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>

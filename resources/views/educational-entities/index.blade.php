@@ -227,20 +227,23 @@ document.addEventListener('DOMContentLoaded', function() {
     let searchTimeout;
     const searchInput = document.getElementById('searchInput');
     if (searchInput) {
+        // Guardar estado inicial
+        searchInput.addEventListener('focus', function() {
+            sessionStorage.setItem('searchInputFocused', 'true');
+        });
+
+        searchInput.addEventListener('blur', function() {
+            sessionStorage.setItem('searchInputFocused', 'false');
+        });
+
         searchInput.addEventListener('input', function() {
             clearTimeout(searchTimeout);
             const inputElement = this; // Guardar referencia al elemento
             searchTimeout = setTimeout(() => {
-                // Guardar el valor actual y posición del cursor
-                const currentValue = inputElement.value;
-                const cursorPosition = inputElement.selectionStart;
-
-                // Crear un campo oculto para preservar el foco
-                const focusField = document.createElement('input');
-                focusField.type = 'hidden';
-                focusField.name = 'focus_field';
-                focusField.value = 'searchInput';
-                inputElement.closest('form').appendChild(focusField);
+                // Guardar estado antes de enviar
+                sessionStorage.setItem('searchInputValue', inputElement.value);
+                sessionStorage.setItem('searchInputFocused', 'true');
+                sessionStorage.setItem('searchTimestamp', Date.now());
 
                 // Enviar el formulario
                 inputElement.closest('form').submit();
@@ -248,23 +251,34 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Restaurar foco después de cargar la página
+    // Restaurar foco y estado después de cargar la página
     document.addEventListener('DOMContentLoaded', function() {
-        const urlParams = new URLSearchParams(window.location.search);
-        const focusField = urlParams.get('focus_field');
+        const searchInput = document.getElementById('searchInput');
+        const wasFocused = sessionStorage.getItem('searchInputFocused') === 'true';
+        const savedValue = sessionStorage.getItem('searchInputValue');
+        const timestamp = sessionStorage.getItem('searchTimestamp');
+        const now = Date.now();
 
-        if (focusField === 'searchInput') {
-            const searchInput = document.getElementById('searchInput');
-            if (searchInput) {
-                // Pequeño delay para asegurar que el DOM esté listo
-                setTimeout(() => {
-                    searchInput.focus();
-                    // Mover cursor al final del texto
-                    const len = searchInput.value.length;
-                    searchInput.setSelectionRange(len, len);
-                }, 100);
+        // Solo restaurar si es reciente (últimos 5 segundos)
+        if (searchInput && wasFocused && timestamp && (now - parseInt(timestamp)) < 5000) {
+            // Restaurar valor si existe
+            if (savedValue !== null) {
+                searchInput.value = savedValue;
             }
+
+            // Pequeño delay para asegurar que el DOM esté listo
+            setTimeout(() => {
+                searchInput.focus();
+                // Mover cursor al final del texto
+                const len = searchInput.value.length;
+                searchInput.setSelectionRange(len, len);
+            }, 100);
         }
+
+        // Limpiar sessionStorage después de usar
+        sessionStorage.removeItem('searchInputFocused');
+        sessionStorage.removeItem('searchInputValue');
+        sessionStorage.removeItem('searchTimestamp');
     });
 
     // Test: mostrar URLs de las primeras filas

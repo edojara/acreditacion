@@ -105,8 +105,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($entities as $entity)
-                            <tr class="entity-row clickable-row" data-href="{{ route('educational-entities.show', $entity) }}" style="cursor: pointer;" title="Doble click para ver detalles">
+                            @foreach($entities as $index => $entity)
+                            <tr class="entity-row clickable-row {{ $index % 2 === 0 ? 'table-light' : 'table-secondary' }}"
+                                data-href="{{ route('educational-entities.show', $entity) }}"
+                                style="cursor: pointer;"
+                                title="Doble click para ver detalles - Fila {{ $index + 1 }}">
                                 <td>
                                     <code>{{ $entity->code }}</code>
                                 </td>
@@ -249,20 +252,51 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <style>
+/* Estilos base para filas alternadas */
+.table tbody tr:nth-child(odd) {
+    background-color: #f8f9fa;
+}
+
+.table tbody tr:nth-child(even) {
+    background-color: #ffffff;
+}
+
+/* Hover effects */
 .entity-row:hover {
-    background-color: #f8f9fa !important;
+    background-color: #e3f2fd !important;
+    transform: scale(1.01);
+    transition: all 0.2s ease;
 }
 
 .table-hover .entity-row:hover {
     background-color: #e3f2fd !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
+/* Efectos de click */
+.entity-row:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+}
+
+/* Botones */
 .btn-group .btn {
     margin-right: 2px;
 }
 
 .badge {
     font-size: 0.75em;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .entity-row:hover {
+        transform: none; /* Desactivar escala en móviles */
+    }
+
+    .table-hover .entity-row:hover {
+        box-shadow: none;
+    }
 }
 </style>
 @endsection

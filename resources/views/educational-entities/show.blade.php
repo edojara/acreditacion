@@ -7,6 +7,51 @@
     <li class="breadcrumb-item active">{{ $educationalEntity->name }}</li>
 @endsection
 
+@section('scripts')
+<script>
+$(document).ready(function() {
+    // Manejar envío del formulario de contacto
+    $('#addContactForm').on('submit', function(e) {
+        e.preventDefault();
+
+        const formData = new FormData(this);
+
+        $.ajax({
+            url: $(this).attr('action'),
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(response) {
+                $('#addContactModal').modal('hide');
+                $('#addContactForm')[0].reset();
+
+                toastr.success('Contacto agregado exitosamente');
+                location.reload();
+            },
+            error: function(xhr) {
+                if (xhr.status === 422) {
+                    const errors = xhr.responseJSON.errors;
+                    let errorMessages = [];
+
+                    for (let field in errors) {
+                        errorMessages.push(errors[field][0]);
+                    }
+
+                    toastr.error(errorMessages.join('<br>'));
+                } else {
+                    toastr.error('Error al agregar el contacto');
+                }
+            }
+        });
+    });
+});
+</script>
+@endsection
+
 @section('content')
 <div class="container-fluid">
     <div class="row">

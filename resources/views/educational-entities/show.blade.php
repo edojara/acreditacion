@@ -268,6 +268,9 @@
     </div>
 </div>
 
+@endsection
+
+@section('scripts')
 <script>
 $(document).ready(function() {
     // Manejar envío del formulario de contacto
@@ -310,5 +313,4 @@ $(document).ready(function() {
     });
 });
 </script>
-
 @endsection

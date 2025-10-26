@@ -35,16 +35,6 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="form-group">
-                                            <label for="code">Código <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control @error('code') is-invalid @enderror"
-                                                   id="code" name="code" value="{{ old('code') }}" required>
-                                            @error('code')
-                                                <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
-                                            <small class="form-text text-muted">Código único de identificación</small>
-                                        </div>
-
-                                        <div class="form-group">
                                             <label for="name">Nombre <span class="text-danger">*</span></label>
                                             <input type="text" class="form-control @error('name') is-invalid @enderror"
                                                    id="name" name="name" value="{{ old('name') }}" required>
@@ -98,38 +88,6 @@
                                             <textarea class="form-control @error('address') is-invalid @enderror"
                                                       id="address" name="address" rows="2">{{ old('address') }}</textarea>
                                             @error('address')
-                                                <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="city">Ciudad</label>
-                                                    <input type="text" class="form-control @error('city') is-invalid @enderror"
-                                                           id="city" name="city" value="{{ old('city') }}">
-                                                    @error('city')
-                                                        <div class="invalid-feedback">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="province">Provincia/Estado</label>
-                                                    <input type="text" class="form-control @error('province') is-invalid @enderror"
-                                                           id="province" name="province" value="{{ old('province') }}">
-                                                    @error('province')
-                                                        <div class="invalid-feedback">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="country">País</label>
-                                            <input type="text" class="form-control @error('country') is-invalid @enderror"
-                                                   id="country" name="country" value="{{ old('country', 'Chile') }}">
-                                            @error('country')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>

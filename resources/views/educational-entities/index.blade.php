@@ -105,9 +105,7 @@
                                     <code class="bg-light px-2 py-1 rounded">{{ $entity->code }}</code>
                                 </td>
                                 <td class="font-weight-bold">{{ $entity->name }}</td>
-                                <td>
-                                    <span class="badge badge-info">{{ ucfirst($entity->type) }}</span>
-                                </td>
+                                <td>{{ ucfirst($entity->type) }}</td>
                                 <td>{{ $entity->city ?? '-' }}</td>
                                 <td>{{ $entity->region ?? '-' }}</td>
                                 <td>{{ $entity->phone ?? '-' }}</td>

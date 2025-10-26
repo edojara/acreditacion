@@ -176,7 +176,11 @@
                         @endif
                     </div>
                     <small class="text-muted d-block text-center mt-2">
-                        Mostrando {{ $entities->firstItem() }}-{{ $entities->lastItem() }} de {{ $entities->total() }} entidades
+                        @if($entities->total() > 0)
+                            Mostrando {{ $entities->firstItem() }}-{{ $entities->lastItem() }} de {{ $entities->total() }} entidades
+                        @else
+                            No hay entidades para mostrar
+                        @endif
                     </small>
                 </div>
                 @endif

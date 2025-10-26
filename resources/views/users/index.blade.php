@@ -147,7 +147,11 @@
 
                 <div class="card-footer">
                     <small class="text-muted">
-                        Mostrando {{ $users->firstItem() }}-{{ $users->lastItem() }} de {{ $users->total() }} usuarios
+                        @if($users->total() > 0)
+                            Mostrando {{ $users->firstItem() }}-{{ $users->lastItem() }} de {{ $users->total() }} usuarios
+                        @else
+                            No hay usuarios para mostrar
+                        @endif
                     </small>
                 </div>
             </div>

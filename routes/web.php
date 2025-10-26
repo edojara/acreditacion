@@ -7,6 +7,12 @@ use App\Http\Controllers\EducationalEntityController;
 use App\Http\Controllers\EntityContactController;
 
 Route::get('/', function () {
+    // Si el usuario ya está autenticado, redirigir a la página principal
+    if (auth()->check()) {
+        return redirect()->route('educational-entities.index');
+    }
+
+    // Si no está autenticado, mostrar login
     return view('auth.login');
 });
 

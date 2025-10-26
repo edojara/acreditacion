@@ -49,6 +49,21 @@
                         <a href="{{ route('dashboard') }}" class="dropdown-item">
                             <i class="fas fa-user-edit mr-2"></i> Mi Perfil
                         </a>
+                        @if(auth()->user()->role->name === 'admin')
+                            <div class="dropdown-divider"></div>
+                            <a href="{{ route('users.index') }}" class="dropdown-item">
+                                <i class="fas fa-users mr-2"></i> Gestionar Usuarios
+                            </a>
+                            <a href="{{ route('educational-entities.index') }}" class="dropdown-item">
+                                <i class="fas fa-university mr-2"></i> Instituciones
+                            </a>
+                            <a href="{{ route('entity-contacts.index') }}" class="dropdown-item">
+                                <i class="fas fa-address-book mr-2"></i> Contactos
+                            </a>
+                            <a href="{{ route('audit-logs.index') }}" class="dropdown-item">
+                                <i class="fas fa-history mr-2"></i> Logs de Auditoría
+                            </a>
+                        @endif
                         <div class="dropdown-divider"></div>
                         <form method="POST" action="{{ route('logout') }}" class="d-inline">
                             @csrf
@@ -107,11 +122,11 @@
                                 </a>
                             </li>
 
-                            <!-- User Management -->
+                            <!-- Educational Entities -->
                             <li class="nav-item">
-                                <a href="{{ route('users.index') }}" class="nav-link {{ request()->routeIs('users.*') ? 'active' : '' }}">
-                                    <i class="nav-icon fas fa-users"></i>
-                                    <p>Gestionar Usuarios</p>
+                                <a href="{{ route('educational-entities.index') }}" class="nav-link {{ request()->routeIs('educational-entities.*') ? 'active' : '' }}">
+                                    <i class="nav-icon fas fa-university"></i>
+                                    <p>Instituciones</p>
                                 </a>
                             </li>
                         @endif

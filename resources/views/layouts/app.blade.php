@@ -34,6 +34,37 @@
                             <strong>Sistema de Acreditación</strong>
                         </a>
                     </li>
+
+                    <!-- Navigation Menu -->
+                    <li class="nav-item">
+                        <a href="{{ route('educational-entities.index') }}" class="nav-link {{ request()->routeIs('educational-entities.*') ? 'active' : '' }}">
+                            <i class="fas fa-university"></i> Instituciones
+                        </a>
+                    </li>
+
+                    @if(auth()->user()->role->name === 'admin')
+                        <li class="nav-item">
+                            <a href="{{ route('entity-contacts.index') }}" class="nav-link {{ request()->routeIs('entity-contacts.*') ? 'active' : '' }}">
+                                <i class="fas fa-address-book"></i> Contactos
+                            </a>
+                        </li>
+                    @endif
+
+                    @if(in_array(auth()->user()->role->name, ['admin', 'report']))
+                        <li class="nav-item">
+                            <a href="{{ route('reports.index') }}" class="nav-link {{ request()->routeIs('reports.*') ? 'active' : '' }}">
+                                <i class="fas fa-chart-bar"></i> Reportes
+                            </a>
+                        </li>
+                    @endif
+
+                    @if(in_array(auth()->user()->role->name, ['admin', 'enroller']))
+                        <li class="nav-item">
+                            <a href="{{ route('enrollments.index') }}" class="nav-link {{ request()->routeIs('enrollments.*') ? 'active' : '' }}">
+                                <i class="fas fa-graduation-cap"></i> Inscripciones
+                            </a>
+                        </li>
+                    @endif
                 </ul>
 
             <!-- Right navbar links -->

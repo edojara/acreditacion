@@ -97,6 +97,9 @@ class GoogleController extends Controller
                 $user->update(['avatar' => $googleUser->getAvatar()]);
             }
 
+            // Actualizar último login
+            $user->update(['last_login_at' => now()]);
+
             Auth::login($user);
 
             // Registrar login con Google en audit log

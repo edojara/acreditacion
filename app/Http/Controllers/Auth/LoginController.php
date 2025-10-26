@@ -23,6 +23,9 @@ class LoginController extends Controller
             $user = Auth::user();
             \Log::info('User logged in: ' . $user->email);
 
+            // Actualizar último login
+            $user->update(['last_login_at' => now()]);
+
             // Registrar login exitoso en audit log
             \App\Models\AuditLog::log('login', 'Usuario inició sesión con credenciales', [
                 'user_email' => $user->email,

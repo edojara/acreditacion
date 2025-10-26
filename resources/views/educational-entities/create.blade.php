@@ -45,17 +45,23 @@
 
                                         <div class="form-group">
                                             <label for="type">Tipo de Entidad <span class="text-danger">*</span></label>
-                                            <select class="form-control @error('type') is-invalid @enderror" id="type" name="type" required>
-                                                <option value="">Seleccionar tipo</option>
-                                                <option value="universidad" {{ old('type') == 'universidad' ? 'selected' : '' }}>Universidad</option>
-                                                <option value="instituto" {{ old('type') == 'instituto' ? 'selected' : '' }}>Instituto</option>
-                                                <option value="colegio" {{ old('type') == 'colegio' ? 'selected' : '' }}>Colegio</option>
-                                                <option value="centro_educativo" {{ old('type') == 'centro_educativo' ? 'selected' : '' }}>Centro Educativo</option>
-                                                <option value="otro" {{ old('type') == 'otro' ? 'selected' : '' }}>Otro</option>
-                                            </select>
+                                            <input type="text" class="form-control @error('type') is-invalid @enderror"
+                                                   id="type" name="type" value="{{ old('type') }}" required
+                                                   list="entity-types" autocomplete="off">
+                                            <datalist id="entity-types">
+                                                @foreach(\App\Models\EducationalEntity::distinct('type')->pluck('type')->filter() as $existingType)
+                                                    <option value="{{ $existingType }}">
+                                                @endforeach
+                                                <option value="Universidad">
+                                                <option value="Instituto">
+                                                <option value="Colegio">
+                                                <option value="Centro Educativo">
+                                                <option value="Otro">
+                                            </datalist>
                                             @error('type')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
+                                            <small class="form-text text-muted">Escribe o selecciona un tipo de entidad existente</small>
                                         </div>
 
                                         <div class="form-group">

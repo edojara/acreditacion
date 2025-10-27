@@ -164,7 +164,6 @@
                 </div>
 
                 <!-- Paginación personalizada con selector de cantidad -->
-                @if($entities->hasPages() || request('per_page') !== 'all')
                 <div class="card-footer">
                     <div class="row">
                         <div class="col-md-6">
@@ -183,7 +182,7 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            @if(request('per_page') !== 'all')
+                            @if(request('per_page') !== 'all' && $entities->hasPages())
                             <nav aria-label="Navegación de páginas">
                                 <ul class="pagination pagination-lg justify-content-end mb-0">
                                     {{-- Botón Anterior --}}
@@ -220,7 +219,6 @@
                         </div>
                     </div>
                 </div>
-                @endif
             </div>
         </div>
     </div>

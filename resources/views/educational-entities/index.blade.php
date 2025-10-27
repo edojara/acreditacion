@@ -63,7 +63,7 @@
 
                         <div class="form-group mr-3">
                             <input type="text" name="search" id="searchInput" class="form-control form-control-sm"
-                                    placeholder="Buscar por nombre o código..."
+                                    placeholder="Buscar por nombre..."
                                     value="{{ request('search') }}">
                         </div>
 
@@ -86,7 +86,6 @@
                         <thead class="thead-dark">
                             <tr>
                                 <th class="text-center">#</th>
-                                <th>Código</th>
                                 <th>Nombre</th>
                                 <th>Tipo</th>
                                 <th>Ciudad</th>
@@ -101,9 +100,6 @@
                             @foreach($entities as $index => $entity)
                             <tr class="clickable-row" data-href="{{ route('educational-entities.show', $entity) }}" style="cursor: pointer;">
                                 <td class="text-center">{{ $loop->iteration }}</td>
-                                <td>
-                                    <code class="bg-light px-2 py-1 rounded">{{ $entity->code }}</code>
-                                </td>
                                 <td class="font-weight-bold">{{ $entity->name }}</td>
                                 <td>{{ ucfirst($entity->type) }}</td>
                                 <td>{{ $entity->city ?? '-' }}</td>

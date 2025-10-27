@@ -86,13 +86,63 @@
                         <thead class="thead-dark">
                             <tr>
                                 <th class="text-center">#</th>
-                                <th>Nombre</th>
-                                <th>Tipo</th>
-                                <th>Ciudad</th>
-                                <th>Región</th>
+                                <th>
+                                    <a href="{{ route('educational-entities.index', array_merge(request()->query(), ['sort_by' => 'name', 'sort_direction' => (request('sort_by') === 'name' && request('sort_direction') === 'asc') ? 'desc' : 'asc'])) }}"
+                                       class="text-white text-decoration-none sortable-column">
+                                        Nombre
+                                        @if(request('sort_by') === 'name')
+                                            <i class="fas fa-sort-{{ request('sort_direction') === 'asc' ? 'up' : 'down' }} ml-1"></i>
+                                        @else
+                                            <i class="fas fa-sort ml-1"></i>
+                                        @endif
+                                    </a>
+                                </th>
+                                <th>
+                                    <a href="{{ route('educational-entities.index', array_merge(request()->query(), ['sort_by' => 'type', 'sort_direction' => (request('sort_by') === 'type' && request('sort_direction') === 'asc') ? 'desc' : 'asc'])) }}"
+                                       class="text-white text-decoration-none sortable-column">
+                                        Tipo
+                                        @if(request('sort_by') === 'type')
+                                            <i class="fas fa-sort-{{ request('sort_direction') === 'asc' ? 'up' : 'down' }} ml-1"></i>
+                                        @else
+                                            <i class="fas fa-sort ml-1"></i>
+                                        @endif
+                                    </a>
+                                </th>
+                                <th>
+                                    <a href="{{ route('educational-entities.index', array_merge(request()->query(), ['sort_by' => 'city', 'sort_direction' => (request('sort_by') === 'city' && request('sort_direction') === 'asc') ? 'desc' : 'asc'])) }}"
+                                       class="text-white text-decoration-none sortable-column">
+                                        Ciudad
+                                        @if(request('sort_by') === 'city')
+                                            <i class="fas fa-sort-{{ request('sort_direction') === 'asc' ? 'up' : 'down' }} ml-1"></i>
+                                        @else
+                                            <i class="fas fa-sort ml-1"></i>
+                                        @endif
+                                    </a>
+                                </th>
+                                <th>
+                                    <a href="{{ route('educational-entities.index', array_merge(request()->query(), ['sort_by' => 'region', 'sort_direction' => (request('sort_by') === 'region' && request('sort_direction') === 'asc') ? 'desc' : 'asc'])) }}"
+                                       class="text-white text-decoration-none sortable-column">
+                                        Región
+                                        @if(request('sort_by') === 'region')
+                                            <i class="fas fa-sort-{{ request('sort_direction') === 'asc' ? 'up' : 'down' }} ml-1"></i>
+                                        @else
+                                            <i class="fas fa-sort ml-1"></i>
+                                        @endif
+                                    </a>
+                                </th>
                                 <th>Teléfono</th>
                                 <th>Email</th>
-                                <th>Contactos</th>
+                                <th>
+                                    <a href="{{ route('educational-entities.index', array_merge(request()->query(), ['sort_by' => 'contacts_count', 'sort_direction' => (request('sort_by') === 'contacts_count' && request('sort_direction') === 'asc') ? 'desc' : 'asc'])) }}"
+                                       class="text-white text-decoration-none sortable-column">
+                                        Contactos
+                                        @if(request('sort_by') === 'contacts_count')
+                                            <i class="fas fa-sort-{{ request('sort_direction') === 'asc' ? 'up' : 'down' }} ml-1"></i>
+                                        @else
+                                            <i class="fas fa-sort ml-1"></i>
+                                        @endif
+                                    </a>
+                                </th>
                                 <th class="text-center">Acciones</th>
                             </tr>
                         </thead>
@@ -673,6 +723,22 @@ document.addEventListener('DOMContentLoaded', function() {
     color: #6c757d;
     background-color: #e9ecef;
     border-color: #dee2e6;
+}
+
+/* Columnas ordenables */
+.sortable-column {
+    display: inline-flex;
+    align-items: center;
+    transition: opacity 0.2s ease;
+}
+
+.sortable-column:hover {
+    opacity: 0.8;
+}
+
+.sortable-column i {
+    font-size: 0.8em;
+    margin-left: 0.25rem;
 }
 </style>
 

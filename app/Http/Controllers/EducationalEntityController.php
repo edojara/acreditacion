@@ -45,12 +45,35 @@ class EducationalEntityController extends Controller
             });
         }
 
-        $entities = $query->paginate($perPage);
+        // Ordenamiento
+        $sortBy = $request->get('sort_by', 'name');
+        $sortDirection = $request->get('sort_direction', 'asc');
+
+        // Validar campos de ordenamiento permitidos
+        $allowedSortFields = ['name', 'type', 'city', 'region', 'phone', 'email', 'contacts_count', 'created_at'];
+        if (!in_array($sortBy, $allowedSortFields)) {
+            $sortBy = 'name';
+        }
+
+        // Validar dirección de ordenamiento
+        if (!in_array(strtolower($sortDirection), ['asc', 'desc'])) {
+            $sortDirection = 'asc';
+        }
+
+        // Aplicar ordenamiento
+        if ($sortBy === 'contacts_count') {
+            $query->orderBy('contacts_count', $sortDirection)
+                  ->orderBy('name', 'asc'); // Orden secundario por nombre
+        } else {
+            $query->orderBy($sortBy, $sortDirection);
+        }
+
+        $entities = $query->paginate($perPage)->appends($request->query());
 
         // Obtener tipos únicos para autocompletar
         $existingTypes = EducationalEntity::distinct()->pluck('type')->filter()->values();
 
-        return view('educational-entities.index', compact('entities', 'existingTypes'));
+        return view('educational-entities.index', compact('entities', 'existingTypes', 'sortBy', 'sortDirection'));
     }
 
     /**

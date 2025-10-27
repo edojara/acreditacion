@@ -755,30 +755,62 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(response => {
             console.log('Respuesta HTTP:', response.status, response.statusText);
-            return response.text().then(text => {
-                console.log('Respuesta completa:', text);
-                try {
-                    return JSON.parse(text);
-                } catch (e) {
-                    throw new Error('Respuesta no es JSON válido: ' + text);
-                }
-            });
+
+            // Si es una respuesta exitosa (200-299), verificar si es HTML (redirección de Laravel)
+            if (response.ok) {
+                return response.text().then(text => {
+                    console.log('Respuesta exitosa - contenido:', text.substring(0, 200) + '...');
+
+                    // Si contiene DOCTYPE HTML, es una redirección exitosa de Laravel
+                    if (text.includes('<!DOCTYPE html>')) {
+                        console.log('✅ Respuesta HTML exitosa - redirección de Laravel');
+                        return { success: true, html: text };
+                    }
+
+                    // Intentar parsear como JSON
+                    try {
+                        return JSON.parse(text);
+                    } catch (e) {
+                        console.log('Contenido no es JSON, pero respuesta OK - tratando como éxito');
+                        return { success: true, content: text };
+                    }
+                });
+            } else {
+                // Respuesta de error - intentar parsear como JSON
+                return response.text().then(text => {
+                    console.log('Respuesta de error - contenido:', text);
+                    try {
+                        return JSON.parse(text);
+                    } catch (e) {
+                        throw new Error('Respuesta de error no es JSON válido: ' + text);
+                    }
+                });
+            }
         })
         .then(data => {
             console.log('Datos procesados:', data);
 
-            // Cerrar modal
-            var modal = bootstrap.Modal.getInstance(document.getElementById('editEntityModal'));
-            modal.hide();
+            // Verificar si es una respuesta exitosa de Laravel (HTML)
+            if (data.success || data.html) {
+                console.log('✅ Respuesta exitosa detectada');
 
-            // Resetear formulario
-            editForm.reset();
+                // Cerrar modal
+                var modal = bootstrap.Modal.getInstance(document.getElementById('editEntityModal'));
+                modal.hide();
 
-            // Mostrar mensaje de éxito
-            alert('Entidad educativa actualizada exitosamente');
+                // Resetear formulario
+                editForm.reset();
 
-            // Recargar la página para mostrar los cambios
-            location.reload();
+                // Mostrar mensaje de éxito
+                alert('Entidad educativa actualizada exitosamente');
+
+                // Recargar la página para mostrar los cambios
+                location.reload();
+            } else {
+                // Es una respuesta JSON normal
+                console.log('Respuesta JSON procesada:', data);
+                // Aquí iría el manejo de respuestas JSON si fuera necesario
+            }
         })
         .catch(error => {
             console.error('Error en fetch:', error);

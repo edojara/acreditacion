@@ -782,8 +782,19 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(error => {
             console.error('Error en fetch:', error);
+            alert('Error al actualizar la entidad educativa: ' + error.message);
+        });
+        .catch(error => {
+            console.error('Error en fetch:', error);
+
+            // Mostrar el error completo en consola para debugging
+            console.error('Error completo:', error);
+            console.error('Mensaje de error:', error.message);
+
             try {
                 const errorData = JSON.parse(error.message);
+                console.error('Datos de error parseados:', errorData);
+
                 if (errorData.errors) {
                     const errors = errorData.errors;
                     let errorMessages = [];
@@ -796,8 +807,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 } else {
                     alert('Error al actualizar la entidad educativa: ' + (errorData.message || 'Error desconocido'));
                 }
-            } catch (e) {
-                alert('Error al actualizar la entidad educativa: ' + error.message);
+            } catch (parseError) {
+                console.error('Error al parsear respuesta de error:', parseError);
+                alert('Error al actualizar la entidad educativa: ' + error.message + '\n\nDetalles en consola del navegador (F12)');
             }
         });
     });

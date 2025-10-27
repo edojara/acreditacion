@@ -186,7 +186,7 @@
                         </div>
                         <div class="col-md-6">
                             <nav aria-label="Navegación de páginas">
-                                <ul class="pagination justify-content-end mb-0">
+                                <ul class="pagination pagination-lg justify-content-end mb-0">
                                     {{-- Botón Anterior --}}
                                     @if ($entities->onFirstPage())
                                         <li class="page-item disabled">

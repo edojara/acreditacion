@@ -169,6 +169,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="d-flex align-items-center">
+                                @if(request('per_page') !== 'all')
                                 <label for="perPageSelect" class="mr-2 mb-0">Mostrar:</label>
                                 <select id="perPageSelect" class="form-control form-control-sm" style="width: auto;">
                                     <option value="10" {{ request('per_page', 15) == 10 ? 'selected' : '' }}>10</option>
@@ -177,15 +178,45 @@
                                     <option value="100" {{ request('per_page', 15) == 100 ? 'selected' : '' }}>100</option>
                                     <option value="all" {{ request('per_page') == 'all' ? 'selected' : '' }}>Todos</option>
                                 </select>
+                                @endif
                                 <span class="ml-2 text-muted">
                                     Mostrando {{ $entities->firstItem() ?? 0 }} a {{ $entities->lastItem() ?? 0 }} de {{ $entities->total() }} registros
                                 </span>
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="float-right">
-                                {{ $entities->appends(request()->query())->links() }}
-                            </div>
+                            <nav aria-label="Navegación de páginas">
+                                <ul class="pagination pagination-sm justify-content-end mb-0">
+                                    {{-- Botón Anterior --}}
+                                    @if ($entities->onFirstPage())
+                                        <li class="page-item disabled">
+                                            <span class="page-link">Anterior</span>
+                                        </li>
+                                    @else
+                                        <li class="page-item">
+                                            <a class="page-link" href="{{ $entities->appends(request()->query())->previousPageUrl() }}">Anterior</a>
+                                        </li>
+                                    @endif
+
+                                    {{-- Páginas --}}
+                                    @foreach($entities->getUrlRange(1, $entities->lastPage()) as $page => $url)
+                                        <li class="page-item {{ $page == $entities->currentPage() ? 'active' : '' }}">
+                                            <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                                        </li>
+                                    @endforeach
+
+                                    {{-- Botón Siguiente --}}
+                                    @if ($entities->hasMorePages())
+                                        <li class="page-item">
+                                            <a class="page-link" href="{{ $entities->appends(request()->query())->nextPageUrl() }}">Siguiente</a>
+                                        </li>
+                                    @else
+                                        <li class="page-item disabled">
+                                            <span class="page-link">Siguiente</span>
+                                        </li>
+                                    @endif
+                                </ul>
+                            </nav>
                         </div>
                     </div>
                 </div>

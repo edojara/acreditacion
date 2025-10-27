@@ -666,18 +666,41 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Llenar los campos del formulario con timeout para asegurar que el modal esté completamente abierto
         setTimeout(function() {
-            modal.querySelector('#edit_name').value = entityName;
-            modal.querySelector('#edit_type').value = entityType;
-            modal.querySelector('#edit_address').value = entityAddress;
-            modal.querySelector('#edit_city').value = entityCity;
-            modal.querySelector('#edit_region').value = entityRegion;
-            modal.querySelector('#edit_country').value = entityCountry;
-            modal.querySelector('#edit_phone').value = entityPhone;
-            modal.querySelector('#edit_email').value = entityEmail;
-            modal.querySelector('#edit_website').value = entityWebsite;
+            // Verificar que los elementos existen antes de asignar valores
+            const nameField = modal.querySelector('#edit_name');
+            const typeField = modal.querySelector('#edit_type');
+            const addressField = modal.querySelector('#edit_address');
+            const cityField = modal.querySelector('#edit_city');
+            const regionField = modal.querySelector('#edit_region');
+            const countryField = modal.querySelector('#edit_country');
+            const phoneField = modal.querySelector('#edit_phone');
+            const emailField = modal.querySelector('#edit_email');
+            const websiteField = modal.querySelector('#edit_website');
 
-            console.log('Campos llenados exitosamente');
-        }, 100);
+            console.log('Elementos encontrados:', {
+                nameField: !!nameField,
+                typeField: !!typeField,
+                addressField: !!addressField,
+                cityField: !!cityField,
+                regionField: !!regionField,
+                countryField: !!countryField,
+                phoneField: !!phoneField,
+                emailField: !!emailField,
+                websiteField: !!websiteField
+            });
+
+            if (nameField) nameField.value = entityName;
+            if (typeField) typeField.value = entityType;
+            if (addressField) addressField.value = entityAddress;
+            if (cityField) cityField.value = entityCity;
+            if (regionField) regionField.value = entityRegion;
+            if (countryField) countryField.value = entityCountry;
+            if (phoneField) phoneField.value = entityPhone;
+            if (emailField) emailField.value = entityEmail;
+            if (websiteField) websiteField.value = entityWebsite;
+
+            console.log('Campos llenados exitosamente - valores asignados');
+        }, 200); // Aumentar timeout a 200ms
     });
 
     // Manejar envío del formulario de edición

@@ -164,27 +164,26 @@
                 </div>
 
                 <!-- Paginación personalizada con selector de cantidad -->
-                @if($entities->hasPages())
+                @if($entities->hasPages() || request('per_page') !== 'all')
                 <div class="card-footer">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="d-flex align-items-center">
-                                @if(request('per_page') !== 'all')
                                 <label for="perPageSelect" class="mr-2 mb-0">Mostrar:</label>
-                                <select id="perPageSelect" class="form-control form-control-sm" style="width: auto;">
+                                <select id="perPageSelect" class="form-control form-control-lg" style="width: auto;">
                                     <option value="10" {{ request('per_page', 15) == 10 ? 'selected' : '' }}>10</option>
                                     <option value="25" {{ request('per_page', 15) == 25 ? 'selected' : '' }}>25</option>
                                     <option value="50" {{ request('per_page', 15) == 50 ? 'selected' : '' }}>50</option>
                                     <option value="100" {{ request('per_page', 15) == 100 ? 'selected' : '' }}>100</option>
                                     <option value="all" {{ request('per_page') == 'all' ? 'selected' : '' }}>Todos</option>
                                 </select>
-                                @endif
                                 <span class="ml-2 text-muted">
                                     Mostrando {{ $entities->firstItem() ?? 0 }} a {{ $entities->lastItem() ?? 0 }} de {{ $entities->total() }} registros
                                 </span>
                             </div>
                         </div>
                         <div class="col-md-6">
+                            @if(request('per_page') !== 'all')
                             <nav aria-label="Navegación de páginas">
                                 <ul class="pagination pagination-lg justify-content-end mb-0">
                                     {{-- Botón Anterior --}}
@@ -217,6 +216,7 @@
                                     @endif
                                 </ul>
                             </nav>
+                            @endif
                         </div>
                     </div>
                 </div>

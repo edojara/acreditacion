@@ -464,25 +464,47 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        // Click simple para feedback visual
+        // Sistema de selección de filas
+        let selectedRow = null;
+
         row.addEventListener('click', function(e) {
             // Solo si no se hizo click en botones de acción
             if (!e.target.closest('.btn')) {
                 console.log('Click simple en fila');
-                this.style.backgroundColor = '#e3f2fd';
-                setTimeout(() => {
+
+                // Remover selección anterior
+                if (selectedRow && selectedRow !== this) {
+                    selectedRow.classList.remove('table-primary', 'selected-row');
+                    selectedRow.style.backgroundColor = '';
+                }
+
+                // Si es la misma fila, deseleccionar
+                if (selectedRow === this) {
+                    this.classList.remove('table-primary', 'selected-row');
                     this.style.backgroundColor = '';
-                }, 150);
+                    selectedRow = null;
+                    console.log('Fila deseleccionada');
+                } else {
+                    // Seleccionar nueva fila
+                    this.classList.add('table-primary', 'selected-row');
+                    this.style.backgroundColor = '#cce5ff'; // Color azul claro persistente
+                    selectedRow = this;
+                    console.log('Fila seleccionada:', this);
+                }
             }
         });
 
-        // Hover effects
+        // Hover effects (sin interferir con selección)
         row.addEventListener('mouseenter', function() {
-            this.classList.add('table-active');
+            if (this !== selectedRow) {
+                this.classList.add('table-active');
+            }
         });
 
         row.addEventListener('mouseleave', function() {
-            this.classList.remove('table-active');
+            if (this !== selectedRow) {
+                this.classList.remove('table-active');
+            }
         });
     });
 
@@ -739,6 +761,20 @@ document.addEventListener('DOMContentLoaded', function() {
 .sortable-column i {
     font-size: 0.8em;
     margin-left: 0.25rem;
+}
+
+/* Filas seleccionables */
+.selected-row {
+    background-color: #cce5ff !important;
+    border-left: 3px solid #007bff;
+}
+
+.selected-row:hover {
+    background-color: #b3d7ff !important;
+}
+
+.table-primary.selected-row {
+    background-color: #cce5ff !important;
 }
 </style>
 

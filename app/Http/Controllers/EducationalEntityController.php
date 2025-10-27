@@ -68,7 +68,7 @@ class EducationalEntityController extends Controller
             'country' => 'nullable|string|max:100',
             'phone' => 'nullable|string|max:20',
             'email' => 'nullable|email|max:255',
-            'website' => 'nullable|url|max:255',
+            'website' => 'nullable|string|max:255',
             'type' => 'required|in:universidad,instituto,colegio,centro_educativo,otro',
             'status' => 'required|in:activo,inactivo,suspendido',
         ]);
@@ -120,7 +120,7 @@ class EducationalEntityController extends Controller
             'country' => 'nullable|string|max:100',
             'phone' => 'nullable|string|max:20',
             'email' => 'nullable|email|max:255',
-            'website' => 'nullable|url|max:255',
+            'website' => 'nullable|string|max:255',
             'type' => 'required|in:universidad,instituto,colegio,centro_educativo,otro',
             'status' => 'required|in:activo,inactivo,suspendido',
         ]);

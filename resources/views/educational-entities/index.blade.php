@@ -649,23 +649,8 @@ document.addEventListener('DOMContentLoaded', function() {
         var entityWebsite = button.getAttribute('data-entity-website') || '';
 
         console.log('Abriendo modal de edición para entidad:', entityId, entityName);
-
-        var modal = this;
-        modal.querySelector('#editEntityModalLabel').textContent = 'Editar Entidad Educativa: ' + entityName;
-        modal.querySelector('#editEntityForm').setAttribute('action', '/educational-entities/' + entityId);
-
-        // Llenar los campos del formulario
-        modal.querySelector('#edit_name').value = entityName;
-        modal.querySelector('#edit_type').value = entityType;
-        modal.querySelector('#edit_address').value = entityAddress;
-        modal.querySelector('#edit_city').value = entityCity;
-        modal.querySelector('#edit_region').value = entityRegion;
-        modal.querySelector('#edit_country').value = entityCountry;
-        modal.querySelector('#edit_phone').value = entityPhone;
-        modal.querySelector('#edit_email').value = entityEmail;
-        modal.querySelector('#edit_website').value = entityWebsite;
-
-        console.log('Campos llenados:', {
+        console.log('Datos del botón:', {
+            id: entityId,
             name: entityName,
             type: entityType,
             address: entityAddress,
@@ -676,6 +661,25 @@ document.addEventListener('DOMContentLoaded', function() {
             email: entityEmail,
             website: entityWebsite
         });
+
+        var modal = this;
+        modal.querySelector('#editEntityModalLabel').textContent = 'Editar Entidad Educativa: ' + entityName;
+        modal.querySelector('#editEntityForm').setAttribute('action', '/educational-entities/' + entityId);
+
+        // Llenar los campos del formulario con timeout para asegurar que el modal esté completamente abierto
+        setTimeout(function() {
+            modal.querySelector('#edit_name').value = entityName;
+            modal.querySelector('#edit_type').value = entityType;
+            modal.querySelector('#edit_address').value = entityAddress;
+            modal.querySelector('#edit_city').value = entityCity;
+            modal.querySelector('#edit_region').value = entityRegion;
+            modal.querySelector('#edit_country').value = entityCountry;
+            modal.querySelector('#edit_phone').value = entityPhone;
+            modal.querySelector('#edit_email').value = entityEmail;
+            modal.querySelector('#edit_website').value = entityWebsite;
+
+            console.log('Campos llenados exitosamente');
+        }, 100);
     });
 
     // Manejar envío del formulario de edición

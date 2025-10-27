@@ -730,28 +730,45 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Manejar envío del formulario de edición
     var editForm = document.getElementById('editEntityForm');
+    console.log('Formulario de edición encontrado:', !!editForm);
+
     editForm.addEventListener('submit', function(e) {
         e.preventDefault();
+        console.log('Formulario enviado - previniendo default');
 
         const formData = new FormData(this);
+        const actionUrl = this.getAttribute('action');
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-        fetch(this.getAttribute('action'), {
+        console.log('URL de acción:', actionUrl);
+        console.log('Token CSRF:', csrfToken ? 'Presente' : 'Faltante');
+        console.log('Datos del formulario:');
+        for (let [key, value] of formData.entries()) {
+            console.log(key + ':', value);
+        }
+
+        fetch(actionUrl, {
             method: 'POST',
             body: formData,
             headers: {
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                'X-CSRF-TOKEN': csrfToken,
+                'Accept': 'application/json'
             }
         })
         .then(response => {
-            if (response.ok) {
-                return response.json();
-            } else {
-                return response.json().then(errorData => {
-                    throw new Error(JSON.stringify(errorData));
-                });
-            }
+            console.log('Respuesta HTTP:', response.status, response.statusText);
+            return response.text().then(text => {
+                console.log('Respuesta completa:', text);
+                try {
+                    return JSON.parse(text);
+                } catch (e) {
+                    throw new Error('Respuesta no es JSON válido: ' + text);
+                }
+            });
         })
         .then(data => {
+            console.log('Datos procesados:', data);
+
             // Cerrar modal
             var modal = bootstrap.Modal.getInstance(document.getElementById('editEntityModal'));
             modal.hide();
@@ -759,17 +776,17 @@ document.addEventListener('DOMContentLoaded', function() {
             // Resetear formulario
             editForm.reset();
 
-            // Mostrar mensaje de éxito (usando vanilla JS alert por ahora)
+            // Mostrar mensaje de éxito
             alert('Entidad educativa actualizada exitosamente');
 
             // Recargar la página para mostrar los cambios
             location.reload();
         })
         .catch(error => {
+            console.error('Error en fetch:', error);
             try {
                 const errorData = JSON.parse(error.message);
                 if (errorData.errors) {
-                    // Errores de validación
                     const errors = errorData.errors;
                     let errorMessages = [];
 
@@ -779,10 +796,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     alert('Errores de validación:\n' + errorMessages.join('\n'));
                 } else {
-                    alert('Error al actualizar la entidad educativa');
+                    alert('Error al actualizar la entidad educativa: ' + (errorData.message || 'Error desconocido'));
                 }
             } catch (e) {
-                alert('Error al actualizar la entidad educativa');
+                alert('Error al actualizar la entidad educativa: ' + error.message);
             }
         });
     });

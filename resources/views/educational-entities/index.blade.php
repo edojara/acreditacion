@@ -125,7 +125,7 @@
                                            class="btn btn-outline-info btn-sm" title="Ver Detalles">
                                             <i class="fas fa-eye"></i>
                                         </a>
-                                        <button type="button" class="btn btn-outline-warning btn-sm"
+                                        <button type="button" class="btn btn-outline-warning btn-sm edit-entity-btn"
                                                 data-bs-toggle="modal" data-bs-target="#editEntityModal"
                                                 data-entity-id="{{ $entity->id }}"
                                                 data-entity-name="{{ $entity->name }}"
@@ -137,7 +137,8 @@
                                                 data-entity-phone="{{ $entity->phone }}"
                                                 data-entity-email="{{ $entity->email }}"
                                                 data-entity-website="{{ $entity->website }}"
-                                                title="Editar">
+                                                title="Editar"
+                                                onclick="console.log('Botón editar clickeado para entidad:', {{ $entity->id }})">
                                             <i class="fas fa-edit"></i>
                                         </button>
                                         <form method="POST" action="{{ route('educational-entities.destroy', $entity) }}"
@@ -645,6 +646,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Manejar apertura del modal de edición
     editModal.addEventListener('show.bs.modal', function (event) {
         console.log('✅ Evento show.bs.modal disparado correctamente!');
+        console.log('Evento completo:', event);
+        console.log('Related target:', event.relatedTarget);
         console.log('Evento show.bs.modal disparado');
 
         var button = event.relatedTarget;

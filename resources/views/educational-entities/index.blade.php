@@ -601,9 +601,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
                                         <div class="form-group">
                                             <label for="edit_website">Sitio Web</label>
-                                            <input type="url" class="form-control @error('website') is-invalid @enderror"
+                                            <input type="text" class="form-control @error('website') is-invalid @enderror"
                                                    id="edit_website" name="website" value=""
-                                                   placeholder="https://ejemplo.com">
+                                                   placeholder="www.ejemplo.com o https://ejemplo.com">
                                             @error('website')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror

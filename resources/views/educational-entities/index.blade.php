@@ -782,10 +782,6 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(error => {
             console.error('Error en fetch:', error);
-            alert('Error al actualizar la entidad educativa: ' + error.message);
-        });
-        .catch(error => {
-            console.error('Error en fetch:', error);
 
             // Mostrar el error completo en consola para debugging
             console.error('Error completo:', error);

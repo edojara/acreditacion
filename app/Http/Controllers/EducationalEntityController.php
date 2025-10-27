@@ -113,6 +113,7 @@ class EducationalEntityController extends Controller
     {
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255', Rule::unique('educational_entities')->ignore($educationalEntity->id)],
+            'code' => 'nullable|string|max:50', // Campo eliminado pero incluido para detectar cambios
             'address' => 'nullable|string|max:255',
             'city' => 'nullable|string|max:100',
             'region' => 'nullable|string|max:100',
@@ -121,6 +122,7 @@ class EducationalEntityController extends Controller
             'email' => 'nullable|email|max:255',
             'website' => 'nullable|string|max:255',
             'type' => 'required|in:universidad,instituto,colegio,centro_educativo,otro',
+            'status' => 'nullable|in:activo,inactivo,suspendido', // Campo eliminado pero incluido para detectar cambios
         ]);
 
         $oldValues = $educationalEntity->only(array_keys($validated));

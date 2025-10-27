@@ -111,6 +111,9 @@ class EducationalEntityController extends Controller
      */
     public function update(Request $request, EducationalEntity $educationalEntity)
     {
+        // Convertir el campo 'type' a minúscula para evitar problemas de case sensitivity
+        $request->merge(['type' => strtolower($request->type)]);
+
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255', Rule::unique('educational_entities')->ignore($educationalEntity->id)],
             'code' => 'nullable|string|max:50', // Campo eliminado pero incluido para detectar cambios

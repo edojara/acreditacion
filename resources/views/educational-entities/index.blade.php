@@ -638,35 +638,43 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 }
 
-/* Paginación minimalista - prácticamente invisible */
+/* Paginación mejorada - más visible y usable */
 .pagination {
     margin-bottom: 0;
-    font-size: 0.6rem;
-    transform: scale(0.6);
-    transform-origin: center;
-    opacity: 0.7;
+    font-size: 0.875rem;
+    opacity: 1;
 }
 .pagination .page-link {
-    padding: 0.15rem 0.3rem;
-    font-size: 0.55rem;
-    line-height: 1;
-    border-radius: 0.1rem;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    line-height: 1.25;
+    border-radius: 0.375rem;
     min-width: auto;
     border-width: 1px;
-    color: #6c757d;
+    color: #495057;
+    font-weight: 500;
 }
 .pagination .page-item {
-    margin: 0 0.3px;
+    margin: 0 0.125rem;
 }
 .pagination .page-item.active .page-link {
     background-color: #007bff;
     border-color: #007bff;
     color: white;
     font-weight: 600;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 123, 255, 0.25);
 }
 .pagination .page-link:hover {
     color: #0056b3;
     background-color: #e9ecef;
+    border-color: #adb5bd;
+    transform: translateY(-1px);
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+.pagination .page-item.disabled .page-link {
+    color: #6c757d;
+    background-color: #e9ecef;
+    border-color: #dee2e6;
 }
 </style>
 

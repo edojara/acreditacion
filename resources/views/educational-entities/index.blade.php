@@ -97,9 +97,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($entities as $index => $entity)
-                            <tr class="clickable-row" data-href="{{ route('educational-entities.show', $entity) }}" style="cursor: pointer;">
-                                <td class="text-center">{{ $loop->iteration }}</td>
+                             @foreach($entities as $index => $entity)
+                             <tr class="clickable-row" data-href="{{ route('educational-entities.show', $entity) }}" style="cursor: pointer;">
+                                 <td class="text-center">{{ ($entities->currentPage() - 1) * $entities->perPage() + $loop->iteration }}</td>
                                 <td class="font-weight-bold">{{ $entity->name }}</td>
                                 <td>{{ ucfirst($entity->type) }}</td>
                                 <td>{{ $entity->city ?? '-' }}</td>
@@ -163,33 +163,31 @@
                     @endif
                 </div>
 
-                <!-- Paginación -->
+                <!-- Paginación personalizada con selector de cantidad -->
                 @if($entities->hasPages())
                 <div class="card-footer">
-                    <div class="d-flex justify-content-center">
-                        @if($entities->onFirstPage())
-                            <span class="btn btn-outline-secondary btn-sm disabled">Anterior</span>
-                        @else
-                            <a href="{{ $entities->appends(request()->query())->previousPageUrl() }}" class="btn btn-outline-primary btn-sm">Anterior</a>
-                        @endif
-
-                        <span class="mx-2 align-self-center text-muted">
-                            Página {{ $entities->currentPage() }} de {{ $entities->lastPage() }}
-                        </span>
-
-                        @if($entities->hasMorePages())
-                            <a href="{{ $entities->appends(request()->query())->nextPageUrl() }}" class="btn btn-outline-primary btn-sm">Siguiente</a>
-                        @else
-                            <span class="btn btn-outline-secondary btn-sm disabled">Siguiente</span>
-                        @endif
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center">
+                                <label for="perPageSelect" class="mr-2 mb-0">Mostrar:</label>
+                                <select id="perPageSelect" class="form-control form-control-sm" style="width: auto;">
+                                    <option value="10" {{ request('per_page', 15) == 10 ? 'selected' : '' }}>10</option>
+                                    <option value="25" {{ request('per_page', 15) == 25 ? 'selected' : '' }}>25</option>
+                                    <option value="50" {{ request('per_page', 15) == 50 ? 'selected' : '' }}>50</option>
+                                    <option value="100" {{ request('per_page', 15) == 100 ? 'selected' : '' }}>100</option>
+                                    <option value="all" {{ request('per_page') == 'all' ? 'selected' : '' }}>Todos</option>
+                                </select>
+                                <span class="ml-2 text-muted">
+                                    Mostrando {{ $entities->firstItem() ?? 0 }} a {{ $entities->lastItem() ?? 0 }} de {{ $entities->total() }} registros
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="float-right">
+                                {{ $entities->appends(request()->query())->links() }}
+                            </div>
+                        </div>
                     </div>
-                    <small class="text-muted d-block text-center mt-2">
-                        @if($entities->total() > 0)
-                            Mostrando {{ $entities->firstItem() }}-{{ $entities->lastItem() }} de {{ $entities->total() }} entidades
-                        @else
-                            No hay entidades para mostrar
-                        @endif
-                    </small>
                 </div>
                 @endif
             </div>
@@ -416,6 +414,26 @@ document.addEventListener('DOMContentLoaded', function() {
             this.closest('form').submit();
         });
     });
+
+    // Selector de cantidad de registros por página
+    const perPageSelect = document.getElementById('perPageSelect');
+    if (perPageSelect) {
+        perPageSelect.addEventListener('change', function() {
+            const form = this.closest('form');
+            const url = new URL(window.location);
+
+            if (this.value === 'all') {
+                url.searchParams.set('per_page', 'all');
+            } else {
+                url.searchParams.set('per_page', this.value);
+            }
+
+            // Limpiar parámetro de página para ir a la primera
+            url.searchParams.delete('page');
+
+            window.location.href = url.toString();
+        });
+    }
 
     // Búsqueda en tiempo real con debounce
     let searchTimeout;

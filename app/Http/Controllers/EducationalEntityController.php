@@ -16,6 +16,14 @@ class EducationalEntityController extends Controller
         $query = EducationalEntity::with('contacts')
             ->withCount('contacts');
 
+        // Determinar cantidad de registros por página
+        $perPage = $request->get('per_page', 15);
+        if ($perPage === 'all') {
+            $perPage = 1000; // Un número alto para mostrar todos
+        } elseif (!is_numeric($perPage) || $perPage < 1) {
+            $perPage = 15;
+        }
+
         // Filtros
         if ($request->filled('type')) {
             $query->where('type', $request->type);
@@ -37,7 +45,7 @@ class EducationalEntityController extends Controller
             });
         }
 
-        $entities = $query->paginate(15);
+        $entities = $query->paginate($perPage);
 
         // Obtener tipos únicos para autocompletar
         $existingTypes = EducationalEntity::distinct()->pluck('type')->filter()->values();

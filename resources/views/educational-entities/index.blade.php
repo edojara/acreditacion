@@ -17,9 +17,9 @@
                         Gestión de Entidades Educativas
                     </h3>
                     <div class="card-tools">
-                        <a href="{{ route('educational-entities.create') }}" class="btn btn-primary btn-sm">
+                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#createEntityModal">
                             <i class="fas fa-plus"></i> Nueva Entidad
-                        </a>
+                        </button>
                     </div>
                 </div>
 
@@ -197,6 +197,191 @@
                 </div>
                 @endif
             </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para Crear Nueva Entidad Educativa -->
+<div class="modal fade" id="createEntityModal" tabindex="-1" role="dialog" aria-labelledby="createEntityModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createEntityModalLabel">
+                    <i class="fas fa-plus mr-2"></i>
+                    Crear Nueva Entidad Educativa
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <form method="POST" action="{{ route('educational-entities.store') }}" id="createEntityForm">
+                @csrf
+                <div class="modal-body">
+
+                    <div class="row">
+                            <!-- Información Básica -->
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5 class="card-title mb-0">
+                                            <i class="fas fa-info-circle mr-2"></i>
+                                            Información Básica
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label for="create_name">Nombre <span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                                   id="create_name" name="name" value="{{ old('name') }}" required>
+                                            @error('name')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="create_code">Código <span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control @error('code') is-invalid @enderror"
+                                                   id="create_code" name="code" value="{{ old('code') }}" required>
+                                            @error('code')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="create_type">Tipo de Entidad <span class="text-danger">*</span></label>
+                                            <select class="form-control @error('type') is-invalid @enderror" id="create_type" name="type" required>
+                                                <option value="">Seleccionar tipo...</option>
+                                                <option value="universidad" {{ old('type') === 'universidad' ? 'selected' : '' }}>Universidad</option>
+                                                <option value="instituto" {{ old('type') === 'instituto' ? 'selected' : '' }}>Instituto</option>
+                                                <option value="colegio" {{ old('type') === 'colegio' ? 'selected' : '' }}>Colegio</option>
+                                                <option value="centro_educativo" {{ old('type') === 'centro_educativo' ? 'selected' : '' }}>Centro Educativo</option>
+                                                <option value="otro" {{ old('type') === 'otro' ? 'selected' : '' }}>Otro</option>
+                                            </select>
+                                            @error('type')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="create_status">Estado <span class="text-danger">*</span></label>
+                                            <select class="form-control @error('status') is-invalid @enderror" id="create_status" name="status" required>
+                                                <option value="">Seleccionar estado...</option>
+                                                <option value="activo" {{ old('status') === 'activo' ? 'selected' : '' }}>Activo</option>
+                                                <option value="inactivo" {{ old('status') === 'inactivo' ? 'selected' : '' }}>Inactivo</option>
+                                                <option value="suspendido" {{ old('status') === 'suspendido' ? 'selected' : '' }}>Suspendido</option>
+                                            </select>
+                                            @error('status')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ubicación y Contacto -->
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5 class="card-title mb-0">
+                                            <i class="fas fa-map-marker-alt mr-2"></i>
+                                            Ubicación y Contacto
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label for="create_address">Dirección</label>
+                                            <input type="text" class="form-control @error('address') is-invalid @enderror"
+                                                   id="create_address" name="address" value="{{ old('address') }}">
+                                            @error('address')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="create_city">Ciudad</label>
+                                            <input type="text" class="form-control @error('city') is-invalid @enderror"
+                                                   id="create_city" name="city" value="{{ old('city') }}">
+                                            @error('city')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="create_region">Región</label>
+                                            <select class="form-control @error('region') is-invalid @enderror" id="create_region" name="region">
+                                                <option value="">Seleccionar región...</option>
+                                                <option value="Metropolitana" {{ old('region') === 'Metropolitana' ? 'selected' : '' }}>Metropolitana</option>
+                                                <option value="Valparaíso" {{ old('region') === 'Valparaíso' ? 'selected' : '' }}>Valparaíso</option>
+                                                <option value="Biobío" {{ old('region') === 'Biobío' ? 'selected' : '' }}>Biobío</option>
+                                                <option value="Maule" {{ old('region') === 'Maule' ? 'selected' : '' }}>Maule</option>
+                                                <option value="Ñuble" {{ old('region') === 'Ñuble' ? 'selected' : '' }}>Ñuble</option>
+                                                <option value="Araucanía" {{ old('region') === 'Araucanía' ? 'selected' : '' }}>Araucanía</option>
+                                                <option value="Los Ríos" {{ old('region') === 'Los Ríos' ? 'selected' : '' }}>Los Ríos</option>
+                                                <option value="Los Lagos" {{ old('region') === 'Los Lagos' ? 'selected' : '' }}>Los Lagos</option>
+                                                <option value="Aysén" {{ old('region') === 'Aysén' ? 'selected' : '' }}>Aysén</option>
+                                                <option value="Magallanes" {{ old('region') === 'Magallanes' ? 'selected' : '' }}>Magallanes</option>
+                                                <option value="Arica y Parinacota" {{ old('region') === 'Arica y Parinacota' ? 'selected' : '' }}>Arica y Parinacota</option>
+                                                <option value="Tarapacá" {{ old('region') === 'Tarapacá' ? 'selected' : '' }}>Tarapacá</option>
+                                                <option value="Antofagasta" {{ old('region') === 'Antofagasta' ? 'selected' : '' }}>Antofagasta</option>
+                                                <option value="Atacama" {{ old('region') === 'Atacama' ? 'selected' : '' }}>Atacama</option>
+                                                <option value="Coquimbo" {{ old('region') === 'Coquimbo' ? 'selected' : '' }}>Coquimbo</option>
+                                            </select>
+                                            @error('region')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="create_country">País</label>
+                                            <input type="text" class="form-control @error('country') is-invalid @enderror"
+                                                   id="create_country" name="country" value="{{ old('country', 'Chile') }}">
+                                            @error('country')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="create_phone">Teléfono</label>
+                                            <input type="tel" class="form-control @error('phone') is-invalid @enderror"
+                                                   id="create_phone" name="phone" value="{{ old('phone') }}">
+                                            @error('phone')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="create_email">Email</label>
+                                            <input type="email" class="form-control @error('email') is-invalid @enderror"
+                                                   id="create_email" name="email" value="{{ old('email') }}">
+                                            @error('email')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="create_website">Sitio Web</label>
+                                            <input type="text" class="form-control @error('website') is-invalid @enderror"
+                                                   id="create_website" name="website" value="{{ old('website') }}"
+                                                   placeholder="www.ejemplo.com o https://ejemplo.com">
+                                            @error('website')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-times"></i> Cancelar
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Crear Entidad
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -631,6 +816,128 @@ document.addEventListener('DOMContentLoaded', function() {
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Script del modal de edición cargado');
+
+    // Script para manejar el modal de creación
+    var createModal = document.getElementById('createEntityModal');
+    console.log('Modal de creación encontrado:', !!createModal);
+
+    if (createModal) {
+        // Manejar envío del formulario de creación
+        var createForm = document.getElementById('createEntityForm');
+        console.log('Formulario de creación encontrado:', !!createForm);
+
+        createForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            console.log('Formulario de creación enviado - previniendo default');
+
+            const formData = new FormData(this);
+            const actionUrl = this.getAttribute('action');
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+            console.log('URL de acción:', actionUrl);
+            console.log('Token CSRF:', csrfToken ? 'Presente' : 'Faltante');
+            console.log('Datos del formulario:');
+            for (let [key, value] of formData.entries()) {
+                console.log(key + ':', value);
+            }
+
+            fetch(actionUrl, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                console.log('Respuesta HTTP:', response.status, response.statusText);
+
+                // Si es una respuesta exitosa (200-299), verificar si es HTML (redirección de Laravel)
+                if (response.ok) {
+                    return response.text().then(text => {
+                        console.log('Respuesta exitosa - contenido:', text.substring(0, 200) + '...');
+
+                        // Si contiene DOCTYPE HTML, es una redirección exitosa de Laravel
+                        if (text.includes('<!DOCTYPE html>')) {
+                            console.log('✅ Respuesta HTML exitosa - redirección de Laravel');
+                            return { success: true, html: text };
+                        }
+
+                        // Intentar parsear como JSON
+                        try {
+                            return JSON.parse(text);
+                        } catch (e) {
+                            console.log('Contenido no es JSON, pero respuesta OK - tratando como éxito');
+                            return { success: true, content: text };
+                        }
+                    });
+                } else {
+                    // Respuesta de error - intentar parsear como JSON
+                    return response.text().then(text => {
+                        console.log('Respuesta de error - contenido:', text);
+                        try {
+                            return JSON.parse(text);
+                        } catch (e) {
+                            throw new Error('Respuesta de error no es JSON válido: ' + text);
+                        }
+                    });
+                }
+            })
+            .then(data => {
+                console.log('Datos procesados:', data);
+
+                // Verificar si es una respuesta exitosa de Laravel (HTML)
+                if (data.success || data.html) {
+                    console.log('✅ Respuesta exitosa detectada');
+
+                    // Cerrar modal
+                    var modal = bootstrap.Modal.getInstance(document.getElementById('createEntityModal'));
+                    modal.hide();
+
+                    // Resetear formulario
+                    createForm.reset();
+
+                    // Mostrar mensaje de éxito
+                    alert('Entidad educativa creada exitosamente');
+
+                    // Recargar la página para mostrar la nueva entidad
+                    location.reload();
+                } else {
+                    // Es una respuesta JSON normal
+                    console.log('Respuesta JSON procesada:', data);
+                    // Aquí iría el manejo de respuestas JSON si fuera necesario
+                }
+            })
+            .catch(error => {
+                console.error('Error en fetch:', error);
+
+                // Mostrar el error completo en consola para debugging
+                console.error('Error completo:', error);
+                console.error('Mensaje de error:', error.message);
+
+                try {
+                    const errorData = JSON.parse(error.message);
+                    console.error('Datos de error parseados:', errorData);
+
+                    if (errorData.errors) {
+                        const errors = errorData.errors;
+                        let errorMessages = [];
+
+                        for (let field in errors) {
+                            errorMessages.push(errors[field][0]);
+                        }
+
+                        alert('Errores de validación:\n' + errorMessages.join('\n'));
+                    } else {
+                        alert('Error al crear la entidad educativa: ' + (errorData.message || 'Error desconocido'));
+                    }
+                } catch (parseError) {
+                    console.error('Error al parsear respuesta de error:', parseError);
+                    alert('Error al crear la entidad educativa: ' + error.message + '\n\nDetalles en consola del navegador (F12)');
+                }
+            });
+        });
+    }
 
     // Verificar que el modal existe
     var editModal = document.getElementById('editEntityModal');

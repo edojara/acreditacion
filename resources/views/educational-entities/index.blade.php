@@ -794,6 +794,41 @@ document.addEventListener('DOMContentLoaded', function() {
             if (data.success || data.html) {
                 console.log('✅ Respuesta exitosa detectada');
 
+                // Actualizar los atributos data-* del botón correspondiente antes de recargar
+                const entityId = actionUrl.split('/').pop(); // Extraer ID de la URL
+                const editButton = document.querySelector(`button[data-entity-id="${entityId}"]`);
+
+                if (editButton) {
+                    console.log('Actualizando atributos del botón para entidad:', entityId);
+
+                    // Obtener los valores del formulario
+                    const formData = new FormData(editForm);
+                    const updatedData = {
+                        name: formData.get('name'),
+                        type: formData.get('type'),
+                        address: formData.get('address'),
+                        city: formData.get('city'),
+                        region: formData.get('region'),
+                        country: formData.get('country'),
+                        phone: formData.get('phone'),
+                        email: formData.get('email'),
+                        website: formData.get('website')
+                    };
+
+                    // Actualizar atributos del botón
+                    editButton.setAttribute('data-entity-name', updatedData.name || '');
+                    editButton.setAttribute('data-entity-type', updatedData.type || '');
+                    editButton.setAttribute('data-entity-address', updatedData.address || '');
+                    editButton.setAttribute('data-entity-city', updatedData.city || '');
+                    editButton.setAttribute('data-entity-region', updatedData.region || '');
+                    editButton.setAttribute('data-entity-country', updatedData.country || 'Chile');
+                    editButton.setAttribute('data-entity-phone', updatedData.phone || '');
+                    editButton.setAttribute('data-entity-email', updatedData.email || '');
+                    editButton.setAttribute('data-entity-website', updatedData.website || '');
+
+                    console.log('Atributos del botón actualizados:', updatedData);
+                }
+
                 // Cerrar modal
                 var modal = bootstrap.Modal.getInstance(document.getElementById('editEntityModal'));
                 modal.hide();

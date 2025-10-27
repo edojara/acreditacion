@@ -70,8 +70,13 @@ class EducationalEntitySeeder extends Seeder
             'otro' => array_merge($universityNames, $instituteNames, $schoolNames, $centerNames)
         ];
 
-        // Crear 150 entidades educativas aleatorias
-        for ($i = 0; $i < 150; $i++) {
+        // Crear 150 entidades educativas aleatorias (evitando duplicados)
+        $createdCount = 0;
+        $maxAttempts = 200; // Límite de intentos para evitar bucles infinitos
+        $attempts = 0;
+
+        while ($createdCount < 150 && $attempts < $maxAttempts) {
+            $attempts++;
             $type = $types[array_rand($types)];
             $region = $regions[array_rand($regions)];
             $city = $cities[array_rand($cities)];
@@ -79,19 +84,33 @@ class EducationalEntitySeeder extends Seeder
             $nameSource = $nameSources[$type];
             $baseName = $nameSource[array_rand($nameSource)];
 
-            // Agregar variaciones para evitar duplicados
-            $suffixes = ['', ' Centro', ' Norte', ' Sur', ' Oriente', ' Poniente', ' Campus Principal'];
-            $baseName .= $suffixes[array_rand($suffixes)];
+            // Agregar variaciones aleatorias para evitar duplicados
+            $suffixes = [
+                ' Centro', ' Norte', ' Sur', ' Oriente', ' Poniente', ' Campus Principal',
+                ' Sede ' . chr(65 + rand(0, 25)), // A-Z aleatorio
+                ' Unidad ' . rand(1, 10),
+                ' ' . rand(100, 999), // Número aleatorio
+                ' Regional', ' Local', ' Central'
+            ];
+
+            $randomSuffix = $suffixes[array_rand($suffixes)];
+            $finalName = $baseName . $randomSuffix;
+
+            // Verificar si el nombre ya existe
+            $existingEntity = EducationalEntity::where('name', $finalName)->first();
+            if ($existingEntity) {
+                continue; // Intentar con otro nombre
+            }
 
             // Generar datos aleatorios
             $phone = '+56 9 ' . rand(10000000, 99999999);
-            $email = strtolower(str_replace([' ', '\'', 'á', 'é', 'í', 'ó', 'ú', 'ñ'], ['_', '', 'a', 'e', 'i', 'o', 'u', 'n'], $baseName)) . '@edu.cl';
-            $website = 'www.' . strtolower(str_replace([' ', '\'', 'á', 'é', 'í', 'ó', 'ú', 'ñ'], ['', '', 'a', 'e', 'i', 'o', 'u', 'n'], $baseName)) . '.cl';
+            $email = strtolower(str_replace([' ', '\'', 'á', 'é', 'í', 'ó', 'ú', 'ñ'], ['_', '', 'a', 'e', 'i', 'o', 'u', 'n'], $finalName)) . '@edu.cl';
+            $website = 'www.' . strtolower(str_replace([' ', '\'', 'á', 'é', 'í', 'ó', 'ú', 'ñ'], ['', '', 'a', 'e', 'i', 'o', 'u', 'n'], $finalName)) . '.cl';
 
             EducationalEntity::create([
-                'name' => $baseName,
+                'name' => $finalName,
                 'type' => $type,
-                'address' => 'Dirección ' . ($i + 1) . ', ' . $city,
+                'address' => 'Dirección ' . ($createdCount + 1) . ', ' . $city,
                 'city' => $city,
                 'region' => $region,
                 'country' => 'Chile',
@@ -99,6 +118,14 @@ class EducationalEntitySeeder extends Seeder
                 'email' => $email,
                 'website' => $website,
             ]);
+
+            $createdCount++;
+        }
+
+        // Mostrar resultado
+        echo "Se crearon {$createdCount} entidades educativas nuevas.\n";
+        if ($attempts >= $maxAttempts) {
+            echo "Se alcanzó el límite máximo de intentos ({$maxAttempts}).\n";
         }
     }
 }

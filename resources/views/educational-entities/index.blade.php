@@ -631,10 +631,29 @@ document.addEventListener('DOMContentLoaded', function() {
 <!-- Script para manejar el modal de edición -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Manejar apertura del modal de edición
+    console.log('Script del modal de edición cargado');
+
+    // Verificar que el modal existe
     var editModal = document.getElementById('editEntityModal');
+    console.log('Modal encontrado:', !!editModal);
+
+    if (!editModal) {
+        console.error('Modal de edición no encontrado!');
+        return;
+    }
+
+    // Manejar apertura del modal de edición
     editModal.addEventListener('show.bs.modal', function (event) {
+        console.log('Evento show.bs.modal disparado');
+
         var button = event.relatedTarget;
+        console.log('Botón relacionado:', button);
+
+        if (!button) {
+            console.error('No se encontró el botón relacionado');
+            return;
+        }
+
         var entityId = button.getAttribute('data-entity-id');
         var entityName = button.getAttribute('data-entity-name') || '';
         var entityType = button.getAttribute('data-entity-type') || '';
@@ -666,6 +685,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Llenar los campos del formulario con timeout para asegurar que el modal esté completamente abierto
         setTimeout(function() {
+            console.log('Ejecutando setTimeout para llenar campos');
+
             // Verificar que los elementos existen antes de asignar valores
             const nameField = modal.querySelector('#edit_name');
             const typeField = modal.querySelector('#edit_type');

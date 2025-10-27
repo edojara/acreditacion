@@ -238,15 +238,6 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="create_code">Código <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control @error('code') is-invalid @enderror"
-                                                   id="create_code" name="code" value="{{ old('code') }}" required>
-                                            @error('code')
-                                                <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-
-                                        <div class="form-group">
                                             <label for="create_type">Tipo de Entidad <span class="text-danger">*</span></label>
                                             <select class="form-control @error('type') is-invalid @enderror" id="create_type" name="type" required>
                                                 <option value="">Seleccionar tipo...</option>
@@ -257,19 +248,6 @@
                                                 <option value="otro" {{ old('type') === 'otro' ? 'selected' : '' }}>Otro</option>
                                             </select>
                                             @error('type')
-                                                <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="create_status">Estado <span class="text-danger">*</span></label>
-                                            <select class="form-control @error('status') is-invalid @enderror" id="create_status" name="status" required>
-                                                <option value="">Seleccionar estado...</option>
-                                                <option value="activo" {{ old('status') === 'activo' ? 'selected' : '' }}>Activo</option>
-                                                <option value="inactivo" {{ old('status') === 'inactivo' ? 'selected' : '' }}>Inactivo</option>
-                                                <option value="suspendido" {{ old('status') === 'suspendido' ? 'selected' : '' }}>Suspendido</option>
-                                            </select>
-                                            @error('status')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>

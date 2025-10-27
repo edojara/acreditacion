@@ -126,7 +126,7 @@
                                             <i class="fas fa-eye"></i>
                                         </a>
                                         <button type="button" class="btn btn-outline-warning btn-sm"
-                                                data-toggle="modal" data-target="#editEntityModal"
+                                                data-bs-toggle="modal" data-bs-target="#editEntityModal"
                                                 data-entity-id="{{ $entity->id }}"
                                                 data-entity-name="{{ $entity->name }}"
                                                 data-entity-type="{{ $entity->type }}"
@@ -644,6 +644,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Manejar apertura del modal de edición
     editModal.addEventListener('show.bs.modal', function (event) {
+        console.log('✅ Evento show.bs.modal disparado correctamente!');
         console.log('Evento show.bs.modal disparado');
 
         var button = event.relatedTarget;

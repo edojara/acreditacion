@@ -638,17 +638,17 @@ document.addEventListener('DOMContentLoaded', function() {
     editModal.addEventListener('show.bs.modal', function (event) {
         var button = event.relatedTarget;
         var entityId = button.getAttribute('data-entity-id');
-        var entityName = button.getAttribute('data-entity-name');
-        var entityCode = button.getAttribute('data-entity-code');
-        var entityType = button.getAttribute('data-entity-type');
-        var entityStatus = button.getAttribute('data-entity-status');
-        var entityAddress = button.getAttribute('data-entity-address');
-        var entityCity = button.getAttribute('data-entity-city');
-        var entityRegion = button.getAttribute('data-entity-region');
-        var entityCountry = button.getAttribute('data-entity-country');
-        var entityPhone = button.getAttribute('data-entity-phone');
-        var entityEmail = button.getAttribute('data-entity-email');
-        var entityWebsite = button.getAttribute('data-entity-website');
+        var entityName = button.getAttribute('data-entity-name') || '';
+        var entityType = button.getAttribute('data-entity-type') || '';
+        var entityAddress = button.getAttribute('data-entity-address') || '';
+        var entityCity = button.getAttribute('data-entity-city') || '';
+        var entityRegion = button.getAttribute('data-entity-region') || '';
+        var entityCountry = button.getAttribute('data-entity-country') || 'Chile';
+        var entityPhone = button.getAttribute('data-entity-phone') || '';
+        var entityEmail = button.getAttribute('data-entity-email') || '';
+        var entityWebsite = button.getAttribute('data-entity-website') || '';
+
+        console.log('Abriendo modal de edición para entidad:', entityId, entityName);
 
         var modal = this;
         modal.querySelector('#editEntityModalLabel').textContent = 'Editar Entidad Educativa: ' + entityName;
@@ -657,13 +657,25 @@ document.addEventListener('DOMContentLoaded', function() {
         // Llenar los campos del formulario
         modal.querySelector('#edit_name').value = entityName;
         modal.querySelector('#edit_type').value = entityType;
-        modal.querySelector('#edit_address').value = entityAddress || '';
-        modal.querySelector('#edit_city').value = entityCity || '';
-        modal.querySelector('#edit_region').value = entityRegion || '';
-        modal.querySelector('#edit_country').value = entityCountry || 'Chile';
-        modal.querySelector('#edit_phone').value = entityPhone || '';
-        modal.querySelector('#edit_email').value = entityEmail || '';
-        modal.querySelector('#edit_website').value = entityWebsite || '';
+        modal.querySelector('#edit_address').value = entityAddress;
+        modal.querySelector('#edit_city').value = entityCity;
+        modal.querySelector('#edit_region').value = entityRegion;
+        modal.querySelector('#edit_country').value = entityCountry;
+        modal.querySelector('#edit_phone').value = entityPhone;
+        modal.querySelector('#edit_email').value = entityEmail;
+        modal.querySelector('#edit_website').value = entityWebsite;
+
+        console.log('Campos llenados:', {
+            name: entityName,
+            type: entityType,
+            address: entityAddress,
+            city: entityCity,
+            region: entityRegion,
+            country: entityCountry,
+            phone: entityPhone,
+            email: entityEmail,
+            website: entityWebsite
+        });
     });
 
     // Manejar envío del formulario de edición

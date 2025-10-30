@@ -53,14 +53,12 @@ $(document).ready(function() {
                                         <button class="btn btn-sm btn-outline-primary" title="Editar">
                                             <i class="fas fa-edit"></i>
                                         </button>
-                                        <form method="POST" action="/entity-contacts/${response.contact.id}" style="display: inline;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-outline-danger" title="Eliminar"
-                                                    onclick="return confirm('¿Está seguro de eliminar este contacto?')">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </form>
+                                        <button type="button" class="btn btn-sm btn-outline-danger delete-contact-btn"
+                                                title="Eliminar"
+                                                data-contact-id="${response.contact.id}"
+                                                data-contact-name="${response.contact.name}">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -104,6 +102,51 @@ $(document).ready(function() {
                 }
             }
         });
+    });
+
+    // Manejar eliminación de contactos con AJAX
+    $(document).on('click', '.delete-contact-btn', function(e) {
+        e.preventDefault();
+
+        const contactId = $(this).data('contact-id');
+        const contactName = $(this).data('contact-name');
+
+        if (confirm('¿Está seguro de eliminar el contacto "' + contactName + '"?')) {
+            $.ajax({
+                url: '/entity-contacts/' + contactId,
+                type: 'DELETE',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    toastr.success('Contacto eliminado exitosamente');
+
+                    // Actualizar contador de contactos en el header
+                    const currentCount = parseInt($('.card-title:contains("Contactos")').text().match(/\d+/)[0]);
+                    $('.card-title:contains("Contactos")').html('<i class="fas fa-address-book mr-2"></i> Contactos (' + (currentCount - 1) + ')');
+
+                    // Remover el contacto de la lista
+                    $('button[data-contact-id="' + contactId + '"]').closest('.list-group-item').remove();
+
+                    // Si no quedan contactos, mostrar mensaje vacío
+                    if ($('.list-group-flush li').length === 0) {
+                        $('.card-body.p-0').html(`
+                            <div class="text-center py-4">
+                                <i class="fas fa-address-book fa-3x text-muted mb-3"></i>
+                                <p class="text-muted">No hay contactos registrados</p>
+                                <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addContactModal">
+                                    <i class="fas fa-plus"></i> Agregar Primer Contacto
+                                </button>
+                            </div>
+                        `);
+                    }
+                },
+                error: function(xhr) {
+                    console.log('Error al eliminar contacto:', xhr);
+                    alert('Error al eliminar el contacto: ' + xhr.status + ' - ' + xhr.statusText);
+                }
+            });
+        }
     });
 
     // Sistema de edición modal (igual que en index.blade.php)
@@ -446,14 +489,12 @@ $(document).ready(function() {
                                             <button class="btn btn-sm btn-outline-primary" title="Editar">
                                                 <i class="fas fa-edit"></i>
                                             </button>
-                                            <form method="POST" action="{{ route('entity-contacts.destroy', $contact->id) }}" style="display: inline;">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-outline-danger" title="Eliminar"
-                                                        onclick="return confirm('¿Está seguro de eliminar este contacto?')">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
-                                            </form>
+                                            <button type="button" class="btn btn-sm btn-outline-danger delete-contact-btn"
+                                                    title="Eliminar"
+                                                    data-contact-id="{{ $contact->id }}"
+                                                    data-contact-name="{{ $contact->name }}">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>

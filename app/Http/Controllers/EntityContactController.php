@@ -188,6 +188,15 @@ class EntityContactController extends Controller
 
         $entityContact->delete();
 
+        // Si es una petición AJAX, devolver respuesta JSON
+        if (request()->expectsJson() || request()->ajax()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Contacto eliminado exitosamente.',
+                'contact_id' => $entityContact->id
+            ]);
+        }
+
         return redirect()->route('entity-contacts.index')
                         ->with('success', 'Contacto eliminado exitosamente.');
     }

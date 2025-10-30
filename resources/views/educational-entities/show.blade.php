@@ -357,7 +357,7 @@ $(document).ready(function() {
                         Contactos ({{ $educationalEntity->contacts->count() }})
                     </h3>
                     <div class="card-tools">
-                        <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#addContactModal">
+                        <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#addContactModal">
                             <i class="fas fa-plus"></i> Agregar
                         </button>
                     </div>
@@ -402,7 +402,7 @@ $(document).ready(function() {
                         <div class="text-center py-4">
                             <i class="fas fa-address-book fa-3x text-muted mb-3"></i>
                             <p class="text-muted">No hay contactos registrados</p>
-                            <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addContactModal">
+                            <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addContactModal">
                                 <i class="fas fa-plus"></i> Agregar Primer Contacto
                             </button>
                         </div>
@@ -576,17 +576,15 @@ $(document).ready(function() {
 </div>
 
 <!-- Modal para Agregar Contacto -->
-<div class="modal fade" id="addContactModal" tabindex="-1" role="dialog" aria-labelledby="addContactModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+<div class="modal fade" id="addContactModal" tabindex="-1" aria-labelledby="addContactModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="addContactModalLabel">
                     <i class="fas fa-plus mr-2"></i>
                     Agregar Contacto
                 </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
             <form method="POST" action="{{ route('entity-contacts.store') }}" id="addContactForm">
@@ -638,7 +636,7 @@ $(document).ready(function() {
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         <i class="fas fa-times"></i> Cancelar
                     </button>
                     <button type="submit" class="btn btn-primary">

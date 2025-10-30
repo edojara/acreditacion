@@ -143,6 +143,11 @@ $(document).ready(function() {
                             `);
                         }
                     });
+
+                    // Forzar recarga de página para asegurar actualización completa
+                    setTimeout(function() {
+                        location.reload();
+                    }, 500);
                 },
                 error: function(xhr) {
                     console.log('Error al eliminar contacto:', xhr);

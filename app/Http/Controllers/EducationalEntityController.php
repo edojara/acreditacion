@@ -151,7 +151,7 @@ class EducationalEntityController extends Controller
             'country' => 'nullable|string|max:100',
             'phone' => 'nullable|string|max:20',
             'email' => 'nullable|email|max:255',
-            'website' => 'nullable|string|max:255',
+            'website' => 'nullable|string', // Removida validación restrictiva - permite cualquier texto
             'type' => 'required|in:universidad,instituto,colegio,centro_educativo,otro',
             'status' => 'nullable|in:activo,inactivo,suspendido', // Campo eliminado pero incluido para detectar cambios
         ]);

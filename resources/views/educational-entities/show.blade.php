@@ -552,8 +552,8 @@ $(document).ready(function() {
 
                             <div class="form-group mb-3">
                                 <label for="edit_website" class="form-label">Sitio Web</label>
-                                <input type="url" class="form-control @error('website') is-invalid @enderror"
-                                       id="edit_website" name="website">
+                                <input type="text" class="form-control @error('website') is-invalid @enderror"
+                                       id="edit_website" name="website" placeholder="Ej: www.lun.cl o cualquier texto">
                                 @error('website')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror

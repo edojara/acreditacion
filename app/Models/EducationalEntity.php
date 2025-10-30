@@ -41,6 +41,11 @@ class EducationalEntity extends Model
     }
 
     // Scopes útiles
+    public function scopeActive($query)
+    {
+        return $query->where('status', 'activo');
+    }
+
     public function scopeByType($query, $type)
     {
         return $query->where('type', $type);

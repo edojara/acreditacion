@@ -30,7 +30,53 @@ $(document).ready(function() {
                 $('#addContactForm')[0].reset();
 
                 toastr.success('Contacto agregado exitosamente');
-                location.reload();
+
+                // Actualizar contador de contactos en el header
+                const currentCount = parseInt($('.card-title:contains("Contactos")').text().match(/\d+/)[0]);
+                $('.card-title:contains("Contactos")').html('<i class="fas fa-address-book mr-2"></i> Contactos (' + (currentCount + 1) + ')');
+
+                // Agregar el nuevo contacto a la lista sin recargar página
+                if (response.contact) {
+                    const contactHtml = `
+                        <li class="list-group-item">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <strong>${response.contact.name}</strong>
+                                    <br>
+                                    <small class="text-muted">${response.contact.position || ''}</small>
+                                    ${response.contact.email ? '<br><small><a href="mailto:' + response.contact.email + '">' + response.contact.email + '</a></small>' : ''}
+                                    ${response.contact.phone ? '<br><small>' + response.contact.phone + '</small>' : ''}
+                                </div>
+                                <div>
+                                    ${response.contact.is_primary ? '<span class="badge badge-primary">Principal</span>' : ''}
+                                    <div class="btn-group">
+                                        <button class="btn btn-sm btn-outline-primary" title="Editar">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <form method="POST" action="/entity-contacts/${response.contact.id}" style="display: inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-outline-danger" title="Eliminar"
+                                                    onclick="return confirm('¿Está seguro de eliminar este contacto?')">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    `;
+
+                    if ($('.list-group-flush li').length > 0) {
+                        $('.list-group-flush').append(contactHtml);
+                    } else {
+                        // Si no hay contactos, reemplazar el mensaje vacío
+                        $('.card-body.p-0').html('<ul class="list-group list-group-flush">' + contactHtml + '</ul>');
+                    }
+                } else {
+                    // Fallback: recargar página si no hay respuesta estructurada
+                    location.reload();
+                }
             },
             error: function(xhr) {
                 console.log('Error en envío del formulario:', xhr);
@@ -400,9 +446,14 @@ $(document).ready(function() {
                                             <button class="btn btn-sm btn-outline-primary" title="Editar">
                                                 <i class="fas fa-edit"></i>
                                             </button>
-                                            <button class="btn btn-sm btn-outline-danger" title="Eliminar">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
+                                            <form method="POST" action="{{ route('entity-contacts.destroy', $contact->id) }}" style="display: inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-outline-danger" title="Eliminar"
+                                                        onclick="return confirm('¿Está seguro de eliminar este contacto?')">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>

@@ -96,6 +96,15 @@ class EntityContactController extends Controller
             'new_values' => $validated,
         ]);
 
+        // Si es una petición AJAX (desde modal), devolver JSON
+        if ($request->expectsJson() || $request->ajax()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Contacto creado exitosamente.',
+                'contact' => $contact->load('educationalEntity')
+            ]);
+        }
+
         return redirect()->route('entity-contacts.index')
                         ->with('success', 'Contacto creado exitosamente.');
     }

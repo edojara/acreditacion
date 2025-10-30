@@ -33,17 +33,28 @@ $(document).ready(function() {
                 location.reload();
             },
             error: function(xhr) {
+                console.log('Error en envío del formulario:', xhr);
+                console.log('Status:', xhr.status);
+                console.log('Response:', xhr.responseText);
+
                 if (xhr.status === 422) {
-                    const errors = xhr.responseJSON.errors;
-                    let errorMessages = [];
+                    const response = xhr.responseJSON;
+                    console.log('Errores de validación:', response.errors);
 
-                    for (let field in errors) {
-                        errorMessages.push(errors[field][0]);
+                    if (response.errors) {
+                        let errorMessages = [];
+
+                        for (let field in response.errors) {
+                            errorMessages.push(response.errors[field][0]);
+                        }
+
+                        // Mostrar errores en alert en lugar de toastr
+                        alert('Errores de validación:\n' + errorMessages.join('\n'));
+                    } else {
+                        alert('Error de validación desconocido');
                     }
-
-                    toastr.error(errorMessages.join('<br>'));
                 } else {
-                    toastr.error('Error al agregar el contacto');
+                    alert('Error al agregar el contacto: ' + xhr.status + ' - ' + xhr.statusText);
                 }
             }
         });
@@ -591,8 +602,8 @@ $(document).ready(function() {
                 @csrf
                 <input type="hidden" name="educational_entity_id" value="{{ $educationalEntity->id }}">
                 <div class="modal-body">
-                    <div class="form-group">
-                        <label for="contact_name">Nombre <span class="text-danger">*</span></label>
+                    <div class="form-group mb-3">
+                        <label for="contact_name" class="form-label">Nombre <span class="text-danger">*</span></label>
                         <input type="text" class="form-control @error('name') is-invalid @enderror"
                                id="contact_name" name="name" required>
                         @error('name')
@@ -600,17 +611,17 @@ $(document).ready(function() {
                         @enderror
                     </div>
 
-                    <div class="form-group">
-                        <label for="contact_position">Cargo <span class="text-danger">*</span></label>
+                    <div class="form-group mb-3">
+                        <label for="contact_position" class="form-label">Cargo</label>
                         <input type="text" class="form-control @error('position') is-invalid @enderror"
-                               id="contact_position" name="position" required>
+                               id="contact_position" name="position">
                         @error('position')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
 
-                    <div class="form-group">
-                        <label for="contact_email">Email</label>
+                    <div class="form-group mb-3">
+                        <label for="contact_email" class="form-label">Email</label>
                         <input type="email" class="form-control @error('email') is-invalid @enderror"
                                id="contact_email" name="email">
                         @error('email')
@@ -618,8 +629,8 @@ $(document).ready(function() {
                         @enderror
                     </div>
 
-                    <div class="form-group">
-                        <label for="contact_phone">Teléfono</label>
+                    <div class="form-group mb-3">
+                        <label for="contact_phone" class="form-label">Teléfono</label>
                         <input type="text" class="form-control @error('phone') is-invalid @enderror"
                                id="contact_phone" name="phone">
                         @error('phone')
@@ -627,7 +638,34 @@ $(document).ready(function() {
                         @enderror
                     </div>
 
-                    <div class="form-check">
+                    <div class="form-group mb-3">
+                        <label for="contact_type" class="form-label">Tipo <span class="text-danger">*</span></label>
+                        <select class="form-control @error('type') is-invalid @enderror"
+                                id="contact_type" name="type" required>
+                            <option value="principal">Principal</option>
+                            <option value="academico">Académico</option>
+                            <option value="administrativo">Administrativo</option>
+                            <option value="tecnico">Técnico</option>
+                            <option value="otro">Otro</option>
+                        </select>
+                        @error('type')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="contact_status" class="form-label">Estado <span class="text-danger">*</span></label>
+                        <select class="form-control @error('status') is-invalid @enderror"
+                                id="contact_status" name="status" required>
+                            <option value="activo">Activo</option>
+                            <option value="inactivo">Inactivo</option>
+                        </select>
+                        @error('status')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="form-check mb-3">
                         <input type="checkbox" class="form-check-input" id="is_primary" name="is_primary" value="1">
                         <label class="form-check-label" for="is_primary">
                             Marcar como contacto principal

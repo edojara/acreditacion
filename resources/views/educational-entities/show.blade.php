@@ -125,21 +125,24 @@ $(document).ready(function() {
                     const currentCount = parseInt($('.card-title:contains("Contactos")').text().match(/\d+/)[0]);
                     $('.card-title:contains("Contactos")').html('<i class="fas fa-address-book mr-2"></i> Contactos (' + (currentCount - 1) + ')');
 
-                    // Remover el contacto de la lista
-                    $('button[data-contact-id="' + contactId + '"]').closest('.list-group-item').remove();
+                    // Remover el contacto de la lista con animación
+                    const contactElement = $('button[data-contact-id="' + contactId + '"]').closest('.list-group-item');
+                    contactElement.fadeOut(300, function() {
+                        $(this).remove();
 
-                    // Si no quedan contactos, mostrar mensaje vacío
-                    if ($('.list-group-flush li').length === 0) {
-                        $('.card-body.p-0').html(`
-                            <div class="text-center py-4">
-                                <i class="fas fa-address-book fa-3x text-muted mb-3"></i>
-                                <p class="text-muted">No hay contactos registrados</p>
-                                <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addContactModal">
-                                    <i class="fas fa-plus"></i> Agregar Primer Contacto
-                                </button>
-                            </div>
-                        `);
-                    }
+                        // Si no quedan contactos, mostrar mensaje vacío
+                        if ($('.list-group-flush li').length === 0) {
+                            $('.card-body.p-0').html(`
+                                <div class="text-center py-4">
+                                    <i class="fas fa-address-book fa-3x text-muted mb-3"></i>
+                                    <p class="text-muted">No hay contactos registrados</p>
+                                    <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addContactModal">
+                                        <i class="fas fa-plus"></i> Agregar Primer Contacto
+                                    </button>
+                                </div>
+                            `);
+                        }
+                    });
                 },
                 error: function(xhr) {
                     console.log('Error al eliminar contacto:', xhr);

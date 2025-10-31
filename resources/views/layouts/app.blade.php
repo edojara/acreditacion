@@ -83,6 +83,9 @@
                         </a>
                         @if(auth()->user()->role->name === 'admin')
                             <div class="dropdown-divider"></div>
+                            <a href="{{ route('admin.dashboard') }}" class="dropdown-item">
+                                <i class="fas fa-tachometer-alt mr-2"></i> Panel de Administración
+                            </a>
                             <a href="{{ route('users.index') }}" class="dropdown-item">
                                 <i class="fas fa-users mr-2"></i> Gestionar Usuarios
                             </a>

@@ -78,7 +78,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
                         <div class="dropdown-divider"></div>
-                        <a href="{{ route('dashboard') }}" class="dropdown-item">
+                        <a href="{{ route('users.show', auth()->id()) }}" class="dropdown-item">
                             <i class="fas fa-user-edit mr-2"></i> Mi Perfil
                         </a>
                         @if(auth()->user()->role->name === 'admin')

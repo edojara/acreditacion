@@ -602,7 +602,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Verificar que Bootstrap tooltips funcionen (si jQuery está disponible)
-    if (typeof $ !== 'undefined') {
+    if (typeof $ !== 'undefined' && typeof $.fn.tooltip !== 'undefined') {
         $('[title]').tooltip();
     }
 });

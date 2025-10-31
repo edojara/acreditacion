@@ -33,9 +33,9 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    // Dashboard principal redirige a instituciones
+    // Dashboard principal
     Route::get('/dashboard', function () {
-        return redirect()->route('educational-entities.index');
+        return view('dashboard');
     })->name('dashboard');
 
     // Ruta para cambio de contraseña obligatorio

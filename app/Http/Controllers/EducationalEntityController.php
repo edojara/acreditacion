@@ -120,7 +120,7 @@ class EducationalEntityController extends Controller
     public function show(EducationalEntity $educationalEntity)
     {
         $educationalEntity->load(['contacts' => function($query) {
-            $query->active()->orderBy('is_primary', 'desc');
+            $query->orderBy('is_primary', 'desc');
         }]);
 
         return view('educational-entities.show', compact('educationalEntity'));
@@ -179,10 +179,10 @@ class EducationalEntityController extends Controller
      */
     public function destroy(EducationalEntity $educationalEntity)
     {
-        // Verificar si tiene contactos activos
-        if ($educationalEntity->contacts()->active()->exists()) {
+        // Verificar si tiene contactos
+        if ($educationalEntity->contacts()->exists()) {
             return redirect()->route('educational-entities.index')
-                            ->with('error', 'No se puede eliminar una entidad que tiene contactos activos.');
+                            ->with('error', 'No se puede eliminar una entidad que tiene contactos.');
         }
 
         $entityName = $educationalEntity->name;

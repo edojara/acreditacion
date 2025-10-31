@@ -45,7 +45,7 @@ class EntityContactController extends Controller
      */
     public function create(Request $request)
     {
-        $entities = EducationalEntity::active()->orderBy('name')->get();
+        $entities = EducationalEntity::orderBy('name')->get();
 
         // Si viene de una entidad específica
         $selectedEntity = null;
@@ -115,7 +115,7 @@ class EntityContactController extends Controller
      */
     public function edit(EntityContact $entityContact)
     {
-        $entities = EducationalEntity::active()->orderBy('name')->get();
+        $entities = EducationalEntity::orderBy('name')->get();
         return view('entity-contacts.edit', compact('entityContact', 'entities'));
     }
 

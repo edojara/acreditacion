@@ -40,11 +40,11 @@
                         <div class="col-md-3">
                             <div class="small-box bg-success">
                                 <div class="inner">
-                                    <h3>{{ \App\Models\User::count() }}</h3>
-                                    <p>Usuarios Registrados</p>
+                                    <h3>{{ \App\Models\Participant::count() }}</h3>
+                                    <p>Integrantes Registrados</p>
                                 </div>
                                 <div class="icon">
-                                    <i class="fas fa-users"></i>
+                                    <i class="fas fa-user-graduate"></i>
                                 </div>
                             </div>
                         </div>

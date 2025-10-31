@@ -112,20 +112,29 @@
             <div class="card shadow">
                 <div class="card-body p-3">
                     <div class="row text-center">
-                        <div class="col-md-6 mb-2">
-                            <a href="{{ route('educational-entities.index') }}" class="text-decoration-none">
+                        <div class="col-md-4 mb-2">
+                            <a href="{{ route('users.index') }}" class="text-decoration-none">
                                 <div class="d-flex align-items-center justify-content-center p-2 rounded hover-bg-light">
-                                    <i class="fas fa-university fa-lg text-primary mr-2"></i>
-                                    <span class="text-primary font-weight-bold">Instituciones</span>
+                                    <i class="fas fa-users fa-lg text-primary mr-2"></i>
+                                    <span class="text-primary font-weight-bold">Gestionar Usuarios</span>
                                 </div>
                             </a>
                         </div>
 
-                        <div class="col-md-6 mb-2">
+                        <div class="col-md-4 mb-2">
                             <a href="{{ route('audit-logs.index') }}" class="text-decoration-none">
                                 <div class="d-flex align-items-center justify-content-center p-2 rounded hover-bg-light">
                                     <i class="fas fa-history fa-lg text-info mr-2"></i>
                                     <span class="text-info font-weight-bold">Ver Actividad</span>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="col-md-4 mb-2">
+                            <a href="{{ route('educational-entities.index') }}" class="text-decoration-none">
+                                <div class="d-flex align-items-center justify-content-center p-2 rounded hover-bg-light">
+                                    <i class="fas fa-university fa-lg text-success mr-2"></i>
+                                    <span class="text-success font-weight-bold">Instituciones</span>
                                 </div>
                             </a>
                         </div>

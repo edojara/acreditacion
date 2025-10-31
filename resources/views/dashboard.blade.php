@@ -44,6 +44,16 @@
         </div>
 
         <div class="card">
+            <h2>Estadísticas Generales</h2>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <h3>🏫 {{ \App\Models\EducationalEntity::count() }}</h3>
+                    <p>Instituciones Educativas Registradas</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
             <h2>Menú Principal</h2>
             <div class="menu-grid">
                 @if(auth()->user()->isAdmin())

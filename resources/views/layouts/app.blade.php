@@ -99,15 +99,6 @@
                             <a href="{{ route('audit-logs.index') }}" class="dropdown-item">
                                 <i class="fas fa-history mr-2"></i> Logs de Auditoría
                             </a>
-                            <a href="{{ route('educational-entities.index') }}" class="dropdown-item">
-                                <i class="fas fa-university mr-2"></i> Instituciones
-                            </a>
-                            <a href="{{ route('entity-contacts.index') }}" class="dropdown-item">
-                                <i class="fas fa-address-book mr-2"></i> Contactos
-                            </a>
-                            <a href="{{ route('audit-logs.index') }}" class="dropdown-item">
-                                <i class="fas fa-history mr-2"></i> Logs de Auditoría
-                            </a>
                         @endif
                         <div class="dropdown-divider"></div>
                         <form method="POST" action="{{ route('logout') }}" class="d-inline">

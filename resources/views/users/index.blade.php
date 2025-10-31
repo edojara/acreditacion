@@ -2,6 +2,11 @@
 
 @section('title', 'Gestión de Usuarios')
 
+@section('breadcrumb')
+<li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Panel Admin</a></li>
+<li class="breadcrumb-item active">Usuarios</li>
+@endsection
+
 @section('content')
 <div class="container-fluid">
     <div class="row">

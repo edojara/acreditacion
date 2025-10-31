@@ -323,9 +323,6 @@ $(document).ready(function() {
                         {{ $educationalEntity->name }}
                     </h3>
                     <div class="card-tools">
-                        <span class="badge badge-{{ $educationalEntity->status === 'activo' ? 'success' : ($educationalEntity->status === 'inactivo' ? 'secondary' : 'warning') }}">
-                            {{ ucfirst($educationalEntity->status) }}
-                        </span>
                         <span class="badge badge-info">{{ ucfirst($educationalEntity->type) }}</span>
                     </div>
                 </div>
@@ -339,12 +336,6 @@ $(document).ready(function() {
                                 <dt class="col-sm-4">Tipo:</dt>
                                 <dd class="col-sm-8">{{ ucfirst($educationalEntity->type) }}</dd>
 
-                                <dt class="col-sm-4">Estado:</dt>
-                                <dd class="col-sm-8">
-                                    <span class="badge badge-{{ $educationalEntity->status === 'activo' ? 'success' : ($educationalEntity->status === 'inactivo' ? 'secondary' : 'warning') }}">
-                                        {{ ucfirst($educationalEntity->status) }}
-                                    </span>
-                                </dd>
 
                                 @if($educationalEntity->phone)
                                 <dt class="col-sm-4">Teléfono:</dt>

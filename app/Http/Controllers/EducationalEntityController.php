@@ -29,9 +29,6 @@ class EducationalEntityController extends Controller
             $query->where('type', $request->type);
         }
 
-        if ($request->filled('status')) {
-            $query->where('status', $request->status);
-        }
 
         if ($request->filled('region')) {
             $query->where('region', $request->region);
@@ -153,7 +150,6 @@ class EducationalEntityController extends Controller
             'email' => 'nullable|email|max:255',
             'website' => 'nullable|string', // Removida validación restrictiva - permite cualquier texto
             'type' => 'required|in:universidad,instituto,colegio,centro_educativo,otro',
-            'status' => 'nullable|in:activo,inactivo,suspendido', // Campo eliminado pero incluido para detectar cambios
         ]);
 
         $oldValues = $educationalEntity->only(array_keys($validated));

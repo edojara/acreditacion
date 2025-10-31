@@ -41,11 +41,6 @@ class EducationalEntity extends Model
     }
 
     // Scopes útiles
-    public function scopeActive($query)
-    {
-        // El campo status fue removido, devolver todas las entidades
-        return $query;
-    }
 
     public function scopeByType($query, $type)
     {

@@ -79,7 +79,8 @@ $(document).ready(function() {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function(response) {
-                    toastr.success('Contacto eliminado exitosamente');
+                    // Mostrar mensaje de éxito usando alert en lugar de toastr
+                    alert('Contacto eliminado exitosamente');
 
                     // Actualizar contador de contactos en el header
                     const currentCount = parseInt($('.card-title:contains("Contactos")').text().match(/\d+/)[0]);
@@ -104,10 +105,7 @@ $(document).ready(function() {
                         }
                     });
 
-                    // Forzar recarga de página para asegurar actualización completa
-                    setTimeout(function() {
-                        location.reload();
-                    }, 500);
+                    // No recargar la página automáticamente - mantener la actualización en tiempo real
                 },
                 error: function(xhr) {
                     console.log('Error al eliminar contacto:', xhr);

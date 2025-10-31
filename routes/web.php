@@ -61,6 +61,8 @@ Route::middleware('auth')->group(function () {
     Route::middleware(['auth', 'role:admin,enrolador'])->group(function () {
         // Educational Entities Routes
         Route::resource('educational-entities', EducationalEntityController::class);
+        Route::get('educational-entities-import', [EducationalEntityController::class, 'showImportForm'])->name('educational-entities.import');
+        Route::post('educational-entities-import', [EducationalEntityController::class, 'import'])->name('educational-entities.import.post');
 
         // Entity Contacts Routes
         Route::resource('entity-contacts', EntityContactController::class);

@@ -18,6 +18,9 @@
                         Gestión de Integrantes
                     </h3>
                     <div class="card-tools">
+                        <a href="{{ route('participants.import') }}" class="btn btn-success btn-sm mr-2">
+                            <i class="fas fa-upload"></i> Importar CSV
+                        </a>
                         <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#createParticipantModal">
                             <i class="fas fa-plus"></i> Nuevo Integrante
                         </button>

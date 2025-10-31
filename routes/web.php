@@ -67,6 +67,8 @@ Route::middleware('auth')->group(function () {
 
         // Participants Routes
         Route::resource('participants', App\Http\Controllers\ParticipantController::class);
+        Route::get('participants-import', [App\Http\Controllers\ParticipantController::class, 'showImportForm'])->name('participants.import');
+        Route::post('participants-import', [App\Http\Controllers\ParticipantController::class, 'import'])->name('participants.import.post');
     });
 
     Route::middleware('role:report')->group(function () {

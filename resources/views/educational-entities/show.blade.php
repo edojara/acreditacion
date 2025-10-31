@@ -479,27 +479,6 @@ $(document).ready(function() {
                 </div>
             </div>
 
-            <!-- Estadísticas -->
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">
-                        <i class="fas fa-chart-bar mr-2"></i>
-                        Estadísticas
-                    </h3>
-                </div>
-                <div class="card-body">
-                    <div class="row text-center">
-                        <div class="col-6">
-                            <div class="text-muted">Contactos</div>
-                            <div class="h4">{{ $educationalEntity->contacts->count() }}</div>
-                        </div>
-                        <div class="col-6">
-                            <div class="text-muted">Creado</div>
-                            <div class="h6">{{ $educationalEntity->created_at->format('d/m/Y') }}</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </div>

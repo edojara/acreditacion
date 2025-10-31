@@ -64,6 +64,9 @@ Route::middleware('auth')->group(function () {
 
         // Entity Contacts Routes
         Route::resource('entity-contacts', EntityContactController::class);
+
+        // Participants Routes
+        Route::resource('participants', App\Http\Controllers\ParticipantController::class);
     });
 
     Route::middleware('role:report')->group(function () {

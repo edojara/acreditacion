@@ -40,6 +40,11 @@ class EducationalEntity extends Model
                     ->where('is_primary', true);
     }
 
+    public function participants(): HasMany
+    {
+        return $this->hasMany(Participant::class, 'educational_entity_id');
+    }
+
     // Scopes útiles
 
     public function scopeByType($query, $type)

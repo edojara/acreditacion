@@ -38,23 +38,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-md-3">
-                                <select name="type" class="form-control">
-                                    <option value="">Todos los tipos</option>
-                                    <option value="principal" {{ request('type') == 'principal' ? 'selected' : '' }}>Principal</option>
-                                    <option value="academico" {{ request('type') == 'academico' ? 'selected' : '' }}>Académico</option>
-                                    <option value="administrativo" {{ request('type') == 'administrativo' ? 'selected' : '' }}>Administrativo</option>
-                                    <option value="tecnico" {{ request('type') == 'tecnico' ? 'selected' : '' }}>Técnico</option>
-                                    <option value="otro" {{ request('type') == 'otro' ? 'selected' : '' }}>Otro</option>
-                                </select>
-                            </div>
-                            <div class="col-md-3">
-                                <select name="status" class="form-control">
-                                    <option value="">Todos los estados</option>
-                                    <option value="activo" {{ request('status') == 'activo' ? 'selected' : '' }}>Activo</option>
-                                    <option value="inactivo" {{ request('status') == 'inactivo' ? 'selected' : '' }}>Inactivo</option>
-                                </select>
-                            </div>
+                            <!-- Filtros de tipo y estado eliminados -->
                             <div class="col-md-3">
                                 <input type="text" name="search" class="form-control" placeholder="Buscar por nombre o email" value="{{ request('search') }}">
                             </div>
@@ -79,9 +63,7 @@
                                     <th>Nombre</th>
                                     <th>Entidad Educativa</th>
                                     <th>Cargo</th>
-                                    <th>Tipo</th>
                                     <th>Contacto</th>
-                                    <th>Estado</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
@@ -102,21 +84,11 @@
                                     </td>
                                     <td>{{ $contact->position ?: '-' }}</td>
                                     <td>
-                                        <span class="badge badge-info">{{ ucfirst($contact->type) }}</span>
-                                    </td>
-                                    <td>
                                         @if($contact->email)
                                             <i class="fas fa-envelope text-muted"></i> {{ $contact->email }}<br>
                                         @endif
                                         @if($contact->preferred_phone)
                                             <i class="fas fa-phone text-muted"></i> {{ $contact->preferred_phone }}
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if($contact->status == 'activo')
-                                            <span class="badge badge-success">Activo</span>
-                                        @else
-                                            <span class="badge badge-secondary">Inactivo</span>
                                         @endif
                                     </td>
                                     <td>
@@ -132,7 +104,7 @@
                                 </tr>
                                 @empty
                                 <tr>
-                                    <td colspan="7" class="text-center">
+                                    <td colspan="5" class="text-center">
                                         <div class="py-4">
                                             <i class="fas fa-address-book fa-3x text-muted mb-3"></i>
                                             <p class="text-muted">No hay contactos registrados.</p>

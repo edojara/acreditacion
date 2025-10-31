@@ -696,32 +696,7 @@ $(document).ready(function() {
                         @enderror
                     </div>
 
-                    <div class="form-group mb-3">
-                        <label for="contact_type" class="form-label">Tipo <span class="text-danger">*</span></label>
-                        <select class="form-control @error('type') is-invalid @enderror"
-                                id="contact_type" name="type" required>
-                            <option value="principal">Principal</option>
-                            <option value="academico">Académico</option>
-                            <option value="administrativo">Administrativo</option>
-                            <option value="tecnico">Técnico</option>
-                            <option value="otro">Otro</option>
-                        </select>
-                        @error('type')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label for="contact_status" class="form-label">Estado <span class="text-danger">*</span></label>
-                        <select class="form-control @error('status') is-invalid @enderror"
-                                id="contact_status" name="status" required>
-                            <option value="activo">Activo</option>
-                            <option value="inactivo">Inactivo</option>
-                        </select>
-                        @error('status')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
+                    <!-- Campos 'tipo' y 'estado' eliminados según requerimiento -->
 
                     <div class="form-check mb-3">
                         <input type="checkbox" class="form-check-input" id="is_primary" name="is_primary" value="1">

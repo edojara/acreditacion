@@ -17,10 +17,8 @@ class EntityContact extends Model
         'email',
         'phone',
         'mobile',
-        'type',
         'is_primary',
         'notes',
-        'status',
         'metadata',
     ];
 
@@ -36,19 +34,9 @@ class EntityContact extends Model
     }
 
     // Scopes útiles
-    public function scopeActive($query)
-    {
-        return $query->where('status', 'activo');
-    }
-
     public function scopePrimary($query)
     {
         return $query->where('is_primary', true);
-    }
-
-    public function scopeByType($query, $type)
-    {
-        return $query->where('type', $type);
     }
 
     // Accessors

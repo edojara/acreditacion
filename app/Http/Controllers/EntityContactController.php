@@ -23,13 +23,7 @@ class EntityContactController extends Controller
             $query->where('educational_entity_id', $request->educational_entity_id);
         }
 
-        if ($request->filled('type')) {
-            $query->where('type', $request->type);
-        }
-
-        if ($request->filled('status')) {
-            $query->where('status', $request->status);
-        }
+        // Filtros eliminados: type y status ya no existen
 
         if ($request->filled('search')) {
             $search = $request->search;
@@ -81,10 +75,8 @@ class EntityContactController extends Controller
             ],
             'phone' => 'nullable|string|max:20',
             'mobile' => 'nullable|string|max:20',
-            'type' => 'required|in:principal,academico,administrativo,tecnico,otro',
             'is_primary' => 'boolean',
             'notes' => 'nullable|string|max:1000',
-            'status' => 'required|in:activo,inactivo',
         ]);
 
         $contact = EntityContact::create($validated);
@@ -147,10 +139,8 @@ class EntityContactController extends Controller
             ],
             'phone' => 'nullable|string|max:20',
             'mobile' => 'nullable|string|max:20',
-            'type' => 'required|in:principal,academico,administrativo,tecnico,otro',
             'is_primary' => 'boolean',
             'notes' => 'nullable|string|max:1000',
-            'status' => 'required|in:activo,inactivo',
         ]);
 
         $oldValues = $entityContact->only(array_keys($validated));

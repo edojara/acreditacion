@@ -72,7 +72,7 @@
                         </li>
                     @endif
 
-                    @if(in_array(auth()->user()->role->name, ['admin', 'enroller']))
+                    @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('enroller'))
                         <li class="nav-item">
                             <a href="{{ route('participants.index') }}" class="nav-link {{ request()->routeIs('participants.*') ? 'active' : '' }}">
                                 <i class="fas fa-users"></i> Integrantes

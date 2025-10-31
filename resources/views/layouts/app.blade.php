@@ -81,7 +81,7 @@
                         <a href="{{ route('users.show', auth()->id()) }}" class="dropdown-item">
                             <i class="fas fa-user-edit mr-2"></i> Mi Perfil
                         </a>
-                        @if(auth()->user()->role->name === 'admin')
+                        @if(auth()->user()->hasRole('admin'))
                             <div class="dropdown-divider"></div>
                             <a href="{{ route('users.index') }}" class="dropdown-item">
                                 <i class="fas fa-users mr-2"></i> Gestión de Usuarios

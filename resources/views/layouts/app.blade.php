@@ -89,6 +89,16 @@
                             <a href="{{ route('users.index') }}" class="dropdown-item">
                                 <i class="fas fa-users mr-2"></i> Gestionar Usuarios
                             </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="{{ route('educational-entities.index') }}" class="dropdown-item">
+                                <i class="fas fa-university mr-2"></i> Instituciones
+                            </a>
+                            <a href="{{ route('entity-contacts.index') }}" class="dropdown-item">
+                                <i class="fas fa-address-book mr-2"></i> Contactos
+                            </a>
+                            <a href="{{ route('audit-logs.index') }}" class="dropdown-item">
+                                <i class="fas fa-history mr-2"></i> Logs de Auditoría
+                            </a>
                             <a href="{{ route('educational-entities.index') }}" class="dropdown-item">
                                 <i class="fas fa-university mr-2"></i> Instituciones
                             </a>

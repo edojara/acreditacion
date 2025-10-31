@@ -147,4 +147,35 @@
                         @else
                             <span class="btn btn-outline-secondary btn-sm disabled">Siguiente</span>
                         @endif
+                </div>
+
+                <div class="card-footer">
+                    <small class="text-muted">
+                        @if($users->total() > 0)
+                            Mostrando {{ $users->firstItem() }}-{{ $users->lastItem() }} de {{ $users->total() }} usuarios
+                        @else
+                            No hay usuarios para mostrar
+                        @endif
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
+
+@section('styles')
+<style>
+.table th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+}
+.badge {
+    font-size: 0.75em;
+}
+.btn-group .btn {
+    margin-right: 2px;
+}
+</style>
+@endsection
                     </div>

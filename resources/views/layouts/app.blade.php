@@ -84,7 +84,7 @@
                         @if(auth()->user()->role->name === 'admin')
                             <div class="dropdown-divider"></div>
                             <a href="{{ route('users.index') }}" class="dropdown-item">
-                                <i class="fas fa-users mr-2"></i> Administración de Usuarios
+                                <i class="fas fa-users mr-2"></i> Gestión de Usuarios
                             </a>
                         @endif
                         <div class="dropdown-divider"></div>
